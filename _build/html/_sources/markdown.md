@@ -49,6 +49,8 @@ then the bibliography is inserted with:
 ```{bibliography}
 ```
 
+
+(my-label)=
 ## Learn more
 
 This is just a simple starter to get you started.
