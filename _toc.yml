@@ -6,8 +6,9 @@ root: intro
 parts:
   - caption: 金融数据校准
     chapters:
-    - file: 金融数据校准/环境准备
+    - file: 金融数据校准/金融数据
       sections:  
+      - file: 金融数据校准/环境准备
       - file: 金融数据校准/数据准备
   - caption: PyTorch
     chapters:
