@@ -9,7 +9,6 @@ parts:
     - file: PyTorch/测试环境
   - caption: 金融数据校准
     chapters:
-      sections:
-      - file: 金融数据校准/环境准备
-      - file: 金融数据校准/数据准备
+    - file: 金融数据校准/环境准备
+    - file: 金融数据校准/数据准备
 
