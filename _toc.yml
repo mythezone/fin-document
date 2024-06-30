@@ -6,9 +6,10 @@ root: intro
 parts:
   - caption: PyTorch
     chapters:
-    - file: PyTorch/主要模块
-    - file: readme
-  - caption: Others
+    - file: PyTorch/测试环境
+  - caption: 金融数据校准
     chapters:
-    - file: markdown
+      sections:
+      - file: 金融数据校准/环境准备
+      - file: 金融数据校准/数据准备
 
