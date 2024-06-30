@@ -7,11 +7,10 @@ parts:
   - caption: 金融数据校准
     chapters:
     - file: 金融数据校准/金融数据
-      sections:  
-      - file: 金融数据校准/环境准备
-      - file: 金融数据校准/数据准备
-      - file: 金融数据校准/对比算法模型可视化
-      - file: 金融数据校准/SimLOB
+    - file: 金融数据校准/环境准备
+    - file: 金融数据校准/数据准备
+    - file: 金融数据校准/对比算法模型可视化
+    - file: 金融数据校准/SimLOB
   - caption: PyTorch
     chapters:
     - file: PyTorch/测试环境
