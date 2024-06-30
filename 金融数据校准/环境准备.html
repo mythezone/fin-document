@@ -419,17 +419,17 @@ document.write(`
 </div>
 <p>如果在编译过程中出现<code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">'uint16_t'</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">a</span> <span class="pre">member</span> <span class="pre">of</span> <span class="pre">'std';</span> <span class="pre">did</span> <span class="pre">you</span> <span class="pre">mean</span> <span class="pre">'wint_t'?</span></code>错误，请把对应文件中的<code class="docutils literal notranslate"><span class="pre">uint16_t</span></code>改为<code class="docutils literal notranslate"><span class="pre">wint_t</span></code>并重新编译。</p>
 <p>主要出现在下列文件中：</p>
-<div class="highlight-path notranslate"><div class="highlight"><pre><span></span>NCS-MAXE/maxe/pybind11/include/pybind11/attr.h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>NCS-MAXE/maxe/pybind11/include/pybind11/attr.h
 NCS-MAXE/maxe/pybind11/include/pybind11/pybind11.h
 </pre></div>
 </div>
 <p>运行MAXE需要gcc-10,g++-10,libstdc++-10-dev</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">gcc</span><span class="o">-</span><span class="mi">10</span> <span class="n">g</span><span class="o">++-</span><span class="mi">10</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libstdc</span><span class="o">++-</span><span class="mi">10</span><span class="o">-</span><span class="n">dev</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>gcc-10<span class="w"> </span>g++-10
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>libstdc++-10-dev
 </pre></div>
 </div>
 <p>如果出现<code class="docutils literal notranslate"><span class="pre">/opt/conda/lib/libstdc++.so.6:</span> <span class="pre">version</span> <span class="pre">'GLIBCXX_3.4.32'</span> <span class="pre">not</span> <span class="pre">found</span></code>错误，请运行：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">libstdcxx</span><span class="o">-</span><span class="n">ng</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>libstdcxx-ng
 </pre></div>
 </div>
 </section>
