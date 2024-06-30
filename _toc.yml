@@ -15,4 +15,4 @@ parts:
   - caption: PyTorch
     chapters:
     - file: PyTorch/测试环境
-
+    - file: PyTorch/模型可视化
