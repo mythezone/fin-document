@@ -60,8 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'PyTorch/测试环境';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SIMLOB" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
-    <link rel="prev" title="SimLOB Documentation" href="../intro.html" />
+    <link rel="prev" title="准备训练数据" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -179,14 +178,17 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">金融数据</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">准备训练数据</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">主要模块</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">准备训练数据</a></li>
 </ul>
 
     </div>
@@ -458,14 +460,121 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">torch</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="n">train_path</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">data_transform</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">val_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">ImageFolder</span><span class="p">(</span><span class="n">val_path</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">data_transform</span><span class="p">)</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;torchvision&#39;
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">sbi</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torchvision</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">modulefinder</span> <span class="kn">import</span> <span class="n">Module</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">torch</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">_meta_registrations</span><span class="p">,</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">ops</span><span class="p">,</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">utils</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.extension</span> <span class="kn">import</span> <span class="n">_HAS_OPS</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">sbi</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">torchvision</span><span class="o">/</span><span class="n">_meta_registrations</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">164</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>     <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="n">grad</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">rois</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>         <span class="k">lambda</span><span class="p">:</span> <span class="p">(</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span>         <span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">159</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span>     <span class="k">return</span> <span class="n">grad</span><span class="o">.</span><span class="n">new_empty</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span> <span class="nd">@torch</span><span class="o">.</span><span class="n">_custom_ops</span><span class="o">.</span><span class="n">impl_abstract</span><span class="p">(</span><span class="s2">&quot;torchvision::nms&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">164</span> <span class="k">def</span> <span class="nf">meta_nms</span><span class="p">(</span><span class="n">dets</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">iou_threshold</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>     <span class="n">torch</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">dets</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;boxes should be a 2d tensor, got </span><span class="si">{</span><span class="n">dets</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span><span class="si">}</span><span class="s2">D&quot;</span><span class="p">)</span>
+<span class="nn">    166     torch._check(dets.size(1) == 4, lambda: f&quot;boxes should have 4 elements</span> in <span class="ni">dimension 1, got {dets.size</span><span class="nt">(1)}&quot;)</span>
+
+<span class="nn">File ~/miniconda3/envs/sbi/lib/python3.8/site-packages/torch/library.py:440,</span> in <span class="ni">inner</span><span class="nt">(func)</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span> <span class="k">def</span> <span class="nf">impl_abstract</span><span class="p">(</span><span class="n">qualname</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">lib</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span><span class="w">     </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Register an abstract implementation for this operator.</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span><span class="sd">     An &quot;abstract implementation&quot; specifies the behavior of this operator on</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span><span class="sd">     Tensors that carry no data. Given some input Tensors with certain properties</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span><span class="sd">     (sizes/strides/storage_offset/device), it specifies what the properties of</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span><span class="sd">     the output Tensors are.</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span><span class="sd">     The abstract implementation has the same signature as the operator.</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span><span class="sd">     It is run for both FakeTensors and meta tensors. To write an abstract</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span><span class="sd">     implementation, assume that all Tensor inputs to the operator are</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span><span class="sd">     regular CPU/CUDA/Meta tensors, but they do not have storage, and</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span><span class="sd">     you are trying to return regular CPU/CUDA/Meta tensor(s) as output.</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="sd">     The abstract implementation must consist of only PyTorch operations</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="sd">     (and may not directly access the storage or data of any input or</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span><span class="sd">     intermediate Tensors).</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="sd">     This API may be used as a decorator (see examples).</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span><span class="sd">     For a detailed guide on custom ops, please see</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span><span class="sd">     https://docs.google.com/document/d/1W--T6wz8IY8fOI0Vm8BF44PdBgs283QvpelJZWieQWQ/edit</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span><span class="sd">     Examples:</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span><span class="sd">         &gt;&gt;&gt; import torch</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span><span class="sd">         &gt;&gt;&gt; import numpy as np</span>
+<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="sd">         &gt;&gt;&gt; from torch import Tensor</span>
+<span class="g g-Whitespace">    </span><span class="mi">409</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span><span class="sd">         &gt;&gt;&gt; # Example 1: an operator without data-dependent output shape</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span><span class="sd">         &gt;&gt;&gt; torch.library.define(</span>
+<span class="g g-Whitespace">    </span><span class="mi">412</span><span class="sd">         &gt;&gt;&gt;     &quot;mylib::custom_linear&quot;,</span>
+<span class="g g-Whitespace">    </span><span class="mi">413</span><span class="sd">         &gt;&gt;&gt;     &quot;(Tensor x, Tensor weight, Tensor bias) -&gt; Tensor&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">414</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span><span class="sd">         &gt;&gt;&gt; @torch.library.impl_abstract(&quot;mylib::custom_linear&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">416</span><span class="sd">         &gt;&gt;&gt; def custom_linear_abstract(x, weight):</span>
+<span class="g g-Whitespace">    </span><span class="mi">417</span><span class="sd">         &gt;&gt;&gt;     assert x.dim() == 2</span>
+<span class="g g-Whitespace">    </span><span class="mi">418</span><span class="sd">         &gt;&gt;&gt;     assert weight.dim() == 2</span>
+<span class="g g-Whitespace">    </span><span class="mi">419</span><span class="sd">         &gt;&gt;&gt;     assert bias.dim() == 1</span>
+<span class="g g-Whitespace">    </span><span class="mi">420</span><span class="sd">         &gt;&gt;&gt;     assert x.shape[1] == weight.shape[1]</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span><span class="sd">         &gt;&gt;&gt;     assert weight.shape[0] == bias.shape[0]</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span><span class="sd">         &gt;&gt;&gt;     assert x.device == weight.device</span>
+<span class="g g-Whitespace">    </span><span class="mi">423</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span><span class="sd">         &gt;&gt;&gt;     return (x @ weight.t()) + bias</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">426</span><span class="sd">         &gt;&gt;&gt; # Example 2: an operator with data-dependent output shape</span>
+<span class="g g-Whitespace">    </span><span class="mi">427</span><span class="sd">         &gt;&gt;&gt; torch.library.define(&quot;mylib::custom_nonzero&quot;, &quot;(Tensor x) -&gt; Tensor&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">428</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">429</span><span class="sd">         &gt;&gt;&gt; @torch.library.impl_abstract(&quot;mylib::custom_nonzero&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">430</span><span class="sd">         &gt;&gt;&gt; def custom_nonzero_abstract(x):</span>
+<span class="g g-Whitespace">    </span><span class="mi">431</span><span class="sd">         &gt;&gt;&gt;     # Number of nonzero-elements is data-dependent.</span>
+<span class="g g-Whitespace">    </span><span class="mi">432</span><span class="sd">         &gt;&gt;&gt;     # Since we cannot peek at the data in an abstract impl,</span>
+<span class="g g-Whitespace">    </span><span class="mi">433</span><span class="sd">         &gt;&gt;&gt;     # we use the ctx object to construct a new symint that</span>
+<span class="g g-Whitespace">    </span><span class="mi">434</span><span class="sd">         &gt;&gt;&gt;     # represents the data-dependent size.</span>
+<span class="g g-Whitespace">    </span><span class="mi">435</span><span class="sd">         &gt;&gt;&gt;     ctx = torch.library.get_ctx()</span>
+<span class="g g-Whitespace">    </span><span class="mi">436</span><span class="sd">         &gt;&gt;&gt;     nnz = ctx.new_dynamic_size()</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span><span class="sd">         &gt;&gt;&gt;     shape = [nnz, x.dim()]</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="sd">         &gt;&gt;&gt;     result = x.new_empty(shape, dtype=torch.int64)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="sd">         &gt;&gt;&gt;     return result</span>
+<span class="ne">--&gt; </span><span class="mi">440</span><span class="sd">         &gt;&gt;&gt;</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="sd">         &gt;&gt;&gt; @torch.library.impl(&quot;mylib::custom_nonzero&quot;, &quot;cpu&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span><span class="sd">         &gt;&gt;&gt; def custom_nonzero_cpu(x):</span>
+<span class="g g-Whitespace">    </span><span class="mi">443</span><span class="sd">         &gt;&gt;&gt;     x_np = x.numpy()</span>
+<span class="g g-Whitespace">    </span><span class="mi">444</span><span class="sd">         &gt;&gt;&gt;     res = np.stack(np.nonzero(x_np), axis=1)</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span><span class="sd">         &gt;&gt;&gt;     return torch.tensor(res, device=x.device)</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span>     <span class="n">source</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_library</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">get_source</span><span class="p">(</span><span class="n">_stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">449</span>     <span class="n">frame</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">_getframe</span><span class="p">(</span><span class="n">_stacklevel</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/sbi/lib/python3.8/site-packages/torch/_library/abstract_impl.py:30,</span> in <span class="ni">AbstractImplHolder.register</span><span class="nt">(self, func, source)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span>         <span class="sa">f</span><span class="s2">&quot;impl_abstract(...): the operator </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">qualname</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>         <span class="sa">f</span><span class="s2">&quot;already has an abstract impl registered at &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">30</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_dispatch_has_kernel_for_dispatch_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;Meta&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>         <span class="sa">f</span><span class="s2">&quot;impl_abstract(...): the operator </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">qualname</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>         <span class="sa">f</span><span class="s2">&quot;already has an DispatchKey::Meta implementation via a &quot;</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span>         <span class="sa">f</span><span class="s2">&quot;impl_abstract.&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">39</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_dispatch_has_kernel_for_dispatch_key</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="bp">self</span><span class="o">.</span><span class="n">qualname</span><span class="p">,</span> <span class="s2">&quot;CompositeImplicitAutograd&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="p">):</span>
+
+<span class="ne">RuntimeError</span>: operator torchvision::nms does not exist
 </pre></div>
 </div>
 </div>
@@ -504,22 +613,13 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SimLOB Documentation</p>
+        <p class="prev-next-title">准备训练数据</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="../%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE%E6%A0%A1%E5%87%86/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">SIMLOB</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
