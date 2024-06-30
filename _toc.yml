@@ -10,6 +10,7 @@ parts:
       sections:  
       - file: 金融数据校准/环境准备
       - file: 金融数据校准/数据准备
+      - file: 金融数据校准/对比算法模型可视化
   - caption: PyTorch
     chapters:
     - file: PyTorch/测试环境
