@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pure Trans AE 40 &#8212; SimLOB Document</title>
+    <title>网络模型可视化 &#8212; SimLOB Document</title>
   
   
   
@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '金融数据校准/对比算法模型可视化';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="主要模块" href="../PyTorch/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83.html" />
+    <link rel="next" title="模型" href="SimLOB.html" />
     <link rel="prev" title="准备训练数据" href="%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,18 +181,16 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">金融数据</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">准备训练数据</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Pure Trans AE 40</a></li>
-
-
-</ul>
-</details></li>
+<li class="toctree-l1"><a class="reference internal" href="%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">金融数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">准备训练数据</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">网络模型可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimLOB.html">模型</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../PyTorch/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83.html">主要模块</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PyTorch/%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">使用torchview</a></li>
 </ul>
 
     </div>
@@ -378,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pure Trans AE 40</h1>
+    <h1>网络模型可视化</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -388,17 +386,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pure Trans AE 40</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-trans-ae-40">Pure Trans AE 40</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">网络参数信息</a></li>
 </ul>
 </li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -409,14 +406,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pure-trans-ae-40">
-<h1>Pure Trans AE 40<a class="headerlink" href="#pure-trans-ae-40" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>网络模型可视化<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="pure-trans-ae-40">
+<h2>Pure Trans AE 40<a class="headerlink" href="#pure-trans-ae-40" title="Link to this heading">#</a></h2>
 <p><img alt="Pure Trans AE 40" src="../_images/Pure_Trans_AE_40.png" /></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="cnn-lstm-ae">
-<h1>CNN LSTM AE<a class="headerlink" href="#cnn-lstm-ae" title="Link to this heading">#</a></h1>
-<section id="id1">
-<h2>网络参数信息<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="cnn-lstm-ae">
+<h2>CNN LSTM AE<a class="headerlink" href="#cnn-lstm-ae" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>网络参数信息<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CNNLSTM_AE(
   (encoder): CNNLSTM_encoder(
     (conv1): Conv2d(1, 16, kernel_size=(5, 42), stride=(1, 1), padding=(0, 2))
@@ -459,10 +458,10 @@ document.write(`
 </div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="cnn1-ae">
-<h1>CNN1 AE<a class="headerlink" href="#cnn1-ae" title="Link to this heading">#</a></h1>
-<section id="id2">
-<h2>网络参数信息<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="cnn1-ae">
+<h2>CNN1 AE<a class="headerlink" href="#cnn1-ae" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>网络参数信息<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CNN1_AE</span><span class="p">(</span>
   <span class="p">(</span><span class="n">encoder</span><span class="p">):</span> <span class="n">CNN1_encoder</span><span class="p">(</span>
     <span class="p">(</span><span class="n">conv1</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">dilation</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -497,6 +496,7 @@ document.write(`
 </div>
 <p><img alt="CNN1_AE可视化1" src="../_images/CNN1_AE_torchview.png" />
 <img alt="CNN1_AE可视化2" src="../_images/CNN1_AE_torchviz.png" /></p>
+</section>
 </section>
 </section>
 
@@ -540,11 +540,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../PyTorch/%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83.html"
+       href="SimLOB.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">主要模块</p>
+        <p class="prev-next-title">模型</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -564,17 +564,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pure Trans AE 40</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-trans-ae-40">Pure Trans AE 40</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">网络参数信息</a></li>
 </ul>
 </li>
 </ul>
-
   </nav></div>
 
 </div></div>
