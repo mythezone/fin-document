@@ -465,7 +465,103 @@ document.write(`
 </section>
 <section id="id7">
 <h3>金融数据生成<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>金融数据通过maxe编译的TheSimulator产生，本实验使用的是PGPS模型，</p>
+<p>金融数据通过maxe编译的TheSimulator产生，本实验使用的是PGPS模型<span id="id8">[<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#id8" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
+<p>其中可以控制的参数如下：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Para.</p></th>
+<th class="head"><p>Range</p></th>
+<th class="head"><p>Remarks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>λ0</p></td>
+<td><p>[1, 200]</p></td>
+<td><p>Controlling the price of each limited order.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cλ</p></td>
+<td><p>[1, 20]</p></td>
+<td><p>Controlling the price of each limited order.</p></td>
+</tr>
+<tr class="row-even"><td><p>∆S</p></td>
+<td><p>[0.0005, 0.003]</p></td>
+<td><p>Controlling the probability of the side of a market order (ask or bid).</p></td>
+</tr>
+<tr class="row-odd"><td><p>α</p></td>
+<td><p>[0.05, 0.45]</p></td>
+<td><p>The probability for each liquidity provider to submit a limited order.</p></td>
+</tr>
+<tr class="row-even"><td><p>μ</p></td>
+<td><p>[0.005, 0.085]</p></td>
+<td><p>The probability for each liquidity taker to submit a market order.</p></td>
+</tr>
+<tr class="row-odd"><td><p>δ</p></td>
+<td><p>[0.005, 0.05]</p></td>
+<td><p>The probability for each liquidity taker to cancel an untraded order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TestExample_LL.xml</span></code>文件内容如下，你可以在里面找到表格中对应的参数，通过修改这些值，并使用<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>运行该配置文件，就能获得对应参数下的一次运行结果，输出文件格式为csv格式，记录了10档买卖价量和交易时间，共41列，生成数据的行数可以通过配置文件中的duration参数指定。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Simulation</span><span class="w"> </span><span class="na">start=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">duration=</span><span class="s">&quot;3600&quot;</span><span class="w"> </span><span class="na">lambda_init=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">increment=</span><span class="s">&quot;0.001&quot;</span><span class="w"> </span><span class="na">c_lambda=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;ExchangeAgent</span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;EXCHANGE&quot;</span>
+<span class="w">        </span><span class="na">algorithm=</span><span class="s">&quot;PriceTime&quot;</span>
+<span class="w">        </span><span class="na">tradeoutputFile=</span><span class="s">&quot;trade/trade_test.csv&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;SetupAgent</span><span class="w">         </span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;Setup_Agent_1&quot;</span><span class="w">      </span>
+<span class="w">        </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span><span class="w">               </span>
+
+<span class="w">        </span><span class="na">setupTime=</span><span class="s">&quot;0.000001&quot;</span>
+<span class="w">        </span><span class="na">bidVolume=</span><span class="s">&quot;10&quot;</span>
+<span class="w">        </span><span class="na">askVolume=</span><span class="s">&quot;10&quot;</span>
+<span class="w">        </span><span class="na">bidPrice=</span><span class="s">&quot;7514.9&quot;</span>
+<span class="w">        </span><span class="na">askPrice=</span><span class="s">&quot;7516.1&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Generator</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LiquidityProvider</span>
+<span class="w">            </span><span class="na">name=</span><span class="s">&quot;Liquidity_Provider&quot;</span>
+<span class="w">            </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+
+<span class="w">            </span><span class="na">delta=</span><span class="s">&quot;0.025&quot;</span>
+<span class="w">            </span><span class="na">frequency=</span><span class="s">&quot;0.15&quot;</span>
+<span class="w">        </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Generator&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Generator</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LiquidityTaker</span>
+<span class="w">            </span><span class="na">name=</span><span class="s">&quot;Liquidity_Taker&quot;</span>
+<span class="w">            </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+
+<span class="w">            </span><span class="na">frequency=</span><span class="s">&quot;0.025&quot;</span>
+<span class="w">        </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Generator&gt;</span>
+
+
+<span class="w">    </span><span class="nt">&lt;L1LogAgent</span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;L1_LOGGER&quot;</span>
+<span class="w">        </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+<span class="w">        </span><span class="na">outputFile=</span><span class="s">&quot;log/3600_25_2.csv&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+<span class="w">    </span>
+<span class="nt">&lt;/Simulation&gt;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">outputFile</span></code> 指定的路径必须已经存在，否则保存文件会失败。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">duration</span></code> 的行数计算包含输出文件的标题，因此如果需要输出3600行数据，该值需要设置为3601。</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>可以通过项目代码中的<code class="docutils literal notranslate"><span class="pre">update_xml</span></code>方法方便的更新该配置文件中的参数。</p>
+</div>
 </section>
 </section>
 </section>
