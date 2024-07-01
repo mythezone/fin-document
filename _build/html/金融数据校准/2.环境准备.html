@@ -432,6 +432,13 @@ document.write(`
 <h3>Build TheSimulator<a class="headerlink" href="#build-thesimulator" title="Link to this heading">#</a></h3>
 <p>进入maxe项目中，打开<code class="docutils literal notranslate"><span class="pre">build.ipynb</span></code>文件，选择在环境搭建中创建的python环境<code class="docutils literal notranslate"><span class="pre">simlob</span></code>，点击第一个代码框边上的运行，等待编译完成，如果出现问题请参照后面的Trouble Shooting小节。</p>
 <p>编译完成后会在<code class="docutils literal notranslate"><span class="pre">build/TheSimulator/TheSimulator</span></code>文件夹中找到可执行文件<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>。在<code class="docutils literal notranslate"><span class="pre">build.ipynb</span></code>的后续代码框中有测试代码，可以尝试运行，看是否编译成功。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>为方便后续使用模拟器，可以将该可执行文件通过软连接的方式导入到/usr/bin/目录中，后续只需要直接输入<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>即可。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ln<span class="w"> </span>-s<span class="w"> </span>/absolute/path/to/TheSimulator<span class="w"> </span>/usr/bin/
+</pre></div>
+</div>
+</div>
 </section>
 <section id="trouble-shooting">
 <h3>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Link to this heading">#</a></h3>
