@@ -19,7 +19,8 @@ latex:
 
 # Add a bibtex file so that we can create citations
 bibtex_bibfiles:
-  - references.bib
+  - bib/references.bib
+  - bib/ref2024.bib
 
 sphinx:
   config:
