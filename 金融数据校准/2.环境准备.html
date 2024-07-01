@@ -195,6 +195,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wiki/2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html">模拟器</a></li>
 </ul>
 
     </div>
@@ -391,7 +392,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">环境搭建</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maxe">Maxe编译</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -419,9 +424,18 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="maxe">
-<h2>Maxe编译<a class="headerlink" href="#maxe" title="Link to this heading">#</a></h2>
-<p>为了编译金融数据模拟器，需要安装<code class="docutils literal notranslate"><span class="pre">cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">g++</span></code>, <code class="docutils literal notranslate"><span class="pre">libstdc++-8-dev</span></code> ，在ubuntu上可以使用以下命令安装：</p>
+<section id="simulator">
+<h2>Simulator<a class="headerlink" href="#simulator" title="Link to this heading">#</a></h2>
+<p>关于模拟器可以参考<span class="xref std std-ref">Simulator</span>
+本实验中的Simulator使用的是Maxe，为了模拟效率，该模拟器完全使用C语言编写，在使用之前需要将其编译为适合当前运行环境的可执行文件。</p>
+<section id="build-thesimulator">
+<h3>Build TheSimulator<a class="headerlink" href="#build-thesimulator" title="Link to this heading">#</a></h3>
+<p>进入maxe项目中，打开<code class="docutils literal notranslate"><span class="pre">build.ipynb</span></code>文件，选择在环境搭建中创建的python环境<code class="docutils literal notranslate"><span class="pre">simlob</span></code>，点击第一个代码框边上的运行，等待编译完成，如果出现问题请参照后面的Trouble Shooting小节。</p>
+<p>编译完成后会在<code class="docutils literal notranslate"><span class="pre">build/TheSimulator/TheSimulator</span></code>文件夹中找到可执行文件<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>。在<code class="docutils literal notranslate"><span class="pre">build.ipynb</span></code>的后续代码框中有测试代码，可以尝试运行，看是否编译成功。</p>
+</section>
+<section id="trouble-shooting">
+<h3>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Link to this heading">#</a></h3>
+<p>编译金融数据模拟器Maxe，需要安装<code class="docutils literal notranslate"><span class="pre">cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">g++</span></code>, <code class="docutils literal notranslate"><span class="pre">libstdc++-8-dev</span></code> ，在ubuntu上可以使用以下命令安装：</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>cmake<span class="w"> </span>g++<span class="w"> </span>libpthread-stubs0-dev<span class="w"> </span>libstdc++-8-dev
 </pre></div>
 </div>
@@ -440,6 +454,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>libstdcxx-ng
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 
@@ -508,7 +523,11 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">环境搭建</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maxe">Maxe编译</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
