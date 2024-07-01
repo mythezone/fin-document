@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>网络模型可视化 &#8212; SimLOB Document</title>
+    <title>准备训练数据 &#8212; SimLOB Document</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '金融数据校准/对比算法模型可视化';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '金融数据校准/3.数据准备';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="模型" href="SimLOB.html" />
-    <link rel="prev" title="准备训练数据" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html" />
+    <link rel="next" title="网络模型可视化" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html" />
+    <link rel="prev" title="SIMLOB" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -183,8 +183,8 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">金融数据</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">准备训练数据</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">网络模型可视化</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">准备训练数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="SimLOB.html">模型</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
@@ -266,7 +266,7 @@
       
       
       
-      <li><a href="https://github.com/mythezone/fin-document/issues/new?title=Issue%20on%20page%20%2F金融数据校准/对比算法模型可视化.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/mythezone/fin-document/issues/new?title=Issue%20on%20page%20%2F金融数据校准/3.数据准备.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -296,7 +296,7 @@
       
       
       
-      <li><a href="../_sources/金融数据校准/对比算法模型可视化.md" target="_blank"
+      <li><a href="../_sources/金融数据校准/3.数据准备.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -306,7 +306,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -380,7 +380,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>网络模型可视化</h1>
+    <h1>准备训练数据</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -390,13 +390,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-trans-ae-40">Pure Trans AE 40</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">说明</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">网络参数信息</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">金融数据生成</a></li>
 </ul>
 </li>
 </ul>
@@ -411,108 +412,56 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>网络模型可视化<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
-<section id="pure-trans-ae-40">
-<h2>Pure Trans AE 40<a class="headerlink" href="#pure-trans-ae-40" title="Link to this heading">#</a></h2>
-<p><img alt="Pure Trans AE 40" src="../_images/Pure_Trans_AE_40.png" /></p>
-</section>
-<section id="cnn-lstm-ae">
-<h2>CNN LSTM AE<a class="headerlink" href="#cnn-lstm-ae" title="Link to this heading">#</a></h2>
+<h1>准备训练数据<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <section id="id2">
-<h3>网络参数信息<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CNNLSTM_AE(
-  (encoder): CNNLSTM_encoder(
-    (conv1): Conv2d(1, 16, kernel_size=(5, 42), stride=(1, 1), padding=(0, 2))
-    (bn1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu1): PReLU(num_parameters=1)
-    (conv2): Conv1d(16, 16, kernel_size=(5,), stride=(1,))
-    (bn2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu2): PReLU(num_parameters=1)
-    (conv3): Conv1d(16, 32, kernel_size=(5,), stride=(1,))
-    (bn3): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu3): PReLU(num_parameters=1)
-    (conv4): Conv1d(32, 32, kernel_size=(5,), stride=(1,))
-    (bn4): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu4): PReLU(num_parameters=1)
-    (lstm): LSTM(276, 128, num_layers=2, batch_first=True)
-    (fc1): Linear(in_features=128, out_features=128, bias=True)
-    (dropout): Dropout(p=0.1, inplace=False)
-    (prelu): PReLU(num_parameters=1)
-  )
-  (decoder): CNNLSTM_decoder(
-    (conv1): ConvTranspose2d(16, 1, kernel_size=(5, 42), stride=(1, 1), padding=(0, 2))
-    (bn1): BatchNorm2d(1, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu1): PReLU(num_parameters=1)
-    (conv2): ConvTranspose1d(16, 16, kernel_size=(5,), stride=(1,))
-    (bn2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu2): PReLU(num_parameters=1)
-    (conv3): ConvTranspose1d(32, 16, kernel_size=(5,), stride=(1,))
-    (bn3): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu3): PReLU(num_parameters=1)
-    (conv4): ConvTranspose1d(32, 32, kernel_size=(5,), stride=(1,))
-    (bn4): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (prelu4): PReLU(num_parameters=1)
-    (lstm): LSTM(128, 276, num_layers=2, batch_first=True)
-    (fc1): Linear(in_features=128, out_features=128, bias=True)
-    (dropout): Dropout(p=0.1, inplace=False)
-    (prelu): PReLU(num_parameters=1)
-  )
-)
-</pre></div>
-</div>
-</section>
-</section>
-<section id="cnn1-ae">
-<h2>CNN1 AE<a class="headerlink" href="#cnn1-ae" title="Link to this heading">#</a></h2>
+<h2>金融数据（限价订单簿）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>关于LOB的详细说明可以参考<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#lob-define"><span class="std std-ref">LOB (Limit Order Book)</span></a>.</p>
 <section id="id3">
-<h3>网络参数信息<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 使用torchinfo的summary获得的参数信息。
-==========================================================================================
-Layer (type:depth-idx)                   Output Shape              Param #
-==========================================================================================
-CNN1_AE                                  [3, 100, 40]              --
-├─CNN1_encoder: 1-1                      [3, 128]                  --
-│    └─Conv2d: 2-1                       [3, 16, 100, 1]           2,576
-│    └─LeakyReLU: 2-2                    [3, 16, 100, 1]           --
-│    └─Conv1d: 2-3                       [3, 16, 97]               1,040
-│    └─LeakyReLU: 2-4                    [3, 16, 97]               --
-│    └─MaxPool1d: 2-5                    [3, 16, 48]               --
-│    └─Conv1d: 2-6                       [3, 32, 50]               1,568
-│    └─LeakyReLU: 2-7                    [3, 32, 50]               --
-│    └─Conv1d: 2-8                       [3, 32, 52]               3,104
-│    └─LeakyReLU: 2-9                    [3, 32, 52]               --
-│    └─MaxPool1d: 2-10                   [3, 32, 26]               --
-│    └─Linear: 2-11                      [3, 128]                  106,624
-│    └─LeakyReLU: 2-12                   [3, 128]                  --
-├─CNN1_decoder: 1-2                      [3, 100, 40]              --
-│    └─Linear: 2-13                      [3, 832]                  107,328
-│    └─LeakyReLU: 2-14                   [3, 832]                  --
-│    └─MaxUnpool1d: 2-15                 [3, 32, 52]               --
-│    └─ConvTranspose1d: 2-16             [3, 32, 50]               3,104
-│    └─LeakyReLU: 2-17                   [3, 32, 50]               --
-│    └─ConvTranspose1d: 2-18             [3, 16, 48]               1,552
-│    └─LeakyReLU: 2-19                   [3, 16, 48]               --
-│    └─MaxUnpool1d: 2-20                 [3, 16, 97]               --
-│    └─ConvTranspose1d: 2-21             [3, 16, 100]              1,040
-│    └─LeakyReLU: 2-22                   [3, 16, 100]              --
-│    └─ConvTranspose2d: 2-23             [3, 1, 100, 40]           2,561
-│    └─LeakyReLU: 2-24                   [3, 1, 100, 40]           --
-==========================================================================================
-Total params: 230,497
-Trainable params: 230,497
-Non-trainable params: 0
-Total mult-adds (M): 34.17
-==========================================================================================
-Input size (MB): 0.05
-Forward/backward pass size (MB): 0.37
-Params size (MB): 0.92
-Estimated Total Size (MB): 1.34
-==========================================================================================
-
+<h3>金融数据格式说明<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>该金融数据集记录了特定时间点的市场交易信息，并以 CSV 格式存储。每行代表一个时间点的数据快照，包含买卖报价、交易量等重要信息。CSV 文件的列格式如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">time</span><span class="p">,</span>
+<span class="n">bestAskPrice1</span><span class="p">,</span><span class="n">bestBidPrice1</span><span class="p">,</span><span class="n">AskVolume1</span><span class="p">,</span><span class="n">BidVolume1</span><span class="p">,</span>
+<span class="n">AskPrice2</span><span class="p">,</span><span class="n">BidPrice2</span><span class="p">,</span><span class="n">AskVolume2</span><span class="p">,</span><span class="n">BidVolume2</span><span class="p">,</span>
+<span class="n">AskPrice3</span><span class="p">,</span><span class="n">BidPrice3</span><span class="p">,</span><span class="n">AskVolume3</span><span class="p">,</span><span class="n">BidVolume3</span><span class="p">,</span>
+<span class="n">AskPrice4</span><span class="p">,</span><span class="n">BidPrice4</span><span class="p">,</span><span class="n">AskVolume4</span><span class="p">,</span><span class="n">BidVolume4</span><span class="p">,</span>
+<span class="n">AskPrice5</span><span class="p">,</span><span class="n">BidPrice5</span><span class="p">,</span><span class="n">AskVolume5</span><span class="p">,</span><span class="n">BidVolume5</span><span class="p">,</span>
+<span class="n">AskPrice6</span><span class="p">,</span><span class="n">BidPrice6</span><span class="p">,</span><span class="n">AskVolume6</span><span class="p">,</span><span class="n">BidVolume6</span><span class="p">,</span>
+<span class="n">AskPrice7</span><span class="p">,</span><span class="n">BidPrice7</span><span class="p">,</span><span class="n">AskVolume7</span><span class="p">,</span><span class="n">BidVolume7</span><span class="p">,</span>
+<span class="n">AskPrice8</span><span class="p">,</span><span class="n">BidPrice8</span><span class="p">,</span><span class="n">AskVolume8</span><span class="p">,</span><span class="n">BidVolume8</span><span class="p">,</span>
+<span class="n">AskPrice9</span><span class="p">,</span><span class="n">BidPrice9</span><span class="p">,</span><span class="n">AskVolume9</span><span class="p">,</span><span class="n">BidVolume9</span><span class="p">,</span>
+<span class="n">AskPrice10</span><span class="p">,</span><span class="n">BidPrice10</span><span class="p">,</span><span class="n">AskVolume10</span><span class="p">,</span><span class="n">BidVolume10</span>
+<span class="p">]</span>
 </pre></div>
 </div>
-<p><img alt="CNN1_AE可视化1" src="../_images/CNN1_AE_torchview.png" />
-<img alt="CNN1_AE可视化2" src="../_images/CNN1_AE_torchviz.png" /></p>
+<section id="id4">
+<h4>列说明<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>time</strong>：记录数据的时间点，格式为 “YYYY-MM-DD HH:MM:SS”。</p></li>
+<li><p><strong>bestAskPrice1</strong>：最佳卖价1，即当前市场中最低的卖出价格。</p></li>
+<li><p><strong>bestBidPrice1</strong>：最佳买价1，即当前市场中最高的买入价格。</p></li>
+<li><p><strong>AskVolume1</strong>：最佳卖价1对应的卖出量。</p></li>
+<li><p><strong>BidVolume1</strong>：最佳买价1对应的买入量。</p></li>
+<li><p><strong>AskPrice2, BidPrice2, AskVolume2, BidVolume2</strong>：次最佳买卖价及对应的交易量，以此类推，最多记录到第10档买卖价及其对应的交易量。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h4>数据示例<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span><span class="mf">1244.0</span><span class="p">,</span><span class="mf">1243.0</span><span class="p">,</span><span class="mf">765.0</span><span class="p">,</span><span class="mf">846.0</span><span class="p">,</span><span class="mf">1245.0</span><span class="p">,</span><span class="mf">1242.0</span><span class="p">,</span><span class="mf">1645.0</span><span class="p">,</span><span class="mf">288.0</span><span class="p">,</span><span class="mf">1246.0</span><span class="p">,</span><span class="mf">1241.0</span><span class="p">,</span><span class="mf">2410.0</span><span class="p">,</span><span class="mf">1259.0</span><span class="p">,</span><span class="mf">1247.0</span><span class="p">,</span><span class="mf">1240.0</span><span class="p">,</span><span class="mf">2646.0</span><span class="p">,</span><span class="mf">4509.0</span><span class="p">,</span><span class="mf">1248.0</span><span class="p">,</span><span class="mf">1239.0</span><span class="p">,</span><span class="mf">3595.0</span><span class="p">,</span><span class="mf">773.0</span><span class="p">,</span><span class="mf">1249.0</span><span class="p">,</span><span class="mf">1238.0</span><span class="p">,</span><span class="mf">4935.0</span><span class="p">,</span><span class="mf">923.0</span><span class="p">,</span><span class="mf">1250.0</span><span class="p">,</span><span class="mf">1237.0</span><span class="p">,</span><span class="mf">5560.0</span><span class="p">,</span><span class="mf">1566.0</span><span class="p">,</span><span class="mf">1251.0</span><span class="p">,</span><span class="mf">1236.0</span><span class="p">,</span><span class="mf">1030.0</span><span class="p">,</span><span class="mf">932.0</span><span class="p">,</span><span class="mf">1252.0</span><span class="p">,</span><span class="mf">1235.0</span><span class="p">,</span><span class="mf">1728.0</span><span class="p">,</span><span class="mf">908.0</span><span class="p">,</span><span class="mf">1253.0</span><span class="p">,</span><span class="mf">1234.0</span><span class="p">,</span><span class="mf">3580.0</span><span class="p">,</span><span class="mf">160.0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">,</span><span class="mf">1244.0</span><span class="p">,</span><span class="mf">1243.0</span><span class="p">,</span><span class="mf">694.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1245.0</span><span class="p">,</span><span class="mf">1242.0</span><span class="p">,</span><span class="mf">1655.0</span><span class="p">,</span><span class="mf">303.0</span><span class="p">,</span><span class="mf">1246.0</span><span class="p">,</span><span class="mf">1241.0</span><span class="p">,</span><span class="mf">2410.0</span><span class="p">,</span><span class="mf">1359.0</span><span class="p">,</span><span class="mf">1247.0</span><span class="p">,</span><span class="mf">1240.0</span><span class="p">,</span><span class="mf">2646.0</span><span class="p">,</span><span class="mf">4509.0</span><span class="p">,</span><span class="mf">1248.0</span><span class="p">,</span><span class="mf">1239.0</span><span class="p">,</span><span class="mf">3595.0</span><span class="p">,</span><span class="mf">773.0</span><span class="p">,</span><span class="mf">1249.0</span><span class="p">,</span><span class="mf">1238.0</span><span class="p">,</span><span class="mf">4935.0</span><span class="p">,</span><span class="mf">923.0</span><span class="p">,</span><span class="mf">1250.0</span><span class="p">,</span><span class="mf">1237.0</span><span class="p">,</span><span class="mf">5543.0</span><span class="p">,</span><span class="mf">1566.0</span><span class="p">,</span><span class="mf">1251.0</span><span class="p">,</span><span class="mf">1236.0</span><span class="p">,</span><span class="mf">1030.0</span><span class="p">,</span><span class="mf">932.0</span><span class="p">,</span><span class="mf">1252.0</span><span class="p">,</span><span class="mf">1235.0</span><span class="p">,</span><span class="mf">1728.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1253.0</span><span class="p">,</span><span class="mf">1234.0</span><span class="p">,</span><span class="mf">3588.0</span><span class="p">,</span><span class="mf">160.0</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h4>说明<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>每行数据从时间戳开始，紧接着是十档买卖价和对应的交易量。</p></li>
+<li><p>买卖价数据以 “AskPriceN” 和 “BidPriceN” 命名，交易量数据以 “AskVolumeN” 和 “BidVolumeN” 命名，其中 N 代表第 N 档价格和交易量。</p></li>
+<li><p>此数据格式适用于金融市场分析和交易策略研究，可以帮助分析买卖盘的变化及市场深度。</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h3>金融数据生成<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -548,20 +497,20 @@ Estimated Total Size (MB): 1.34
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html"
+       href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">准备训练数据</p>
+        <p class="prev-next-title">SIMLOB</p>
       </div>
     </a>
     <a class="right-next"
-       href="SimLOB.html"
+       href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">模型</p>
+        <p class="prev-next-title">网络模型可视化</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -581,13 +530,14 @@ Estimated Total Size (MB): 1.34
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pure-trans-ae-40">Pure Trans AE 40</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-lstm-ae">CNN LSTM AE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">网络参数信息</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">说明</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn1-ae">CNN1 AE</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">网络参数信息</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">金融数据生成</a></li>
 </ul>
 </li>
 </ul>
