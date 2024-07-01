@@ -18,3 +18,4 @@ parts:
   - caption: Wiki
     chapters:
     - file: wiki/1.金融术语
+    - file: wiki/2.计算机术语
