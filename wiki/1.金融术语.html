@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'wiki/1.金融术语';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="模拟器" href="2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html" />
     <link rel="prev" title="使用torchview" href="../PyTorch/%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -194,6 +195,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">限价订单簿</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html">模拟器</a></li>
+
 </ul>
 
     </div>
@@ -389,6 +393,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">限价订单簿</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob-limit-order-book">LOB (Limit Order Book)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要组成部分</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">功能和作用</a></li>
@@ -396,6 +401,10 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pgps">PGPS</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -464,6 +473,16 @@ document.write(`
 </section>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="pgps">
+<span id="id5"></span><h1>PGPS<a class="headerlink" href="#pgps" title="Link to this heading">#</a></h1>
+<p>可以参考论文<span id="id6">[]</span>.</p>
+<p>本模型通过订单簿模拟金融市场，在虚拟交易所中多个代理连续交易单一资产。对于一个平稳市场，模型的结构、不同类型订单的流动率以及所使用的价格时间优先匹配算法仅会产生扩散价格行为。研究表明，市场趋势（即任意类型的不对称订单流动）会导致价格发展的非平凡赫斯特指数，但不会产生“厚尾”收益分布。当将订单输入深度与当前趋势耦合时，模型也能重现“厚尾”这一经验事实。</p>
+<p>关键点总结
+订单簿模型：在虚拟交易所中，多个代理连续交易单一资产。
+价格行为：在平稳市场中，价格时间优先匹配算法仅产生扩散价格行为。
+市场趋势影响：不对称订单流动会导致价格发展的非平凡赫斯特指数。
+厚尾分布：将订单输入深度与当前趋势耦合时，模型能重现“厚尾”收益分布。</p>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -504,6 +523,15 @@ document.write(`
         <p class="prev-next-title">使用torchview</p>
       </div>
     </a>
+    <a class="right-next"
+       href="2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">模拟器</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -520,6 +548,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">限价订单簿</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob-limit-order-book">LOB (Limit Order Book)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">主要组成部分</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">功能和作用</a></li>
@@ -527,6 +556,10 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pgps">PGPS</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>

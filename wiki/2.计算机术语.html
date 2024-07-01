@@ -194,7 +194,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
+
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">模拟器</a></li>
+
 </ul>
 
     </div>
@@ -367,7 +369,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -383,6 +387,34 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">模拟器</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#maxe">Maxe</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thesimulator">TheSimulator 简介</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装指南</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">系统要求</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">安装步骤</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">使用手册</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">快速入门</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">添加自定义代理</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c">自定义 C++ 代理</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#python">简单的自定义 Python 代理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">示例输出</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -394,6 +426,177 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="simulator-define">
 <span id="id1"></span><h1>模拟器<a class="headerlink" href="#simulator-define" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="maxe">
+<span id="id2"></span><h1>Maxe<a class="headerlink" href="#maxe" title="Link to this heading">#</a></h1>
+<section id="thesimulator">
+<h2>TheSimulator 简介<a class="headerlink" href="#thesimulator" title="Link to this heading">#</a></h2>
+<p>TheSimulator 是一个强大的仿真器，用于模拟市场交易和其他复杂系统。它支持 C++ 和 Python 语言，并通过 XML 配置文件进行仿真设置。该工具旨在为研究人员和开发人员提供一个灵活的环境，以测试和验证其交易策略和算法。</p>
+</section>
+<section id="id3">
+<h2>安装指南<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>系统要求<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>CMake</strong> 3.15 或更高版本</p></li>
+<li><p>能够编译 C++17 的编译器（如 Visual Studio 17 或更高版本、GCC 9.0 或更高版本、LLVM Clang 9.0 或更高版本）</p></li>
+<li><p><strong>Python</strong>（测试过的版本有 Python 2.7 和 3.6）</p></li>
+</ul>
+<p>另外，根据不同的操作系统，可能需要以下软件：</p>
+<ul class="simple">
+<li><p><strong>Windows</strong>: 安装 Python 并包含其 C 头文件</p></li>
+<li><p><strong>Linux</strong>: 安装 <code class="docutils literal notranslate"><span class="pre">python-all</span></code> 或至少 <code class="docutils literal notranslate"><span class="pre">python-distutils</span></code> 和 <code class="docutils literal notranslate"><span class="pre">python-dev</span></code></p></li>
+<li><p><strong>Mac</strong>: MacOS 10.15+ 和 Xcode 11.0+</p></li>
+</ul>
+<p>推荐：</p>
+<ul class="simple">
+<li><p>支持 XML 和 Python 的文本编辑器</p></li>
+<li><p>Python 3.0 或更高版本</p></li>
+</ul>
+<p>注意：TheSimulator 已内嵌 Python 3.0 支持，但该环境仅能从仿真二进制文件中调用，不适用于预先测试。</p>
+</section>
+<section id="id5">
+<h3>安装步骤<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>克隆仓库</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>&lt;repository_url&gt;
+<span class="nb">cd</span><span class="w"> </span>thesimulator
+</pre></div>
+</div>
+</li>
+<li><p><strong>创建构建目录并进入</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+</pre></div>
+</div>
+</li>
+<li><p><strong>配置和生成构建文件</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>../
+</pre></div>
+</div>
+</li>
+<li><p><strong>编译仿真器</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+<li><p><strong>运行仿真器</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./TheSimulator<span class="w"> </span>--help
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="id6">
+<h2>使用手册<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3>快速入门<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>编写仿真配置文件</strong>：仿真配置使用 XML 文件格式，设置仿真属性并添加代理。以下是一个最小示例：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot; ?&gt;</span>
+<span class="nt">&lt;Simulation</span><span class="w"> </span><span class="na">start=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">duration=</span><span class="s">&quot;1000001&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ExchangeAgent</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MARKET&quot;</span><span class="w"> </span><span class="na">algorithm=</span><span class="s">&quot;PriceTime&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;RandomWalkMarketMakerAgent</span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;TRADER_MARKET_MAKER&quot;</span>
+<span class="w">        </span><span class="na">exchange=</span><span class="s">&quot;MARKET&quot;</span>
+<span class="w">        </span><span class="na">halfSpread=</span><span class="s">&quot;0.01&quot;</span>
+<span class="w">        </span><span class="na">depth=</span><span class="s">&quot;1&quot;</span>
+<span class="w">        </span><span class="na">p=</span><span class="s">&quot;0.5&quot;</span>
+<span class="w">        </span><span class="na">priceStep=</span><span class="s">&quot;0.1&quot;</span>
+<span class="w">        </span><span class="na">timeStep=</span><span class="s">&quot;1000&quot;</span>
+<span class="w">        </span><span class="na">init=</span><span class="s">&quot;100&quot;</span>
+<span class="w">        </span><span class="na">lb=</span><span class="s">&quot;50&quot;</span>
+<span class="w">        </span><span class="na">ub=</span><span class="s">&quot;150&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;DoobAgent</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;TRADER_DOOB&quot;</span><span class="w"> </span><span class="na">a=</span><span class="s">&quot;99&quot;</span><span class="w"> </span><span class="na">b=</span><span class="s">&quot;101&quot;</span><span class="w"> </span><span class="na">tradeUnit=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;TradeLogAgent</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;LOGGER_TRADE&quot;</span><span class="w"> </span><span class="na">exchange=</span><span class="s">&quot;MARKET&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Simulation&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>运行仿真</strong>：</p>
+<ul>
+<li><p>在 GNU 系统上：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./TheSimulator<span class="w"> </span>Simulation.xml
+</pre></div>
+</div>
+</li>
+<li><p>在 Windows 系统上：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.<span class="se">\T</span>heSimulator.exe<span class="w"> </span>Simulation.xml
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id8">
+<h3>添加自定义代理<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="c">
+<h4>自定义 C++ 代理<a class="headerlink" href="#c" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>创建继承自 <code class="docutils literal notranslate"><span class="pre">Agent</span></code> 的新类 <code class="docutils literal notranslate"><span class="pre">CustomAgent</span></code> 并实现其虚方法。</p></li>
+<li><p>实现 <code class="docutils literal notranslate"><span class="pre">receiveMessage</span></code> 以处理代理逻辑和环境交互。</p></li>
+<li><p>在 <code class="docutils literal notranslate"><span class="pre">Simulation.cpp</span></code> 文件的 <code class="docutils literal notranslate"><span class="pre">Simulation::setupChildConfiguration</span></code> 方法中添加以下 <code class="docutils literal notranslate"><span class="pre">else-if</span></code> 子句：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nodeName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;CustomAgent&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">eaptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">CustomAgent</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">    </span><span class="n">eaptr</span><span class="o">-&gt;</span><span class="n">configure</span><span class="p">(</span><span class="o">*</span><span class="n">nit</span><span class="p">,</span><span class="w"> </span><span class="n">configurationPath</span><span class="p">);</span>
+<span class="w">    </span><span class="n">m_agentList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">eaptr</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="python">
+<h4>简单的自定义 Python 代理<a class="headerlink" href="#python" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p>编写 <code class="docutils literal notranslate"><span class="pre">PrintingAgent.py</span></code> 文件：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thesimulator</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">PrintingAgent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; --- Configuring with the following parameters --- &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; ------------------------------------------------- &quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">receiveMessage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+        <span class="n">currentTimestamp</span> <span class="o">=</span> <span class="n">simulation</span><span class="o">.</span><span class="n">currentTimestamp</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Received a message of type &#39;</span><span class="si">%s</span><span class="s2">&#39; at time </span><span class="si">%d</span><span class="s2">, payload </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">currentTimestamp</span><span class="p">,</span> <span class="n">payload</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>编写 <code class="docutils literal notranslate"><span class="pre">PrintingAgentExample.xml</span></code> 文件：</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Simulation</span><span class="w"> </span><span class="na">start=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">duration=</span><span class="s">&quot;1001&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;PrintingAgent</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;AGENT&quot;</span><span class="w"> </span><span class="na">parameter=</span><span class="s">&quot;value&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Simulation&gt;</span>
+</pre></div>
+</div>
+</li>
+<li><p>运行仿真：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./TheSimulator<span class="w"> </span>PrintingAgentExample.xml
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="id9">
+<h2>示例输出<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ExchangeSimulator<span class="w"> </span>v2.0
+<span class="w"> </span>-<span class="w"> </span><span class="s1">&#39;Simulation.xml&#39;</span><span class="w"> </span>loaded<span class="w"> </span>successfully
+<span class="w"> </span>-<span class="w"> </span>starting<span class="w"> </span>the<span class="w"> </span>simulations
+<span class="w"> </span>---<span class="w"> </span>Configuring<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>parameters<span class="w"> </span>---
+<span class="o">{</span><span class="s1">&#39;parameter&#39;</span>:<span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="o">}</span>
+<span class="w"> </span>-------------------------------------------------
+Received<span class="w"> </span>a<span class="w"> </span>message<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;EVENT_SIMULATION_START&#39;</span><span class="w"> </span>at<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">0</span>,<span class="w"> </span>payload<span class="w"> </span><span class="o">{}</span>
+Received<span class="w"> </span>a<span class="w"> </span>message<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;EVENT_SIMULATION_STOP&#39;</span><span class="w"> </span>at<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">1000</span>,<span class="w"> </span>payload<span class="w"> </span><span class="o">{}</span>
+<span class="w"> </span>-<span class="w"> </span>all<span class="w"> </span>simulations<span class="w"> </span>finished,<span class="w"> </span>exiting
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,6 +644,41 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">模拟器</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#maxe">Maxe</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thesimulator">TheSimulator 简介</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">安装指南</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">系统要求</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">安装步骤</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">使用手册</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">快速入门</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">添加自定义代理</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c">自定义 C++ 代理</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#python">简单的自定义 Python 代理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">示例输出</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
