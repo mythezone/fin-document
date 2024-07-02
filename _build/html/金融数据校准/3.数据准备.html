@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>准备训练数据 &#8212; SimLOB Document</title>
+    <title>数据准备 &#8212; SimLOB Document</title>
   
   
   
@@ -181,11 +181,10 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB: Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">准备训练数据</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
-<li class="toctree-l1"><a class="reference internal" href="SimLOB.html">模型</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
 <ul class="nav bd-sidenav">
@@ -383,7 +382,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>准备训练数据</h1>
+    <h1>数据准备</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -397,10 +396,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">说明</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">金融数据生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -415,7 +418,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1>准备训练数据<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h1>数据准备<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <section id="id2">
 <h2>金融数据（限价订单簿）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>关于LOB的详细说明可以参考<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#lob-define"><span class="std std-ref">LOB (Limit Order Book)</span></a>.</p>
@@ -453,19 +456,19 @@ document.write(`
 <span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">,</span><span class="mf">1244.0</span><span class="p">,</span><span class="mf">1243.0</span><span class="p">,</span><span class="mf">694.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1245.0</span><span class="p">,</span><span class="mf">1242.0</span><span class="p">,</span><span class="mf">1655.0</span><span class="p">,</span><span class="mf">303.0</span><span class="p">,</span><span class="mf">1246.0</span><span class="p">,</span><span class="mf">1241.0</span><span class="p">,</span><span class="mf">2410.0</span><span class="p">,</span><span class="mf">1359.0</span><span class="p">,</span><span class="mf">1247.0</span><span class="p">,</span><span class="mf">1240.0</span><span class="p">,</span><span class="mf">2646.0</span><span class="p">,</span><span class="mf">4509.0</span><span class="p">,</span><span class="mf">1248.0</span><span class="p">,</span><span class="mf">1239.0</span><span class="p">,</span><span class="mf">3595.0</span><span class="p">,</span><span class="mf">773.0</span><span class="p">,</span><span class="mf">1249.0</span><span class="p">,</span><span class="mf">1238.0</span><span class="p">,</span><span class="mf">4935.0</span><span class="p">,</span><span class="mf">923.0</span><span class="p">,</span><span class="mf">1250.0</span><span class="p">,</span><span class="mf">1237.0</span><span class="p">,</span><span class="mf">5543.0</span><span class="p">,</span><span class="mf">1566.0</span><span class="p">,</span><span class="mf">1251.0</span><span class="p">,</span><span class="mf">1236.0</span><span class="p">,</span><span class="mf">1030.0</span><span class="p">,</span><span class="mf">932.0</span><span class="p">,</span><span class="mf">1252.0</span><span class="p">,</span><span class="mf">1235.0</span><span class="p">,</span><span class="mf">1728.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1253.0</span><span class="p">,</span><span class="mf">1234.0</span><span class="p">,</span><span class="mf">3588.0</span><span class="p">,</span><span class="mf">160.0</span>
 </pre></div>
 </div>
-</section>
-<section id="id6">
-<h4>说明<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>每行数据从时间戳开始，紧接着是十档买卖价和对应的交易量。</p></li>
 <li><p>买卖价数据以 “AskPriceN” 和 “BidPriceN” 命名，交易量数据以 “AskVolumeN” 和 “BidVolumeN” 命名，其中 N 代表第 N 档价格和交易量。</p></li>
 <li><p>此数据格式适用于金融市场分析和交易策略研究，可以帮助分析买卖盘的变化及市场深度。</p></li>
 </ul>
+</div>
 </section>
 </section>
-<section id="id7">
-<h3>金融数据生成<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
-<p>金融数据通过maxe编译的TheSimulator产生，本实验使用的是PGPS模型<span id="id8">[<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#id8" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
+<section id="id6">
+<h3>仿真数据<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>金融数据通过maxe编译的TheSimulator<a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html#thesimulator"><span class="std std-ref">Build TheSimulator</span></a>产生，本实验使用的是PGPS模型<span id="id7">[<a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html#id3" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
 <p>其中可以控制的参数如下：</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -563,6 +566,30 @@ document.write(`
 <p>可以通过项目代码中的<code class="docutils literal notranslate"><span class="pre">update_xml</span></code>方法方便的更新该配置文件中的参数。</p>
 </div>
 </section>
+<section id="id8">
+<h3>训练数据准备<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h4>批量生成仿真数据<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<p>用于生成仿真数据的参数数据记录在<code class="docutils literal notranslate"><span class="pre">data/meta/coef_table.csv</span></code>表中。数据格式如下所示（共1000行数据，记录了不同的参数组合）：</p>
+<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>id,lambda_init,clambda,frequency1,frequency2,increment,delta
+0,193.32,3.47,0.2962,0.01853,0.0015,0.02909
+1,88.71,11.8,0.3091,0.0199,0.00293,0.04749
+2,77.49,7.62,0.7369,0.05814,0.00084,0.00559
+3,182.28,6.99,0.13,0.05814,0.00084,0.00559
+4,187.91,9.54,0.4411,0.08443,0.0015,0.029
+5,116.86,5.52,0.0666,0.04586,0.00244,0.01018
+6,134.64,15.45,0.3275,0.07116,0.00199,0.03238
+7,17.7,11.36,0.2639,0.06703,0.00066,0.03644
+8,153.53,9.27,0.2983,0.07343,0.00238,0.01278
+9,48.13,3.54,0.4374,0.02645,0.00077,0.01674
+10,7.13,7.04,0.1106,0.05609,0.00217,0.01389
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h4><a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+</section>
+</section>
 </section>
 </section>
 
@@ -634,10 +661,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">说明</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">金融数据生成</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
