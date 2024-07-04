@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SIMLOB &#8212; SimLOB Document</title>
+    <title>项目介绍 &#8212; SimLOB Document</title>
   
   
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="数据准备" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html" />
-    <link rel="prev" title="SimLOB: Learning Representations of Limited Order Book for Financial Market Simulation" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html" />
+    <link rel="prev" title="SimLOB" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,8 +181,8 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB: Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SIMLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
@@ -383,7 +383,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SIMLOB</h1>
+    <h1>项目介绍</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -393,11 +393,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">文件夹组织方式</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">环境搭建</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">文件夹组织方式</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">环境搭建</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils"><code class="docutils literal notranslate"><span class="pre">utils</span></code> 包</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file"><code class="docutils literal notranslate"><span class="pre">file</span></code> 模块</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-or-pass"><code class="docutils literal notranslate"><span class="pre">create_or_pass</span></code> 方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -411,10 +419,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="simlob">
-<h1>SIMLOB<a class="headerlink" href="#simlob" title="Link to this heading">#</a></h1>
-<section id="id1">
-<h2>文件夹组织方式<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>项目介绍<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>文件夹组织方式<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
 ├──<span class="w"> </span>data<span class="w">                            </span><span class="c1"># 数据文件夹</span>
 │<span class="w">   </span>├──<span class="w"> </span>calib_data<span class="w">                  </span><span class="c1"># 放置需要被校准的数据</span>
@@ -431,13 +439,14 @@ document.write(`
 ├──<span class="w"> </span>script<span class="w">                          </span><span class="c1"># 运行脚本的数据</span>
 ├──<span class="w"> </span>simulation<span class="w">                      </span><span class="c1"># simulation包，用于产生模拟数据</span>
 │<span class="w">   </span>├──<span class="w"> </span>maxe<span class="w">                        </span><span class="c1"># maxe模拟器</span>
-├──<span class="w"> </span><span class="nb">test</span>
+├──<span class="w"> </span><span class="nb">test</span><span class="w">                            </span><span class="c1"># 单元测试</span>
 └──<span class="w"> </span>utils<span class="w">                           </span><span class="c1"># utils通用方法包</span>
 </pre></div>
 </div>
+<p>后面会详细介绍每个文件夹中文件用途。</p>
 </section>
-<section id="id2">
-<h2>环境搭建<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h2>环境搭建<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>本实验环境使用python3.8</p></li>
 <li><p>推荐使用miniconda3</p></li>
@@ -489,6 +498,61 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 </div>
 </section>
 </section>
+<section id="id4">
+<h2><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>├──<span class="w"> </span>environment.yml<span class="w">             </span><span class="c1"># python环境配置文件</span>
+└──<span class="w">  </span>README.md<span class="w">                  </span><span class="c1"># 项目README文件</span>
+</pre></div>
+</div>
+</section>
+<section id="utils">
+<h2><code class="docutils literal notranslate"><span class="pre">utils</span></code> 包<a class="headerlink" href="#utils" title="Link to this heading">#</a></h2>
+<section id="file">
+<h3><code class="docutils literal notranslate"><span class="pre">file</span></code> 模块<a class="headerlink" href="#file" title="Link to this heading">#</a></h3>
+<p><a id="file"></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Created on : 2024-07-02
+Created by : Mythezone
+Updated by : Mythezone
+Email      : <a class="reference external" href="mailto:mythezone&#37;&#52;&#48;gmail&#46;com">mythezone<span>&#64;</span>gmail<span>&#46;</span>com</a>
+FileName   : ~/project/SimLOB/simlob-refined/utils/file.py
+Description: Generic Utility Functions
+Updated    :
+Todo       :</p>
+</div>
+<hr class="docutils" />
+<section id="create-or-pass">
+<span id="id5"></span><h4><code class="docutils literal notranslate"><span class="pre">create_or_pass</span></code> 方法<a class="headerlink" href="#create-or-pass" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_or_pass</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+<p><strong>Summary</strong>:</p>
+<ul class="simple">
+<li><p>Check if the file path exists, or create all the folders needed.</p></li>
+</ul>
+<p><strong>Arguments</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file_path</span></code> <em>str</em> - The file path.Required.</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> - if the path exists or created return True, else return False.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The file_path should contain the file, like “path/to/file.txt”.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">create_or_pass</span></code> will help you create all the folder on the path recursively.</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+</section>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -527,7 +591,7 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SimLOB: Learning Representations of Limited Order Book for Financial Market Simulation</p>
+        <p class="prev-next-title">SimLOB</p>
       </div>
     </a>
     <a class="right-next"
@@ -555,11 +619,19 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">文件夹组织方式</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">环境搭建</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">文件夹组织方式</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">环境搭建</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils"><code class="docutils literal notranslate"><span class="pre">utils</span></code> 包</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#file"><code class="docutils literal notranslate"><span class="pre">file</span></code> 模块</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-or-pass"><code class="docutils literal notranslate"><span class="pre">create_or_pass</span></code> 方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
