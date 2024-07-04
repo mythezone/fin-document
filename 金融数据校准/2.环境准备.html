@@ -185,6 +185,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">SIMLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
 <ul class="nav bd-sidenav">
@@ -392,7 +393,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">环境搭建</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">文件夹组织方式</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">环境搭建</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
@@ -412,7 +414,30 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="simlob">
 <h1>SIMLOB<a class="headerlink" href="#simlob" title="Link to this heading">#</a></h1>
 <section id="id1">
-<h2>环境搭建<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h2>文件夹组织方式<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├──<span class="w"> </span>data<span class="w">                            </span><span class="c1"># 数据文件夹</span>
+│<span class="w">   </span>├──<span class="w"> </span>calib_data<span class="w">                  </span><span class="c1"># 放置需要被校准的数据</span>
+│<span class="w">   </span>├──<span class="w"> </span>meta_data<span class="w">                   </span><span class="c1"># 放置用于生成模拟数据的模型参数数据</span>
+│<span class="w">   </span>├──<span class="w"> </span>real_data<span class="w">                   </span><span class="c1"># 真实数据</span>
+│<span class="w">   </span>├──<span class="w"> </span>simu_data<span class="w">                   </span><span class="c1"># 模拟生成的数据，主要是TheSimulator产生的csv数据</span>
+│<span class="w">   </span>├──<span class="w"> </span>train_data<span class="w">                  </span><span class="c1"># 处理完毕用于训练模型的数据</span>
+│<span class="w">   </span>└──<span class="w"> </span>xml_data<span class="w">                    </span><span class="c1"># 用于存放TheSimulator的xml数据（该数据可能被弃用）</span>
+├──<span class="w"> </span>doc<span class="w">                             </span><span class="c1"># 文档</span>
+│<span class="w">   </span>└──<span class="w"> </span>models_detail<span class="w">               </span><span class="c1"># 该模型用于放置可视化模型时产生的图片、文本数据</span>
+├──<span class="w"> </span>log<span class="w">                             </span><span class="c1"># 记录文件夹</span>
+├──<span class="w"> </span>model<span class="w">                           </span><span class="c1"># 模型文件夹</span>
+│<span class="w">   </span>└──<span class="w"> </span>trained_models<span class="w">              </span><span class="c1"># 训练好的模型</span>
+├──<span class="w"> </span>script<span class="w">                          </span><span class="c1"># 运行脚本的数据</span>
+├──<span class="w"> </span>simulation<span class="w">                      </span><span class="c1"># simulation包，用于产生模拟数据</span>
+│<span class="w">   </span>├──<span class="w"> </span>maxe<span class="w">                        </span><span class="c1"># maxe模拟器</span>
+├──<span class="w"> </span><span class="nb">test</span>
+└──<span class="w"> </span>utils<span class="w">                           </span><span class="c1"># utils通用方法包</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h2>环境搭建<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>本实验环境使用python3.8</p></li>
 <li><p>推荐使用miniconda3</p></li>
@@ -530,7 +555,8 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">环境搭建</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">文件夹组织方式</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">环境搭建</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulator">Simulator</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-thesimulator">Build TheSimulator</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trouble-shooting">Trouble Shooting</a></li>
