@@ -9,8 +9,12 @@ parts:
     - file: 金融数据校准/1.金融数据
     - file: 金融数据校准/2.环境准备
     - file: 金融数据校准/3.数据准备
-    - file: 金融数据校准/对比算法模型可视化
     - file: 金融数据校准/4.SimLOB
+    - file: 金融数据校准/5.对比算法模型可视化
+  - caption: 技术细节
+    chapters:
+    - file: 技术细节/1.数据生成
+    - file: 技术细节/2.模块详细信息
   - caption: PyTorch
     chapters:
     - file: PyTorch/测试环境
