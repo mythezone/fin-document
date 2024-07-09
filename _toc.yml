@@ -19,10 +19,10 @@ parts:
     chapters:
     - file: 技术细节/1.数据生成
     - file: 技术细节/2.模块详细信息
-  - caption: PyTorch
-    chapters:
-    - file: PyTorch/测试环境
-    - file: PyTorch/模型可视化
+  # - caption: PyTorch
+  #   chapters:
+  #   - file: PyTorch/测试环境
+  #   - file: PyTorch/模型可视化
   - caption: Wiki
     chapters:
     - file: wiki/1.金融术语
