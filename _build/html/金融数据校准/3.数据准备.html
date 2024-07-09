@@ -60,8 +60,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '金融数据校准/3.数据准备';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="网络模型可视化" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html" />
-    <link rel="prev" title="SIMLOB" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
+    <link rel="next" title="训练SimLOB模型" href="4.SimLOB.html" />
+    <link rel="prev" title="项目介绍" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,10 +181,22 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB: Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">SIMLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="0.%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98.html">SimLOB中存在的问题</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">数据准备</a></li>
-<li class="toctree-l1"><a class="reference internal" href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../%E6%AD%A3%E5%88%99%E5%8C%96%E6%B5%81%E6%96%B9%E6%B3%95/1.%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html">LOB数据转图片方法</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">批量生成仿真数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">PyTorch</span></p>
 <ul class="nav bd-sidenav">
@@ -196,6 +208,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="../wiki/2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html">模拟器</a></li>
+
 
 </ul>
 
@@ -398,7 +411,10 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xml">XML配置文件</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
@@ -505,6 +521,8 @@ document.write(`
 </tbody>
 </table>
 </div>
+<section id="xml">
+<span id="xml-file"></span><h4>XML配置文件<a class="headerlink" href="#xml" title="Link to this heading">#</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">TestExample_LL.xml</span></code>文件内容如下，你可以在里面找到表格中对应的参数，通过修改这些值，并使用<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>运行该配置文件，就能获得对应参数下的一次运行结果，输出文件格式为csv格式，记录了10档买卖价量和交易时间，共41列，生成数据的行数可以通过配置文件中的duration参数指定。</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Simulation</span><span class="w"> </span><span class="na">start=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">duration=</span><span class="s">&quot;3600&quot;</span><span class="w"> </span><span class="na">lambda_init=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">increment=</span><span class="s">&quot;0.001&quot;</span><span class="w"> </span><span class="na">c_lambda=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
 
@@ -565,6 +583,7 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>可以通过项目代码中的<code class="docutils literal notranslate"><span class="pre">update_xml</span></code>方法方便的更新该配置文件中的参数。</p>
 </div>
+</section>
 </section>
 <section id="id8">
 <h3>训练数据准备<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
@@ -629,15 +648,15 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">SIMLOB</p>
+        <p class="prev-next-title">项目介绍</p>
       </div>
     </a>
     <a class="right-next"
-       href="%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html"
+       href="4.SimLOB.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">网络模型可视化</p>
+        <p class="prev-next-title">训练SimLOB模型</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -663,7 +682,10 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xml">XML配置文件</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
