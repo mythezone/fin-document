@@ -499,15 +499,15 @@ document.write(`
 </pre></div>
 </div>
 <p>这两个步骤都需要对磁盘进行读写, 在大量生成数据时会产生两个问题:</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>问题:
-1. 读写效率: 对物理磁盘进行读写, I/O的效率相比内存读写要低很多, 特别是当Maxe采用多进程/线程的方式模拟多个Agent时,
-2. 在数据生成过程中循环使用相同的文件名保存xml配置文件, 单进程时不会影响, 如果多进程同时更新/读取同一个配置文件时会导致出错/重复.</p>
+<div class="warning admonition">
+<p class="admonition-title">问题:</p>
+<ol class="arabic simple">
+<li><p>读写效率: 对物理磁盘进行读写, I/O的效率相比内存读写要低很多, 特别是当Maxe采用多进程/线程的方式模拟多个Agent时</p></li>
+<li><p>在数据生成过程中循环使用相同的文件名保存xml配置文件, 单进程时不会影响, 如果多进程同时更新/读取同一个配置文件时会导致出错/重复.</p></li>
+</ol>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong>解决办法:</strong></p>
+<div class="tip admonition">
+<p class="admonition-title">解决办法:</p>
 <p>使用python提供的虚拟文件系统包:<code class="docutils literal notranslate"><span class="pre">tempFiles</span></code></p>
 <ul class="simple">
 <li><p>在内存中模拟文件句柄并返回给生成xml文件进程, 将xml配置写入虚拟文件, 同时在xml文件的输出配置项中写入另一个虚拟文件句柄.</p></li>
