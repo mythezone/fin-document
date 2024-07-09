@@ -590,18 +590,18 @@ document.write(`
 <section id="id9">
 <h4>批量生成仿真数据<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
 <p>用于生成仿真数据的参数数据记录在<code class="docutils literal notranslate"><span class="pre">data/meta/coef_table.csv</span></code>表中。数据格式如下所示（共1000行数据，记录了不同的参数组合）：</p>
-<div class="highlight-csv notranslate"><div class="highlight"><pre><span></span>id,lambda_init,clambda,frequency1,frequency2,increment,delta
-0,193.32,3.47,0.2962,0.01853,0.0015,0.02909
-1,88.71,11.8,0.3091,0.0199,0.00293,0.04749
-2,77.49,7.62,0.7369,0.05814,0.00084,0.00559
-3,182.28,6.99,0.13,0.05814,0.00084,0.00559
-4,187.91,9.54,0.4411,0.08443,0.0015,0.029
-5,116.86,5.52,0.0666,0.04586,0.00244,0.01018
-6,134.64,15.45,0.3275,0.07116,0.00199,0.03238
-7,17.7,11.36,0.2639,0.06703,0.00066,0.03644
-8,153.53,9.27,0.2983,0.07343,0.00238,0.01278
-9,48.13,3.54,0.4374,0.02645,0.00077,0.01674
-10,7.13,7.04,0.1106,0.05609,0.00217,0.01389
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span><span class="n">lambda_init</span><span class="p">,</span><span class="n">clambda</span><span class="p">,</span><span class="n">frequency1</span><span class="p">,</span><span class="n">frequency2</span><span class="p">,</span><span class="n">increment</span><span class="p">,</span><span class="n">delta</span>
+<span class="mi">0</span><span class="p">,</span><span class="mf">193.32</span><span class="p">,</span><span class="mf">3.47</span><span class="p">,</span><span class="mf">0.2962</span><span class="p">,</span><span class="mf">0.01853</span><span class="p">,</span><span class="mf">0.0015</span><span class="p">,</span><span class="mf">0.02909</span>
+<span class="mi">1</span><span class="p">,</span><span class="mf">88.71</span><span class="p">,</span><span class="mf">11.8</span><span class="p">,</span><span class="mf">0.3091</span><span class="p">,</span><span class="mf">0.0199</span><span class="p">,</span><span class="mf">0.00293</span><span class="p">,</span><span class="mf">0.04749</span>
+<span class="mi">2</span><span class="p">,</span><span class="mf">77.49</span><span class="p">,</span><span class="mf">7.62</span><span class="p">,</span><span class="mf">0.7369</span><span class="p">,</span><span class="mf">0.05814</span><span class="p">,</span><span class="mf">0.00084</span><span class="p">,</span><span class="mf">0.00559</span>
+<span class="mi">3</span><span class="p">,</span><span class="mf">182.28</span><span class="p">,</span><span class="mf">6.99</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">0.05814</span><span class="p">,</span><span class="mf">0.00084</span><span class="p">,</span><span class="mf">0.00559</span>
+<span class="mi">4</span><span class="p">,</span><span class="mf">187.91</span><span class="p">,</span><span class="mf">9.54</span><span class="p">,</span><span class="mf">0.4411</span><span class="p">,</span><span class="mf">0.08443</span><span class="p">,</span><span class="mf">0.0015</span><span class="p">,</span><span class="mf">0.029</span>
+<span class="mi">5</span><span class="p">,</span><span class="mf">116.86</span><span class="p">,</span><span class="mf">5.52</span><span class="p">,</span><span class="mf">0.0666</span><span class="p">,</span><span class="mf">0.04586</span><span class="p">,</span><span class="mf">0.00244</span><span class="p">,</span><span class="mf">0.01018</span>
+<span class="mi">6</span><span class="p">,</span><span class="mf">134.64</span><span class="p">,</span><span class="mf">15.45</span><span class="p">,</span><span class="mf">0.3275</span><span class="p">,</span><span class="mf">0.07116</span><span class="p">,</span><span class="mf">0.00199</span><span class="p">,</span><span class="mf">0.03238</span>
+<span class="mi">7</span><span class="p">,</span><span class="mf">17.7</span><span class="p">,</span><span class="mf">11.36</span><span class="p">,</span><span class="mf">0.2639</span><span class="p">,</span><span class="mf">0.06703</span><span class="p">,</span><span class="mf">0.00066</span><span class="p">,</span><span class="mf">0.03644</span>
+<span class="mi">8</span><span class="p">,</span><span class="mf">153.53</span><span class="p">,</span><span class="mf">9.27</span><span class="p">,</span><span class="mf">0.2983</span><span class="p">,</span><span class="mf">0.07343</span><span class="p">,</span><span class="mf">0.00238</span><span class="p">,</span><span class="mf">0.01278</span>
+<span class="mi">9</span><span class="p">,</span><span class="mf">48.13</span><span class="p">,</span><span class="mf">3.54</span><span class="p">,</span><span class="mf">0.4374</span><span class="p">,</span><span class="mf">0.02645</span><span class="p">,</span><span class="mf">0.00077</span><span class="p">,</span><span class="mf">0.01674</span>
+<span class="mi">10</span><span class="p">,</span><span class="mf">7.13</span><span class="p">,</span><span class="mf">7.04</span><span class="p">,</span><span class="mf">0.1106</span><span class="p">,</span><span class="mf">0.05609</span><span class="p">,</span><span class="mf">0.00217</span><span class="p">,</span><span class="mf">0.01389</span>
 </pre></div>
 </div>
 </section>
