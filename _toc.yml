@@ -27,3 +27,6 @@ parts:
     chapters:
     - file: wiki/1.金融术语
     - file: wiki/2.计算机术语
+  - caption: 参考文献
+    chapters:
+    - file: bib/参考文献
