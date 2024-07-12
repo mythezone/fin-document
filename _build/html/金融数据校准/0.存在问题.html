@@ -57,11 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '金融数据校准/0.存在问题';</script>
+    <link rel="icon" href="../_static/logo.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="SimLOB" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html" />
-    <link rel="prev" title="Financial Simulation Documentation" href="../intro.html" />
+    <link rel="prev" title="Financial Simulation" href="../intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,7 +177,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Financial Simulation Documentation
+                    Financial Simulation
                 </a>
             </li>
         </ul>
@@ -417,7 +419,7 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3 数据预处理时存在的问题</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.3.1 训练数据分割</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3.2 正则化方法</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3.2 标准化方法</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.4 其他细节</a><ul class="nav section-nav flex-column">
@@ -427,12 +429,16 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2. 方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">2.2 Loss设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.3 优化方法</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4. 代码实现</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5. 关于ABM模型</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.1 优化部分</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5. 结果讨论</a></li>
 </ul>
             </nav>
         </div>
@@ -559,7 +565,7 @@ document.write(`
 </div>
 </section>
 <section id="id9">
-<h4>1.3.2 正则化方法<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<h4>1.3.2 标准化方法<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
 <p>在SimLOB中, 对数据按列进行标准化, 具体方法如下:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standardize_cols</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">mean_list</span><span class="p">,</span> <span class="n">std_list</span><span class="p">):</span>
 
@@ -591,9 +597,14 @@ document.write(`
 </ul>
 </li>
 <li><p>是否应该按照价/量进行统一的标准化?</p></li>
-<li><p>是否应该先对每一次模拟产生的LOB数据进行一次标准化, 再在训练数据集中对数据进行一次统一的标准化? (在src_code中有’MPV’标准化方法, 但是SimLOB中使用的是’PV’方法)</p></li>
+<li><p>是否应该先对每一次模拟产生的LOB数据进行一次标准化, 再在训练数据集中对数据进行一次统一的标准化?</p></li>
 </ul>
 </div>
+<div class="warning admonition">
+<p class="admonition-title">按列标准化</p>
+<p>在 <code class="docutils literal notranslate"><span class="pre">generate_data.py</span></code>模块的整体标准化方法中, 关于’MPV’的整体标准化方法没有实现, 现在实验采用的是对于每次模拟产生的数据进行<strong>按列标准化</strong>之后进行分割并加入训练集.</p>
+</div>
+<p>考虑到一次模拟产生的数据, 其上下文是一致的, 使用按单次模拟的价/量分别进行标准化是一个更好的选择.</p>
 </section>
 </section>
 <section id="id10">
@@ -635,23 +646,62 @@ document.write(`
 </section>
 <section id="id12">
 <h2>2. 方法<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
-<section id="loss">
-<h3>2.2 Loss设计<a class="headerlink" href="#loss" title="Link to this heading">#</a></h3>
+<section id="train-loss">
+<h3>2.2 Train Loss设计<a class="headerlink" href="#train-loss" title="Link to this heading">#</a></h3>
 <p>在SimLOB中使用MESLoss作为自编码器的重构误差,用该Loss训练AE模型.</p>
 <div class="error admonition">
 <p class="admonition-title">Loss 问题</p>
 <p>同前面{ref}`关于LOB数据标准化的讨论 &lt;lob_normalize&gt;’, 两个LOB数据之间的微小差异,可能导致MESLoss产生巨大差别.如图所示:</p>
 </div>
 </section>
-</section>
 <section id="id13">
-<h2>3. 实验设置<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<h3>2.3 优化方法<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d9701295-b18e-4780-90c3-00bfadbb5467">
+<span class="eqno">(1)<a class="headerlink" href="#equation-d9701295-b18e-4780-90c3-00bfadbb5467" title="Permalink to this equation">#</a></span>\[\begin{align}
+MSE(Encoder(RealLOB),Encoder(SimLOB))
+\end{align}\]</div>
+<div class="error admonition">
+<p class="admonition-title">实验中的问题</p>
+<p><strong>问题1:</strong>
+* 已经训练好的Encoder在训练Loss没有使用正则化的情况下,(以一次运行为例) 输出的潜变量的均值约为$0.005$, 而其标准差约为$0.08$, 这一结果说明潜变量的分布非常集中(在图像上表现为在$0.005$附近细高的峰), 不知道在一般的AutoEncoder模型中, 这种分布是否属于正常现象, 待进一步确认.</p>
+<p><strong>问题2:</strong>
+* PSO方法种群大小为$40$, 最大优化代数为$100$, (以一次运行为例)优化开始时的Loss值为$0.043$, 在优化完成后该值为$0.039$, 相比随机的初始化值只优化了不到10%. 这可能是下面原因导致:
+1. 该问题的优化难度非常大, 以致该参数设置下的PSO无法胜任
+2. Encoder本身对原数据的表征不充分.
+* 具体属于什么原因, 还有待下一步研究.</p>
+<p><strong>问题3:</strong>
+* 结合上面两点, PSO的MSE损失函数代表的意义是每个元素差异的平均值, 在潜变量输出方差为$0.08$的前提下, 其优化后的损失值为$0.039$, 从直观上来说, 就是合成数据与待校准数据潜变量之间的差值达到了其绝对值的$50%$, 这很难说PSO已经做了很好的优化了.</p>
+</div>
+</section>
 </section>
 <section id="id14">
-<h2>4. 代码实现<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<h2>3. 实验设置<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
 </section>
 <section id="id15">
-<h2>5. 关于ABM模型<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<h2>4. 代码实现<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>4.1 优化部分<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<div class="error admonition">
+<p class="admonition-title">校准时的数据生成过程实现问题:</p>
+<ul class="simple">
+<li><p>在优化过程中, 调用TheSimulator生成LOB文件, 这个文件会写入磁盘, 然后由下一行代码将该文件内容读入pandas.DataFrame中. 这会造成一个读写的时间差, 如果是系统中原本不存在的csv, 这个过程必然会报错, 提示文件不存在.</p></li>
+<li><p>该实现的解决办法是循环使用几个系统中已存在文件名来存储数据, 但这样做就可能出现常见的同时读写问题, 大概率是读到之前的csv文件( 如果写的过程中读文件可能发生不可预料的错误 ), 如果文件数量一次迭代所需的数量相同, 基本上可以认为 <code class="docutils literal notranslate"><span class="pre">t</span></code>时刻优化用的是<code class="docutils literal notranslate"><span class="pre">t-1</span></code>时刻的数据, 约等于少一次优化. 如果数量少于所需数量, 可能严重影响优化过程.</p></li>
+</ul>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">实现效率:</p>
+<ul class="simple">
+<li><p>读写物理文件系统的效率问题.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_latent</span></code>方法计算Loss时使用了to(‘cpu’)将数据迁移到cpu上再用自己实现的mse方法进行计算, 相比直接在gpu上, 利用内置函数算完mse,再将结果迁移回cpu(供PSO在cpu上使用), 效率会大打折扣.</p></li>
+<li><p>在使用Encoder计算latent的时候没有使用<code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">torch.no_grad()</span></code>或其他类似的操作让系统不记录梯度值, 效率会有所降低.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_classification_tensor</span></code>方法实现的实际上就是一个reshape方法, 自己重写效率很低.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id17">
+<h2>5. 结果讨论<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -691,7 +741,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Financial Simulation Documentation</p>
+        <p class="prev-next-title">Financial Simulation</p>
       </div>
     </a>
     <a class="right-next"
@@ -732,7 +782,7 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3 数据预处理时存在的问题</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.3.1 训练数据分割</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3.2 正则化方法</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.3.2 标准化方法</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.4 其他细节</a><ul class="nav section-nav flex-column">
@@ -742,12 +792,16 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2. 方法</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">2.2 Loss设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.3 优化方法</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4. 代码实现</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5. 关于ABM模型</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.1 优化部分</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5. 结果讨论</a></li>
 </ul>
   </nav></div>
 
@@ -772,7 +826,7 @@ By Mythezone
 
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2024.
       <br/>
     
   </p>
