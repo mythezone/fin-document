@@ -185,6 +185,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">SimLOB中存在的问题</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.%E9%87%91%E8%9E%8D%E6%95%B0%E6%8D%AE.html">SimLOB</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
@@ -657,21 +658,30 @@ document.write(`
 <section id="id13">
 <h3>2.3 优化方法<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d9701295-b18e-4780-90c3-00bfadbb5467">
-<span class="eqno">(1)<a class="headerlink" href="#equation-d9701295-b18e-4780-90c3-00bfadbb5467" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ac02dcee-23a2-487d-909a-37884699ac78">
+<span class="eqno">(1)<a class="headerlink" href="#equation-ac02dcee-23a2-487d-909a-37884699ac78" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
-<div class="error admonition">
+<div class="warning admonition">
 <p class="admonition-title">实验中的问题</p>
-<p><strong>问题1:</strong>
-* 已经训练好的Encoder在训练Loss没有使用正则化的情况下,(以一次运行为例) 输出的潜变量的均值约为$0.005$, 而其标准差约为$0.08$, 这一结果说明潜变量的分布非常集中(在图像上表现为在$0.005$附近细高的峰), 不知道在一般的AutoEncoder模型中, 这种分布是否属于正常现象, 待进一步确认.</p>
-<p><strong>问题2:</strong>
-* PSO方法种群大小为$40$, 最大优化代数为$100$, (以一次运行为例)优化开始时的Loss值为$0.043$, 在优化完成后该值为$0.039$, 相比随机的初始化值只优化了不到10%. 这可能是下面原因导致:
-1. 该问题的优化难度非常大, 以致该参数设置下的PSO无法胜任
-2. Encoder本身对原数据的表征不充分.
-* 具体属于什么原因, 还有待下一步研究.</p>
-<p><strong>问题3:</strong>
-* 结合上面两点, PSO的MSE损失函数代表的意义是每个元素差异的平均值, 在潜变量输出方差为$0.08$的前提下, 其优化后的损失值为$0.039$, 从直观上来说, 就是合成数据与待校准数据潜变量之间的差值达到了其绝对值的$50%$, 这很难说PSO已经做了很好的优化了.</p>
+<p>以下问题可能是因为我重复实验室使用了不一样的参数进行优化得到的结果获得, 具体是什么问题还得完全复现原实验后再分析.</p>
+<p><strong>问题1:</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* 已经训练好的Encoder在训练Loss没有使用正则化的情况下,(以一次运行为例) 输出的潜变量的均值约为$0.005$, 而其标准差约为$0.08$, 这一结果说明潜变量的分布非常集中(在图像上表现为在$0.005$附近细高的峰), 不知道在一般的AutoEncoder模型中, 这种分布是否属于正常现象, 待进一步确认.
+</pre></div>
+</div>
+<p><strong>问题2:</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* PSO方法种群大小为$40$, 最大优化代数为$100$, (以一次运行为例)优化开始时的Loss值为$0.043$, 在优化完成后该值为$0.039$, 相比随机的初始化值只优化了不到10%. 这可能是下面原因导致:
+
+    1. 该问题的优化难度非常大, 以致该参数设置下的PSO无法胜任
+    2. Encoder本身对原数据的表征不充分.
+
+* 具体属于什么原因, 还有待下一步研究.
+</pre></div>
+</div>
+<p><strong>问题3:</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* 结合上面两点, PSO的MSE损失函数代表的意义是每个元素差异的平均值, 在潜变量输出方差为$0.08$的前提下, 其优化后的损失值为$0.039$, 从直观上来说, 就是合成数据与待校准数据潜变量之间的差值达到了其绝对值的$50\%$, 这很难说PSO已经做了很好的优化了.
+</pre></div>
+</div>
 </div>
 </section>
 </section>
