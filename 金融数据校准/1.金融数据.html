@@ -184,6 +184,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="0.%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98.html">SimLOB中存在的问题</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">SimLOB</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
@@ -405,9 +406,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SimLOB</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-representations-of-limited-order-book-for-financial-market-simulation">Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">限价订单簿 LOB</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#newlob">NewLOB</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">对LOB数据理解</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">NewLOB数据结构</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -426,6 +436,27 @@ document.write(`
 </section>
 <section id="lob">
 <h2>限价订单簿 LOB<a class="headerlink" href="#lob" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section id="newlob">
+<h1>NewLOB<a class="headerlink" href="#newlob" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>对LOB数据理解<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>在SimLOB中, 作者使用MSE作为目标函数训练模型和校准数据, 即认为LOB中的所有数据具有同样的重要性.</p>
+<p>然而, 事实上LOB中的数据的重要性显然有很大的区别.
+1. 金融预测相关工作中, 预测金融数据的价格走向( 如, 中间价 ) 占据多数, 可见在LOB中, 一档买卖价量是最重要的特征, 其他档位买卖价量重要性依次递减, 也正因为如此, 所有证券交易市场中必定会提供一档买卖价量供投资者参考,而更多档位的价量则是选择性地提供(可能需要额外的费用或权限).
+2. 与强化学习中的回报函数类似, 时间越久远的LOB的价值越低, 对于预测金融曲线走向的作用越小, 因此, 在校准过程中单纯的将所有时间步上的LOB数据做MSE也不符合时序数据的这种特征.</p>
+<p>综上, 把所有特征一视同仁, 简单地使用MSE作为训练目标显然不是金融背景下地最优选择.</p>
+<div class="tip admonition">
+<p class="admonition-title">实验:</p>
+<ol class="arabic simple">
+<li><p>为不同特征值人工设置权重参数, 希望训练得到的模型可以抓住数据的主要特征(如一档买卖价量数据)</p></li>
+<li><p>为不同时间步上的特征添加折扣参数, 让模型倾向于对齐最近的数据, 而放松对历史数据的约束.</p></li>
+</ol>
+</div>
+</section>
+<section id="id3">
+<h2>NewLOB数据结构<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -493,9 +524,18 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SimLOB</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-representations-of-limited-order-book-for-financial-market-simulation">Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">限价订单簿 LOB</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#newlob">NewLOB</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">对LOB数据理解</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">NewLOB数据结构</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
