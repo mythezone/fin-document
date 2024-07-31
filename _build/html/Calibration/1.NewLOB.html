@@ -57,6 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Calibration/1.NewLOB';</script>
     <link rel="icon" href="../_static/logo.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -186,6 +187,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
@@ -520,17 +522,14 @@ $$
 </ol>
 <p>可见, 下游任务多数涉及到更高维度的LOB信息, 在这些任务中, 关注的并非是单个LOB, 而是LOB流 (即添加了时间维度). 因此, 需要设计一个方法, 以判断两个LOB流是否相似.
 一个简单的想法是改进上面针对单个LOB的Loss, 添加一个对时间步的平均.即:</p>
-<p>$$
-MoneyLosses = \frac{1}{20T}\sum_{t=1}^{T}\sqrt{\lambda(t)\cdot\sum_{i=1}^{|orders|}[orders_i^t(price)\times orders_i^t(volume)]^2}
-$$</p>
+<div class="math notranslate nohighlight" id="equation-moneylosses">
+<span class="eqno">(2)<a class="headerlink" href="#equation-moneylosses" title="Link to this equation">#</a></span>\[MoneyLosses = \frac{1}{20T}\sum_{t=1}^{T}\sqrt{\lambda(t)\cdot\sum_{i=1}^{|orders|}[orders_i^t(price)\times orders_i^t(volume)]^2} \]</div>
 <p>和</p>
-<p>$$
-PriceLosses = \frac{1}{T}\sum_{t=1}^{T}\lambda(t)\cdot MSE(LOB_1^t.prices, LOB_2^t.prices)
-$$</p>
+<div class="math notranslate nohighlight" id="equation-price-losses">
+<span class="eqno">(3)<a class="headerlink" href="#equation-price-losses" title="Link to this equation">#</a></span>\[PriceLosses = \frac{1}{T}\sum_{t=1}^{T}\lambda(t)\cdot MSE(LOB_1^t.prices, LOB_2^t.prices)\]</div>
 <p>对于LOB流的Losses计算则变为:</p>
-<p>$$
-Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses
-$$</p>
+<div class="math notranslate nohighlight" id="equation-losses">
+<span class="eqno">(4)<a class="headerlink" href="#equation-losses" title="Link to this equation">#</a></span>\[Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses\]</div>
 <p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为<code class="docutils literal notranslate"><span class="pre">0.99</span></code>的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 所以该函数退化为值为1的常数函数.</p>
 <section id="id4">
 <h3>校准任务<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
