@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>数据准备 &#8212; Financial Simulation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Calibration/3.数据准备';</script>
+    <link rel="icon" href="../_static/logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="训练SimLOB模型" href="4.SimLOB.html" />
+    <link rel="prev" title="项目介绍" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.jpg" class="logo__image only-light" alt="Financial Simulation - Home"/>
+    <script>document.write(`<img src="../_static/logo.jpg" class="logo__image only-dark" alt="Financial Simulation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Financial Simulation
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="0.Problems.html">SimLOB中存在的问题</a></li>
+<li class="toctree-l1"><a class="reference internal" href="1.NewLOB.html">NewLOB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">数据准备</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../%E6%AD%A3%E5%88%99%E5%8C%96%E6%B5%81%E6%96%B9%E6%B3%95/1.%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html">LOB数据转图片方法</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">批量生成仿真数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../wiki/2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html">模拟器</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">参考文献</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../bib/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">参考文献</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/mythezone/fin-document" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/mythezone/fin-document/issues/new?title=Issue%20on%20page%20%2FCalibration/3.数据准备.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Calibration/3.数据准备.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>数据准备</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xml">XML配置文件</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="id1">
+<h1>数据准备<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>金融数据（限价订单簿）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>关于LOB的详细说明可以参考<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#lob-define"><span class="std std-ref">LOB (Limit Order Book)</span></a>.</p>
+<section id="id3">
+<h3>金融数据格式说明<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>该金融数据集记录了特定时间点的市场交易信息，并以 CSV 格式存储。每行代表一个时间点的数据快照，包含买卖报价、交易量等重要信息。CSV 文件的列格式如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">time</span><span class="p">,</span>
+<span class="n">bestAskPrice1</span><span class="p">,</span><span class="n">bestBidPrice1</span><span class="p">,</span><span class="n">AskVolume1</span><span class="p">,</span><span class="n">BidVolume1</span><span class="p">,</span>
+<span class="n">AskPrice2</span><span class="p">,</span><span class="n">BidPrice2</span><span class="p">,</span><span class="n">AskVolume2</span><span class="p">,</span><span class="n">BidVolume2</span><span class="p">,</span>
+<span class="n">AskPrice3</span><span class="p">,</span><span class="n">BidPrice3</span><span class="p">,</span><span class="n">AskVolume3</span><span class="p">,</span><span class="n">BidVolume3</span><span class="p">,</span>
+<span class="n">AskPrice4</span><span class="p">,</span><span class="n">BidPrice4</span><span class="p">,</span><span class="n">AskVolume4</span><span class="p">,</span><span class="n">BidVolume4</span><span class="p">,</span>
+<span class="n">AskPrice5</span><span class="p">,</span><span class="n">BidPrice5</span><span class="p">,</span><span class="n">AskVolume5</span><span class="p">,</span><span class="n">BidVolume5</span><span class="p">,</span>
+<span class="n">AskPrice6</span><span class="p">,</span><span class="n">BidPrice6</span><span class="p">,</span><span class="n">AskVolume6</span><span class="p">,</span><span class="n">BidVolume6</span><span class="p">,</span>
+<span class="n">AskPrice7</span><span class="p">,</span><span class="n">BidPrice7</span><span class="p">,</span><span class="n">AskVolume7</span><span class="p">,</span><span class="n">BidVolume7</span><span class="p">,</span>
+<span class="n">AskPrice8</span><span class="p">,</span><span class="n">BidPrice8</span><span class="p">,</span><span class="n">AskVolume8</span><span class="p">,</span><span class="n">BidVolume8</span><span class="p">,</span>
+<span class="n">AskPrice9</span><span class="p">,</span><span class="n">BidPrice9</span><span class="p">,</span><span class="n">AskVolume9</span><span class="p">,</span><span class="n">BidVolume9</span><span class="p">,</span>
+<span class="n">AskPrice10</span><span class="p">,</span><span class="n">BidPrice10</span><span class="p">,</span><span class="n">AskVolume10</span><span class="p">,</span><span class="n">BidVolume10</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<section id="id4">
+<h4>列说明<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>time</strong>：记录数据的时间点，格式为 “YYYY-MM-DD HH:MM:SS”。</p></li>
+<li><p><strong>bestAskPrice1</strong>：最佳卖价1，即当前市场中最低的卖出价格。</p></li>
+<li><p><strong>bestBidPrice1</strong>：最佳买价1，即当前市场中最高的买入价格。</p></li>
+<li><p><strong>AskVolume1</strong>：最佳卖价1对应的卖出量。</p></li>
+<li><p><strong>BidVolume1</strong>：最佳买价1对应的买入量。</p></li>
+<li><p><strong>AskPrice2, BidPrice2, AskVolume2, BidVolume2</strong>：次最佳买卖价及对应的交易量，以此类推，最多记录到第10档买卖价及其对应的交易量。</p></li>
+</ul>
+</section>
+<section id="id5">
+<h4>数据示例<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">,</span><span class="mf">1244.0</span><span class="p">,</span><span class="mf">1243.0</span><span class="p">,</span><span class="mf">765.0</span><span class="p">,</span><span class="mf">846.0</span><span class="p">,</span><span class="mf">1245.0</span><span class="p">,</span><span class="mf">1242.0</span><span class="p">,</span><span class="mf">1645.0</span><span class="p">,</span><span class="mf">288.0</span><span class="p">,</span><span class="mf">1246.0</span><span class="p">,</span><span class="mf">1241.0</span><span class="p">,</span><span class="mf">2410.0</span><span class="p">,</span><span class="mf">1259.0</span><span class="p">,</span><span class="mf">1247.0</span><span class="p">,</span><span class="mf">1240.0</span><span class="p">,</span><span class="mf">2646.0</span><span class="p">,</span><span class="mf">4509.0</span><span class="p">,</span><span class="mf">1248.0</span><span class="p">,</span><span class="mf">1239.0</span><span class="p">,</span><span class="mf">3595.0</span><span class="p">,</span><span class="mf">773.0</span><span class="p">,</span><span class="mf">1249.0</span><span class="p">,</span><span class="mf">1238.0</span><span class="p">,</span><span class="mf">4935.0</span><span class="p">,</span><span class="mf">923.0</span><span class="p">,</span><span class="mf">1250.0</span><span class="p">,</span><span class="mf">1237.0</span><span class="p">,</span><span class="mf">5560.0</span><span class="p">,</span><span class="mf">1566.0</span><span class="p">,</span><span class="mf">1251.0</span><span class="p">,</span><span class="mf">1236.0</span><span class="p">,</span><span class="mf">1030.0</span><span class="p">,</span><span class="mf">932.0</span><span class="p">,</span><span class="mf">1252.0</span><span class="p">,</span><span class="mf">1235.0</span><span class="p">,</span><span class="mf">1728.0</span><span class="p">,</span><span class="mf">908.0</span><span class="p">,</span><span class="mf">1253.0</span><span class="p">,</span><span class="mf">1234.0</span><span class="p">,</span><span class="mf">3580.0</span><span class="p">,</span><span class="mf">160.0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">14</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">03</span><span class="p">,</span><span class="mf">1244.0</span><span class="p">,</span><span class="mf">1243.0</span><span class="p">,</span><span class="mf">694.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1245.0</span><span class="p">,</span><span class="mf">1242.0</span><span class="p">,</span><span class="mf">1655.0</span><span class="p">,</span><span class="mf">303.0</span><span class="p">,</span><span class="mf">1246.0</span><span class="p">,</span><span class="mf">1241.0</span><span class="p">,</span><span class="mf">2410.0</span><span class="p">,</span><span class="mf">1359.0</span><span class="p">,</span><span class="mf">1247.0</span><span class="p">,</span><span class="mf">1240.0</span><span class="p">,</span><span class="mf">2646.0</span><span class="p">,</span><span class="mf">4509.0</span><span class="p">,</span><span class="mf">1248.0</span><span class="p">,</span><span class="mf">1239.0</span><span class="p">,</span><span class="mf">3595.0</span><span class="p">,</span><span class="mf">773.0</span><span class="p">,</span><span class="mf">1249.0</span><span class="p">,</span><span class="mf">1238.0</span><span class="p">,</span><span class="mf">4935.0</span><span class="p">,</span><span class="mf">923.0</span><span class="p">,</span><span class="mf">1250.0</span><span class="p">,</span><span class="mf">1237.0</span><span class="p">,</span><span class="mf">5543.0</span><span class="p">,</span><span class="mf">1566.0</span><span class="p">,</span><span class="mf">1251.0</span><span class="p">,</span><span class="mf">1236.0</span><span class="p">,</span><span class="mf">1030.0</span><span class="p">,</span><span class="mf">932.0</span><span class="p">,</span><span class="mf">1252.0</span><span class="p">,</span><span class="mf">1235.0</span><span class="p">,</span><span class="mf">1728.0</span><span class="p">,</span><span class="mf">898.0</span><span class="p">,</span><span class="mf">1253.0</span><span class="p">,</span><span class="mf">1234.0</span><span class="p">,</span><span class="mf">3588.0</span><span class="p">,</span><span class="mf">160.0</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>每行数据从时间戳开始，紧接着是十档买卖价和对应的交易量。</p></li>
+<li><p>买卖价数据以 “AskPriceN” 和 “BidPriceN” 命名，交易量数据以 “AskVolumeN” 和 “BidVolumeN” 命名，其中 N 代表第 N 档价格和交易量。</p></li>
+<li><p>此数据格式适用于金融市场分析和交易策略研究，可以帮助分析买卖盘的变化及市场深度。</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="id6">
+<h3>仿真数据<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>金融数据通过maxe编译的TheSimulator<a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html#thesimulator"><span class="std std-ref">Build TheSimulator</span></a>产生，本实验使用的是PGPS模型<span id="id7">[<a class="reference internal" href="../bib/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html#id3" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
+<p>其中可以控制的参数如下：</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Para.</p></th>
+<th class="head"><p>Range</p></th>
+<th class="head"><p>Remarks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>λ0</p></td>
+<td><p>[1, 200]</p></td>
+<td><p>Controlling the price of each limited order.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cλ</p></td>
+<td><p>[1, 20]</p></td>
+<td><p>Controlling the price of each limited order.</p></td>
+</tr>
+<tr class="row-even"><td><p>∆S</p></td>
+<td><p>[0.0005, 0.003]</p></td>
+<td><p>Controlling the probability of the side of a market order (ask or bid).</p></td>
+</tr>
+<tr class="row-odd"><td><p>α</p></td>
+<td><p>[0.05, 0.45]</p></td>
+<td><p>The probability for each liquidity provider to submit a limited order.</p></td>
+</tr>
+<tr class="row-even"><td><p>μ</p></td>
+<td><p>[0.005, 0.085]</p></td>
+<td><p>The probability for each liquidity taker to submit a market order.</p></td>
+</tr>
+<tr class="row-odd"><td><p>δ</p></td>
+<td><p>[0.005, 0.05]</p></td>
+<td><p>The probability for each liquidity taker to cancel an untraded order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="xml">
+<span id="xml-file"></span><h4>XML配置文件<a class="headerlink" href="#xml" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">TestExample_LL.xml</span></code>文件内容如下，你可以在里面找到表格中对应的参数，通过修改这些值，并使用<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>运行该配置文件，就能获得对应参数下的一次运行结果，输出文件格式为csv格式，记录了10档买卖价量和交易时间，共41列，生成数据的行数可以通过配置文件中的duration参数指定。</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Simulation</span><span class="w"> </span><span class="na">start=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">duration=</span><span class="s">&quot;3600&quot;</span><span class="w"> </span><span class="na">lambda_init=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">increment=</span><span class="s">&quot;0.001&quot;</span><span class="w"> </span><span class="na">c_lambda=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;ExchangeAgent</span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;EXCHANGE&quot;</span>
+<span class="w">        </span><span class="na">algorithm=</span><span class="s">&quot;PriceTime&quot;</span>
+<span class="w">        </span><span class="na">tradeoutputFile=</span><span class="s">&quot;trade/trade_test.csv&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;SetupAgent</span><span class="w">         </span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;Setup_Agent_1&quot;</span><span class="w">      </span>
+<span class="w">        </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span><span class="w">               </span>
+
+<span class="w">        </span><span class="na">setupTime=</span><span class="s">&quot;0.000001&quot;</span>
+<span class="w">        </span><span class="na">bidVolume=</span><span class="s">&quot;10&quot;</span>
+<span class="w">        </span><span class="na">askVolume=</span><span class="s">&quot;10&quot;</span>
+<span class="w">        </span><span class="na">bidPrice=</span><span class="s">&quot;7514.9&quot;</span>
+<span class="w">        </span><span class="na">askPrice=</span><span class="s">&quot;7516.1&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Generator</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LiquidityProvider</span>
+<span class="w">            </span><span class="na">name=</span><span class="s">&quot;Liquidity_Provider&quot;</span>
+<span class="w">            </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+
+<span class="w">            </span><span class="na">delta=</span><span class="s">&quot;0.025&quot;</span>
+<span class="w">            </span><span class="na">frequency=</span><span class="s">&quot;0.15&quot;</span>
+<span class="w">        </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Generator&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Generator</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LiquidityTaker</span>
+<span class="w">            </span><span class="na">name=</span><span class="s">&quot;Liquidity_Taker&quot;</span>
+<span class="w">            </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+
+<span class="w">            </span><span class="na">frequency=</span><span class="s">&quot;0.025&quot;</span>
+<span class="w">        </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Generator&gt;</span>
+
+
+<span class="w">    </span><span class="nt">&lt;L1LogAgent</span>
+<span class="w">        </span><span class="na">name=</span><span class="s">&quot;L1_LOGGER&quot;</span>
+<span class="w">        </span><span class="na">exchange=</span><span class="s">&quot;EXCHANGE&quot;</span>
+<span class="w">        </span><span class="na">outputFile=</span><span class="s">&quot;log/3600_25_2.csv&quot;</span>
+<span class="w">    </span><span class="nt">/&gt;</span>
+<span class="w">    </span>
+<span class="nt">&lt;/Simulation&gt;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">outputFile</span></code> 指定的路径必须已经存在，否则保存文件会失败。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">duration</span></code> 的行数计算包含输出文件的标题，因此如果需要输出3600行数据，该值需要设置为3601。</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>可以通过项目代码中的<code class="docutils literal notranslate"><span class="pre">update_xml</span></code>方法方便的更新该配置文件中的参数。</p>
+</div>
+</section>
+</section>
+<section id="id8">
+<h3>训练数据准备<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h4>批量生成仿真数据<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<p>用于生成仿真数据的参数数据记录在<code class="docutils literal notranslate"><span class="pre">data/meta/coef_table.csv</span></code>表中。数据格式如下所示（共1000行数据，记录了不同的参数组合）：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">id</span><span class="p">,</span><span class="n">lambda_init</span><span class="p">,</span><span class="n">clambda</span><span class="p">,</span><span class="n">frequency1</span><span class="p">,</span><span class="n">frequency2</span><span class="p">,</span><span class="n">increment</span><span class="p">,</span><span class="n">delta</span>
+<span class="mi">0</span><span class="p">,</span><span class="mf">193.32</span><span class="p">,</span><span class="mf">3.47</span><span class="p">,</span><span class="mf">0.2962</span><span class="p">,</span><span class="mf">0.01853</span><span class="p">,</span><span class="mf">0.0015</span><span class="p">,</span><span class="mf">0.02909</span>
+<span class="mi">1</span><span class="p">,</span><span class="mf">88.71</span><span class="p">,</span><span class="mf">11.8</span><span class="p">,</span><span class="mf">0.3091</span><span class="p">,</span><span class="mf">0.0199</span><span class="p">,</span><span class="mf">0.00293</span><span class="p">,</span><span class="mf">0.04749</span>
+<span class="mi">2</span><span class="p">,</span><span class="mf">77.49</span><span class="p">,</span><span class="mf">7.62</span><span class="p">,</span><span class="mf">0.7369</span><span class="p">,</span><span class="mf">0.05814</span><span class="p">,</span><span class="mf">0.00084</span><span class="p">,</span><span class="mf">0.00559</span>
+<span class="mi">3</span><span class="p">,</span><span class="mf">182.28</span><span class="p">,</span><span class="mf">6.99</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">0.05814</span><span class="p">,</span><span class="mf">0.00084</span><span class="p">,</span><span class="mf">0.00559</span>
+<span class="mi">4</span><span class="p">,</span><span class="mf">187.91</span><span class="p">,</span><span class="mf">9.54</span><span class="p">,</span><span class="mf">0.4411</span><span class="p">,</span><span class="mf">0.08443</span><span class="p">,</span><span class="mf">0.0015</span><span class="p">,</span><span class="mf">0.029</span>
+<span class="mi">5</span><span class="p">,</span><span class="mf">116.86</span><span class="p">,</span><span class="mf">5.52</span><span class="p">,</span><span class="mf">0.0666</span><span class="p">,</span><span class="mf">0.04586</span><span class="p">,</span><span class="mf">0.00244</span><span class="p">,</span><span class="mf">0.01018</span>
+<span class="mi">6</span><span class="p">,</span><span class="mf">134.64</span><span class="p">,</span><span class="mf">15.45</span><span class="p">,</span><span class="mf">0.3275</span><span class="p">,</span><span class="mf">0.07116</span><span class="p">,</span><span class="mf">0.00199</span><span class="p">,</span><span class="mf">0.03238</span>
+<span class="mi">7</span><span class="p">,</span><span class="mf">17.7</span><span class="p">,</span><span class="mf">11.36</span><span class="p">,</span><span class="mf">0.2639</span><span class="p">,</span><span class="mf">0.06703</span><span class="p">,</span><span class="mf">0.00066</span><span class="p">,</span><span class="mf">0.03644</span>
+<span class="mi">8</span><span class="p">,</span><span class="mf">153.53</span><span class="p">,</span><span class="mf">9.27</span><span class="p">,</span><span class="mf">0.2983</span><span class="p">,</span><span class="mf">0.07343</span><span class="p">,</span><span class="mf">0.00238</span><span class="p">,</span><span class="mf">0.01278</span>
+<span class="mi">9</span><span class="p">,</span><span class="mf">48.13</span><span class="p">,</span><span class="mf">3.54</span><span class="p">,</span><span class="mf">0.4374</span><span class="p">,</span><span class="mf">0.02645</span><span class="p">,</span><span class="mf">0.00077</span><span class="p">,</span><span class="mf">0.01674</span>
+<span class="mi">10</span><span class="p">,</span><span class="mf">7.13</span><span class="p">,</span><span class="mf">7.04</span><span class="p">,</span><span class="mf">0.1106</span><span class="p">,</span><span class="mf">0.05609</span><span class="p">,</span><span class="mf">0.00217</span><span class="p">,</span><span class="mf">0.01389</span>
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h4><a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Calibration"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">项目介绍</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4.SimLOB.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">训练SimLOB模型</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">数据示例</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">仿真数据</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#xml">XML配置文件</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mythezone
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
