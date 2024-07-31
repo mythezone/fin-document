@@ -8,10 +8,10 @@ parts:
     chapters:
     - file: Calibration/0.Problems
     - file: Calibration/1.NewLOB
-    - file: Calibration/2.环境准备
-    - file: Calibration/3.数据准备
+    - file: Calibration/2.EnvPrepare
+    - file: Calibration/3.DataPrepare
     - file: Calibration/4.NewLOB
-    - file: Calibration/5.对比算法模型可视化
+    - file: Calibration/5.Visualization
   - caption: 正则化流
     chapters:
     - file: 正则化流方法/1.数据处理
