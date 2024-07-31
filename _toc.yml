@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: README
 parts:
   - caption: 金融数据校准
     chapters:
@@ -29,4 +29,4 @@ parts:
     - file: wiki/2.计算机术语
   - caption: 参考文献
     chapters:
-    - file: bib/参考文献
+    - file: bib/reference

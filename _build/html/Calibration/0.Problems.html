@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="NewLOB" href="1.NewLOB.html" />
-    <link rel="prev" title="Financial Simulation" href="../intro.html" />
+    <link rel="prev" title="Financial Simulation" href="../README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -144,7 +144,7 @@
     
   
 
-<a class="navbar-brand logo" href="../intro.html">
+<a class="navbar-brand logo" href="../README.html">
   
   
   
@@ -176,7 +176,7 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../intro.html">
+                <a class="reference internal" href="../README.html">
                     Financial Simulation
                 </a>
             </li>
@@ -185,10 +185,10 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">SimLOB中存在的问题</a></li>
 <li class="toctree-l1"><a class="reference internal" href="1.NewLOB.html">NewLOB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.EnvPrepare.html">项目介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.DataPrepare.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
 <ul class="nav bd-sidenav">
@@ -200,6 +200,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">相关研究</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../others/sbi.html">基于模拟的推理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others/vol_pred.html">价量预测</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
@@ -210,7 +215,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">参考文献</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../bib/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">参考文献</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bib/reference.html">参考文献</a></li>
 </ul>
 
     </div>
@@ -456,7 +461,7 @@ document.write(`
   <section id="simlob">
 <h1>SimLOB中存在的问题<a class="headerlink" href="#simlob" title="Link to this heading">#</a></h1>
 <p>Learning Representations of Limited Order Book for Financial Market Simulation</p>
-<p>文章可以参考<span id="id1">[<a class="reference internal" href="../bib/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html#id4" title="Yuanzhe Li, Yue Wu, and Peng Yang. Simlob: learning representations of limited order book for financial market simulation. arXiv preprint arXiv:2406.19396, 2024.">Li <em>et al.</em>, 2024</a>]</span>.</p>
+<p>文章可以参考<span id="id1">[<a class="reference internal" href="../bib/reference.html#id4" title="Yuanzhe Li, Yue Wu, and Peng Yang. Simlob: learning representations of limited order book for financial market simulation. arXiv preprint arXiv:2406.19396, 2024.">Li <em>et al.</em>, 2024</a>]</span>.</p>
 <section id="lob">
 <h2>限价订单簿 LOB<a class="headerlink" href="#lob" title="Link to this heading">#</a></h2>
 </section>
@@ -466,7 +471,7 @@ document.write(`
 <h3>1.1 数据生成中存在的问题<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <section id="abm">
 <h4>1.1.1 生成ABM模型参数<a class="headerlink" href="#abm" title="Link to this heading">#</a></h4>
-<p>在Maxe的<a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html#xml-file"><span class="std std-ref">XML 配置文件</span></a>中，除了<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#pgps"><span class="std std-ref">PGPS模型</span></a>所需的6个参数之外，
+<p>在Maxe的<a class="reference internal" href="3.DataPrepare.html#xml-file"><span class="std std-ref">XML 配置文件</span></a>中，除了<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#pgps"><span class="std std-ref">PGPS模型</span></a>所需的6个参数之外，
 还有一些（理应）可以影响模型数据生成的参数需要随机产生，以增强训练得到的神经网络的Generalization。</p>
 <p>例如：</p>
 <ul class="simple">
@@ -621,7 +626,7 @@ document.write(`
 <h4>1.4.1 模拟的效率<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
 <p>在使用Maxe编译得到的<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>仿真器生成数据时, 有两个重要步骤:</p>
 <ol class="arabic simple">
-<li><p>产生<a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html#xml-file"><span class="std std-ref">XML 配置文件</span></a>.</p></li>
+<li><p>产生<a class="reference internal" href="3.DataPrepare.html#xml-file"><span class="std std-ref">XML 配置文件</span></a>.</p></li>
 <li><p>通过<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>读取该文件, 进行模拟后将输出保存在<code class="docutils literal notranslate"><span class="pre">.csv</span></code>文件中.</p></li>
 </ol>
 <p>这两个步骤都需要对磁盘进行读写, 在大量生成数据时会产生两个问题:</p>
@@ -664,8 +669,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4009847c-6f37-40dd-bf2b-9f1aef6939b8">
-<span class="eqno">(1)<a class="headerlink" href="#equation-4009847c-6f37-40dd-bf2b-9f1aef6939b8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-49a050e6-839d-48d1-a1a8-720c9ef2b832">
+<span class="eqno">(1)<a class="headerlink" href="#equation-49a050e6-839d-48d1-a1a8-720c9ef2b832" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -773,7 +778,7 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../intro.html"
+       href="../README.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
