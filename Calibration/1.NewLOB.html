@@ -506,7 +506,8 @@ document.write(`
 <p>基于上面这个Loss, 会要求模型重构的LOB与真实LOB之间的金额差尽量接近, 如果价位相同且量相同的话, 这一项会被消除(Loss为0), 模型会倾向于输出与原LOB一致的LOB.</p>
 <p>为了模型可以加速收敛, 我们可以考虑添加第二项Loss, 要求两个LOB的十档买卖价格对齐. 这一项就是LOB中价格的MSE, 可以被称为价格Loss.</p>
 <div class="math notranslate nohighlight" id="equation-price-loss">
-<span class="eqno">(3)<a class="headerlink" href="#equation-price-loss" title="Link to this equation">#</a></span>\[PriceLoss = MSE(LOB_1.prices, LOB_2.prices)\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-price-loss" title="Link to this equation">#</a></span>\[PriceLoss = \frac{1}{20}\sum_{i=1}^{20}\sigma(i)\sqrt{[LOB_1(prices_i)-LOB_2(prices_i)]^2}\]</div>
+<p>其中, $\sigma(i)$ 是关于买卖价格档位的加权系数. 对于校准任务, 该系数恒为 $1.0$, 对于预测任务, 该权重在$i=10$ 和$i=11$处为 $1.0$, 其他位置递减, 如$\sigma(i)=0.9^{|i-10.5|-0.5}$ .</p>
 <p>总Loss如下:</p>
 <div class="math notranslate nohighlight" id="equation-loss">
 <span class="eqno">(4)<a class="headerlink" href="#equation-loss" title="Link to this equation">#</a></span>\[Loss = \alpha\cdot MoneyLoss + (1-\alpha)\cdot PriceLoss\]</div>
@@ -528,11 +529,11 @@ document.write(`
 <span class="eqno">(5)<a class="headerlink" href="#equation-money-losses" title="Link to this equation">#</a></span>\[MoneyLosses = \frac{1}{20T}\sum_{t=1}^{T}\sqrt{\lambda(t)\cdot\sum_{i=1}^{|orders|}[orders_i^t(price)\times orders_i^t(volume)]^2} \]</div>
 <p>和</p>
 <div class="math notranslate nohighlight" id="equation-price-losses">
-<span class="eqno">(6)<a class="headerlink" href="#equation-price-losses" title="Link to this equation">#</a></span>\[PriceLosses = \frac{1}{T}\sum_{t=1}^{T}\lambda(t)\cdot MSE(LOB_1^t.prices, LOB_2^t.prices)\]</div>
+<span class="eqno">(6)<a class="headerlink" href="#equation-price-losses" title="Link to this equation">#</a></span>\[PriceLosses = \frac{1}{20T}\sum_{t=1}^{T}\lambda(t)\cdot \sum_{i=1}^{20}\sigma(i)\sqrt{[LOB_1(prices_i)-LOB_2(prices_i)]^2}\]</div>
 <p>对于LOB流的Losses计算则变为:</p>
 <div class="math notranslate nohighlight" id="equation-losses">
 <span class="eqno">(7)<a class="headerlink" href="#equation-losses" title="Link to this equation">#</a></span>\[Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses\]</div>
-<p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为<code class="docutils literal notranslate"><span class="pre">0.99</span></code>的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 所以该函数退化为值为1的常数函数.</p>
+<p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为$0.99$的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 该函数设置成值为1的常数函数.</p>
 <section id="id4">
 <h3>校准任务<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 </section>
