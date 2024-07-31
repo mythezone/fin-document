@@ -196,7 +196,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">批量生成仿真数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">Simulation Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
 
 </ul>
@@ -619,12 +619,11 @@ document.write(`
 <h3>1.4 其他细节<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
 <section id="id12">
 <h4>1.4.1 模拟的效率<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
-<p><strong>问题所在:</strong></p>
 <p>在使用Maxe编译得到的<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>仿真器生成数据时, 有两个重要步骤:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. 产生{ref}`XML 配置文件 &lt;XML_file&gt;`
-2. 通过`TheSimulator`读取该文件, 进行模拟后将输出保存在`.csv`文件中
-</pre></div>
-</div>
+<ol class="arabic simple">
+<li><p>产生<a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html#xml-file"><span class="std std-ref">XML 配置文件</span></a>.</p></li>
+<li><p>通过<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>读取该文件, 进行模拟后将输出保存在<code class="docutils literal notranslate"><span class="pre">.csv</span></code>文件中.</p></li>
+</ol>
 <p>这两个步骤都需要对磁盘进行读写, 在大量生成数据时会产生两个问题:</p>
 <div class="warning admonition">
 <p class="admonition-title">问题:</p>
@@ -635,7 +634,7 @@ document.write(`
 </div>
 <div class="tip admonition">
 <p class="admonition-title">解决办法:</p>
-<p>使用python提供的虚拟文件系统包:<code class="docutils literal notranslate"><span class="pre">tempFiles</span></code></p>
+<p>使用python提供的虚拟文件系统包: <code class="docutils literal notranslate"><span class="pre">tempFiles</span></code></p>
 <ul class="simple">
 <li><p>在内存中模拟文件句柄并返回给生成xml文件进程, 将xml配置写入虚拟文件, 同时在xml文件的输出配置项中写入另一个虚拟文件句柄.</p></li>
 <li><p>通过TheSimulator进行仿真, 数据会被写入上述虚拟文件中.</p></li>
@@ -665,8 +664,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb">
-<span class="eqno">(1)<a class="headerlink" href="#equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4009847c-6f37-40dd-bf2b-9f1aef6939b8">
+<span class="eqno">(1)<a class="headerlink" href="#equation-4009847c-6f37-40dd-bf2b-9f1aef6939b8" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -694,6 +693,12 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <h3>2.4 神经网络模型设计<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>SimLOB使用了多层神经网络, 如图<code class="docutils literal notranslate"><span class="pre">ref&lt;SimLOB</span> <span class="pre">Structure&gt;</span></code>所示:</p>
 <p id="simlob-structure"><img alt="SimLOB神经网络结构" src="../_images/nn-structure.png" /></p>
+<p>在SimLOB的神经网络模型设计中, 没有对神经网络结构进行详细说明, 即:</p>
+<ol class="arabic simple">
+<li><p>为什么使用了这样的网络结构?</p></li>
+<li><p>如果不使用这样的结构会对结果有什么影响? (消融实验)</p></li>
+<li><p>模型的超参数是如何确定的? (参数敏感性实验)</p></li>
+</ol>
 </section>
 <section id="id16">
 <h3>2.5 校准任务<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>

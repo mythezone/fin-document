@@ -196,7 +196,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">批量生成仿真数据</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">Simulation Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
 
 </ul>
@@ -531,7 +531,7 @@ document.write(`
 <p>对于LOB流的Losses计算则变为:</p>
 <div class="math notranslate nohighlight" id="equation-losses">
 <span class="eqno">(7)<a class="headerlink" href="#equation-losses" title="Link to this equation">#</a></span>\[Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses\]</div>
-<p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为$0.99$的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 该函数设置成值为1的常数函数.</p>
+<p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为 $0.99$ 的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 该函数是值为 $1.0$ 的常函数.</p>
 </section>
 <section id="id4">
 <h2>校准<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
