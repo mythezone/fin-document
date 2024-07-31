@@ -200,6 +200,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">相关研究</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../others/sbi.html">基于模拟的推理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others/vol_pred.html">价量预测</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
@@ -410,10 +415,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">LOB订单差</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">Loss函数设计</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">AutoEncoder模型设计</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准任务</a></li>
 </ul>
             </nav>
         </div>
@@ -511,9 +517,8 @@ document.write(`
 <span class="eqno">(4)<a class="headerlink" href="#equation-loss" title="Link to this equation">#</a></span>\[Loss = \alpha\cdot MoneyLoss + (1-\alpha)\cdot PriceLoss\]</div>
 <p>其中, $\alpha$ 是控制两部分Loss权重的系数, $\alpha$ 越小, 表示模型更注重于买卖价格的对齐, 反之则更关注订单差.</p>
 </section>
-</section>
 <section id="id3">
-<h2>下游任务<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<h3>下游任务<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>通过上述Loss训练得到的AutoEncoder可以将LOB映射为一个指定维度的隐向量, 可以用更小的维度表示LOB ( 或者说, 可以提取LOB的主要特征 ), 从而减小下游任务中的计算压力. 对于金融时序数据来说, 常见的下游任务包括:</p>
 <ol class="arabic simple">
 <li><p>预测, 即通过一段时间T的LOB数据 ( 如100个连续的LOB数据点) 预测其后一段时间t的LOB\中间价\升降趋势等.</p></li>
@@ -533,8 +538,12 @@ document.write(`
 <span class="eqno">(7)<a class="headerlink" href="#equation-losses" title="Link to this equation">#</a></span>\[Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses\]</div>
 <p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为 $0.99$ 的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 该函数是值为 $1.0$ 的常函数.</p>
 </section>
+</section>
+<section id="autoencoder">
+<h2>AutoEncoder模型设计<a class="headerlink" href="#autoencoder" title="Link to this heading">#</a></h2>
+</section>
 <section id="id4">
-<h2>校准<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<h2>校准任务<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p><strong>形式化定义:</strong></p>
 <p>在金融数据校准任务中, 给定一条时序数据 $X_{t=1}^T$ ( 可能是一元的时序数据, 也可能是多元时序数据) 和仿真模型 $M(\theta)$ ( 通常是ABM模型, 该模型由若干个参数$\theta$ 控制 ), 需要为该仿真模型寻找一组最适合的参数, 在该参数下由仿真模型产生的金融时序数据 $\mathbf{M}(\theta)_{t=\tau+1}^{\tau+T}$, 在某种指定的评估标准 $Distance(A,B)$ 下最接近. 即:</p>
 <div class="math notranslate nohighlight" id="equation-calib-def">
@@ -557,7 +566,7 @@ document.write(`
 </div>
 <div class="math notranslate nohighlight" id="equation-dist-iter">
 <span class="eqno">(9)<a class="headerlink" href="#equation-dist-iter" title="Link to this equation">#</a></span>\[dist_{t+1} = dist_{t} + Loss(LOB^{(1)}_{t+1},LOB^{(2)}_{t+1}) - Loss(LOB^{(1)}_{t+1-T},LOB^{(2)}_{t+1-T})\]</div>
-<p>时间复杂度为 $\mathbf{O}(N) $, $N$为仿真模型的最大仿真步数.</p>
+<p>时间复杂度为 $\mathbf{O}(T_{max})$.</p>
 </section>
 </section>
 
@@ -629,10 +638,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">LOB订单差</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">Loss函数设计</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">AutoEncoder模型设计</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准任务</a></li>
 </ul>
   </nav></div>
 
