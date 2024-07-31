@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SimLOB &#8212; Financial Simulation</title>
+    <title>NewLOB &#8212; Financial Simulation</title>
   
   
   
@@ -183,8 +183,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">金融数据校准</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="0.%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98.html">SimLOB中存在的问题</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SimLOB</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
@@ -396,7 +395,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SimLOB</h1>
+    <h1>NewLOB</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -406,18 +405,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SimLOB</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-representations-of-limited-order-book-for-financial-market-simulation">Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">限价订单簿 LOB</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">对LOB数据理解</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">NewLOB数据结构</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#newlob">NewLOB</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">对LOB数据理解</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">NewLOB数据结构</a></li>
-</ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -428,20 +418,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="simlob">
-<h1>SimLOB<a class="headerlink" href="#simlob" title="Link to this heading">#</a></h1>
-<section id="learning-representations-of-limited-order-book-for-financial-market-simulation">
-<h2>Learning Representations of Limited Order Book for Financial Market Simulation<a class="headerlink" href="#learning-representations-of-limited-order-book-for-financial-market-simulation" title="Link to this heading">#</a></h2>
-<p>文章可以参考<span id="id1">[<a class="reference internal" href="../bib/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html#id4" title="Yuanzhe Li, Yue Wu, and Peng Yang. Simlob: learning representations of limited order book for financial market simulation. arXiv preprint arXiv:2406.19396, 2024.">Li <em>et al.</em>, 2024</a>]</span>.</p>
-</section>
-<section id="lob">
-<h2>限价订单簿 LOB<a class="headerlink" href="#lob" title="Link to this heading">#</a></h2>
-</section>
-</section>
-<section id="newlob">
+  <section id="newlob">
 <h1>NewLOB<a class="headerlink" href="#newlob" title="Link to this heading">#</a></h1>
-<section id="id2">
-<h2>对LOB数据理解<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="lob">
+<h2>对LOB数据理解<a class="headerlink" href="#lob" title="Link to this heading">#</a></h2>
 <p>在SimLOB中, 作者使用MSE作为目标函数训练模型和校准数据, 即认为LOB中的所有数据具有同样的重要性.</p>
 <p>然而, 事实上LOB中的数据的重要性显然有很大的区别.
 1. 金融预测相关工作中, 预测金融数据的价格走向( 如, 中间价 ) 占据多数, 可见在LOB中, 一档买卖价量是最重要的特征, 其他档位买卖价量重要性依次递减, 也正因为如此, 所有证券交易市场中必定会提供一档买卖价量供投资者参考,而更多档位的价量则是选择性地提供(可能需要额外的费用或权限).
@@ -455,8 +435,8 @@ document.write(`
 </ol>
 </div>
 </section>
-<section id="id3">
-<h2>NewLOB数据结构<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h2>NewLOB数据结构<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>如前所述, 简单地使用MSE判断两个LOB之间的差异是不充分的, 甚至可能是错误的. 理由如下:</p>
 <ol class="arabic simple">
 <li><p>LOB中的量实际上是价的一个属性, 在MSE中, 只是衡量了相同档位 (而不是相同价格下) 的量的差异, 这个减法在现实中是没有意义的.</p></li>
@@ -539,18 +519,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SimLOB</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-representations-of-limited-order-book-for-financial-market-simulation">Learning Representations of Limited Order Book for Financial Market Simulation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">限价订单簿 LOB</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">对LOB数据理解</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">NewLOB数据结构</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#newlob">NewLOB</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">对LOB数据理解</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">NewLOB数据结构</a></li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
