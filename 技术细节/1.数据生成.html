@@ -417,7 +417,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#database">Database</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-of-the-document-in-the-collection">Sample of the document in the Collection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machanism">Machanism</a></li>
 </ul>
 </li>
@@ -481,32 +480,6 @@ document.write(`
 </section>
 <section id="database">
 <h2>Database<a class="headerlink" href="#database" title="Link to this heading">#</a></h2>
-<section id="sample-of-the-document-in-the-collection">
-<h3>Sample of the document in the Collection<a class="headerlink" href="#sample-of-the-document-in-the-collection" title="Link to this heading">#</a></h3>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;423a53c2dd02062bc53de05a449674b6&quot;</span><span class="p">,</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="err">Hashed</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="p">,</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">same</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="kc">na</span><span class="err">me.</span>
-<span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">                                   </span><span class="err">#</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">order</span>
-<span class="w">    </span><span class="mf">193.32</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">lambda_i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span>
-<span class="w">    </span><span class="mf">3.47</span><span class="p">,</span><span class="w">                                       </span><span class="err">#</span><span class="w"> </span><span class="err">clambda</span>
-<span class="w">    </span><span class="mf">0.2962</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="kc">fre</span><span class="err">que</span><span class="kc">n</span><span class="err">cy</span><span class="mi">1</span>
-<span class="w">    </span><span class="mf">0.01853</span><span class="p">,</span><span class="w">                                    </span><span class="err">#</span><span class="w"> </span><span class="kc">fre</span><span class="err">que</span><span class="kc">n</span><span class="err">cy</span><span class="mi">2</span>
-<span class="w">    </span><span class="mf">0.0015</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">creme</span><span class="kc">nt</span>
-<span class="w">    </span><span class="mf">0.02909</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">del</span><span class="kc">ta</span>
-<span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;file_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dataset/simu_data/raw_csv/42/3a/423a53c2dd02062bc53de05a449674b6.csv&quot;</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="kc">f</span><span class="err">ile_pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span>
-<span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4600</span><span class="p">,</span><span class="w">                               </span><span class="err">#</span><span class="w"> </span><span class="err">LOB</span><span class="w"> </span><span class="err">s</span><span class="kc">te</span><span class="err">ps</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4600</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">calibra</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">,</span><span class="w"> </span><span class="mi">51000</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">tra</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span>
-<span class="w">  </span><span class="nt">&quot;create_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-07-13T19:47:31.323Z&quot;</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">Crea</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;update_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-07-13T19:47:31.323Z&quot;</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">Upda</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;random_seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w">                          </span><span class="err">#</span><span class="w"> </span><span class="err">ra</span><span class="kc">n</span><span class="err">dom_seed</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerate</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">.</span>
-<span class="w">  </span><span class="nt">&quot;has_raw_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">                          </span><span class="err">#</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="err">bee</span><span class="kc">n</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerate</span><span class="err">d</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">.</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
 <section id="machanism">
 <h3>Machanism<a class="headerlink" href="#machanism" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -609,7 +582,6 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#database">Database</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-of-the-document-in-the-collection">Sample of the document in the Collection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machanism">Machanism</a></li>
 </ul>
 </li>
