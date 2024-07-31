@@ -189,32 +189,28 @@
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../%E6%AD%A3%E5%88%99%E5%8C%96%E6%B5%81%E6%96%B9%E6%B3%95/1.%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86.html">LOB数据转图片方法</a></li>
-</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/1.%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90.html">Simulation Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82/2.%E6%A8%A1%E5%9D%97%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.html"><code class="docutils literal notranslate"><span class="pre">./</span></code> 根目录文件</a></li>
-
+<li class="toctree-l1"><a class="reference internal" href="../Implemention/data_gen.html">Simulation Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Implemention/module_info.html">模块信息</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">相关研究</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../others/sbi.html">基于模拟的推理</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../others/vol_pred.html">价量预测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/sbi.html">基于模拟的推理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/vol_pred.html">价量预测</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">LOB数据转图片方法</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html">限价订单簿</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Wiki/financial_words.html">限价订单簿</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="../wiki/2.%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%9C%AF%E8%AF%AD.html">模拟器</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Wiki/cs_words.html">模拟器</a></li>
 
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">参考文献</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../bib/reference.html">参考文献</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bib/reference.html">参考文献</a></li>
 </ul>
 
     </div>
@@ -442,7 +438,7 @@ document.write(`
 <h1>数据准备<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <section id="id2">
 <h2>金融数据（限价订单簿）<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>关于LOB的详细说明可以参考<a class="reference internal" href="../wiki/1.%E9%87%91%E8%9E%8D%E6%9C%AF%E8%AF%AD.html#lob-define"><span class="std std-ref">LOB (Limit Order Book)</span></a>.</p>
+<p>关于LOB的详细说明可以参考<a class="reference internal" href="../Wiki/financial_words.html#lob-define"><span class="std std-ref">LOB (Limit Order Book)</span></a>.</p>
 <section id="id3">
 <h3>金融数据格式说明<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>该金融数据集记录了特定时间点的市场交易信息，并以 CSV 格式存储。每行代表一个时间点的数据快照，包含买卖报价、交易量等重要信息。CSV 文件的列格式如下：</p>
@@ -489,7 +485,7 @@ document.write(`
 </section>
 <section id="id6">
 <h3>仿真数据<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>金融数据通过maxe编译的TheSimulator<a class="reference internal" href="2.EnvPrepare.html#thesimulator"><span class="std std-ref">Build TheSimulator</span></a>产生，本实验使用的是PGPS模型<span id="id7">[<a class="reference internal" href="../bib/reference.html#id3" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
+<p>金融数据通过maxe编译的TheSimulator<a class="reference internal" href="2.EnvPrepare.html#thesimulator"><span class="std std-ref">Build TheSimulator</span></a>产生，本实验使用的是PGPS模型<span id="id7">[<a class="reference internal" href="../Bib/reference.html#id3" title="T. Preis, S. Golke, W. Paul, and J. J. Schneider. Multi-agent-based order book model of financial markets. Europhysics Letters, 75(3):510, July 2006. doi:10.1209/epl/i2006-10139-0.">T. Preis <em>et al.</em>, 2006</a>]</span>.可以通过编辑<code class="docutils literal notranslate"><span class="pre">xml</span></code>文件指定<code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>模型运行参数来获得基于PGPS模型运行的模拟结果。</p>
 <p>其中可以控制的参数如下：</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
