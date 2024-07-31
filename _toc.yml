@@ -6,8 +6,8 @@ root: intro
 parts:
   - caption: 金融数据校准
     chapters:
-    - file: 金融数据校准/0.存在问题
-    - file: 金融数据校准/1.金融数据
+    - file: 金融数据校准/0.Problems
+    - file: 金融数据校准/1.NewLOB
     - file: 金融数据校准/2.环境准备
     - file: 金融数据校准/3.数据准备
     - file: 金融数据校准/4.SimLOB
