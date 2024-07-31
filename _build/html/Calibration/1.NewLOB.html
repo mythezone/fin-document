@@ -493,6 +493,11 @@ document.write(`
 <span class="k">return</span> <span class="n">orders</span>
 </pre></div>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">Track</p>
+<p>将LOB中的买的量改为负值, 其与价格的乘积为负数, 表示下订单需要支出的量, 而卖单则相反, 其与价格的成绩为正, 代表成交后可以收入的金额.</p>
+<p>这样处理之后, 在计算LOB订单差时可以对相同价位的量直接加减(无需考虑买卖方向).</p>
+</div>
 <p>这里得到了从LOB1到达LOB2所需的订单的信息, 在训练中希望订单差值尽量小, 但是如前所述, 不同价位的量直接相加是没有意义的. 我们考虑将量与其对应的价格相乘之后,取绝对值和的平均值,或者均方差作为Loss的一部分. 这样这个部分Loss中的每一项单位都代表了金额, 具有现实的可解释性. 因此这一Loss也可以被称为金额Loss.</p>
 <p>$$
 MoneyLoss = \frac{1}{20}{\sum_{i=1}^{|orders|}[orders_i(price)\times orders_i(volume)]^2 }^{1/2}
