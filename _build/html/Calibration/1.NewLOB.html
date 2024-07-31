@@ -186,7 +186,6 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
@@ -411,6 +410,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准任务</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -482,8 +485,6 @@ document.write(`
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">(</span><span class="n">LOB2</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">diff</span><span class="p">:</span>
         <span class="n">orders</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">-=</span><span class="n">value</span>
-        <span class="k">if</span> <span class="n">orders</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
-            <span class="n">orders</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">orders</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">=-</span><span class="n">value</span>
 
@@ -491,8 +492,48 @@ document.write(`
 </pre></div>
 </div>
 <p>这里得到了从LOB1到达LOB2所需的订单的信息, 在训练中希望订单差值尽量小, 但是如前所述, 不同价位的量直接相加是没有意义的. 我们考虑将量与其对应的价格相乘之后,取绝对值和的平均值,或者均方差作为Loss的一部分. 这样这个部分Loss中的每一项单位都代表了金额, 具有现实的可解释性. 因此这一Loss也可以被称为金额Loss.</p>
+<p>$$
+MoneyLoss = \frac{1}{20}{\sum_{i=1}^{|orders|}[orders_i(price)\times orders_i(volume)]^2 }^{1/2}
+$$</p>
+<p>其中20 代表了20个买卖档位数 ( 如果有相同的档位在实际的<code class="docutils literal notranslate"><span class="pre">orders</span></code>中将会被合并).</p>
 <p>换一种角度来思考这个Loss设计, 实际是用价格对订单的量进行了加权, 价格更高的订单, 权重更高, 对投资的影响越大.</p>
 <p>基于上面这个Loss, 会要求模型重构的LOB与真实LOB之间的金额差尽量接近, 如果价位相同且量相同的话, 这一项会被消除(Loss为0), 模型会倾向于输出与原LOB一致的LOB.</p>
+<p>为了模型可以加速收敛, 我们可以考虑添加第二项Loss, 要求两个LOB的十档买卖价格对齐. 这一项就是LOB中价格的MSE, 可以被称为价格Loss.</p>
+<p>$$
+PriceLoss = MSE(LOB_1.prices, LOB_2.prices)
+$$</p>
+<p>总Loss如下:
+$$
+Loss = \alpha\cdot MoneyLoss + (1-\alpha)\cdot PriceLoss
+$$
+其中, $\alpha$ 是控制两部分Loss权重的系数, $\alpha$ 越小, 表示模型更注重于买卖价格的对齐, 反之则更关注订单差.</p>
+</section>
+</section>
+<section id="id3">
+<h2>下游任务<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>通过上述Loss训练得到的AutoEncoder可以将LOB映射为一个指定维度的隐向量, 可以用更小的维度表示LOB ( 或者说, 可以提取LOB的主要特征 ), 从而减小下游任务中的计算压力. 对于金融时序数据来说, 常见的下游任务包括:</p>
+<ol class="arabic simple">
+<li><p>预测, 即通过一段时间T的LOB数据 ( 如100个连续的LOB数据点) 预测其后一段时间t的LOB\中间价\升降趋势等.</p></li>
+<li><p>动态检测, 检测一段LOB数据的产生模式是否发生了变化( 变化点的位置 ).</p></li>
+<li><p>异常检测, 检测一段LOB数据中是否有异常.</p></li>
+<li><p>校准, 给定一段LOB数据, 调整模拟器参数以获得一段相同( 非常近似 )的数据.</p></li>
+</ol>
+<p>可见, 下游任务多数涉及到更高维度的LOB信息, 在这些任务中, 关注的并非是单个LOB, 而是LOB流 (即添加了时间维度). 因此, 需要设计一个方法, 以判断两个LOB流是否相似.
+一个简单的想法是改进上面针对单个LOB的Loss, 添加一个对时间步的平均.即:</p>
+<p>$$
+MoneyLosses = \frac{1}{20T}\sum_{t=1}^{T}\sqrt{\lambda(t)\cdot\sum_{i=1}^{|orders|}[orders_i^t(price)\times orders_i^t(volume)]^2}
+$$</p>
+<p>和</p>
+<p>$$
+PriceLosses = \frac{1}{T}\sum_{t=1}^{T}\lambda(t)\cdot MSE(LOB_1^t.prices, LOB_2^t.prices)
+$$</p>
+<p>对于LOB流的Losses计算则变为:</p>
+<p>$$
+Losses = \alpha\cdot MoneyLosses + (1-\alpha)\cdot PriceLosses
+$$</p>
+<p>其中, $\lambda(t)$ 是关于时间步的函数, 如果需要考虑不同时间步的LOB对于结果的影响不同, 就可以通过该关于 $t$ 的函数来调整不同时间步的权重. 例如, 在预测任务中, 近期的LOB数据显然比历史LOB数据更具价值, 这个函数可以设置为<code class="docutils literal notranslate"><span class="pre">0.99</span></code>的指数权重; 而在校准任务中, 我们希望所有时间步的LOB都尽量接近, 所以该函数退化为值为1的常数函数.</p>
+<section id="id4">
+<h3>校准任务<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -565,6 +606,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">LOB订单差</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">Loss函数设计</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">校准任务</a></li>
 </ul>
 </li>
 </ul>

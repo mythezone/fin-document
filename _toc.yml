@@ -10,7 +10,7 @@ parts:
     - file: Calibration/1.NewLOB
     - file: Calibration/2.环境准备
     - file: Calibration/3.数据准备
-    - file: Calibration/4.SimLOB
+    - file: Calibration/4.NewLOB模型
     - file: Calibration/5.对比算法模型可视化
   - caption: 正则化流
     chapters:
