@@ -553,12 +553,11 @@ document.write(`
 </div>
 <div class="tip admonition">
 <p class="admonition-title">沿时间轴搜索最佳开始时间算法</p>
-<p>当Losses函数的时间权重函数恒为$1.0$时, 对于一条长时序数据, 选择最优开始时间(即使得从该时间开始的T个时间步数据与待校准数据最接近, 可以使用逐时间步迭代方法计算Distance),即:</p>
-<p>$$
-dist_{t+1} = dist_{t} + Loss(LOB^{(1)}<em>{t+1},LOB^{(2)}</em>{t+1}) - Loss(LOB^{(1)}<em>{t+1-T},LOB^{(2)}</em>{t+1-T})
-$$</p>
-<p>时间复杂度为 $\mathbf{O}(N) $, $N$为仿真模型的最大仿真步数.</p>
+<p>当Losses函数的时间权重函数恒为$1.0$时, 对于一条长时序数据, 选择最优开始时间(即使得从该时间开始的T个时间步数据与待校准数据最接近, 可以使用逐时间步迭代方法计算Distance).</p>
 </div>
+<div class="math notranslate nohighlight" id="equation-dist-iter">
+<span class="eqno">(9)<a class="headerlink" href="#equation-dist-iter" title="Link to this equation">#</a></span>\[dist_{t+1} = dist_{t} + Loss(LOB^{(1)}_{t+1},LOB^{(2)}_{t+1}) - Loss(LOB^{(1)}_{t+1-T},LOB^{(2)}_{t+1-T})\]</div>
+<p>时间复杂度为 $\mathbf{O}(N) $, $N$为仿真模型的最大仿真步数.</p>
 </section>
 </section>
 
