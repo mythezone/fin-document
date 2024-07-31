@@ -62,7 +62,7 @@
     <link rel="icon" href="../_static/logo.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="项目介绍" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html" />
+    <link rel="next" title="项目介绍" href="2.EnvPrepare.html" />
     <link rel="prev" title="SimLOB中存在的问题" href="0.Problems.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -185,10 +185,10 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="0.Problems.html">SimLOB中存在的问题</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NewLOB</a></li>
-<li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2.EnvPrepare.html">项目介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3.DataPrepare.html">数据准备</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
 <ul class="nav bd-sidenav">
@@ -535,6 +535,30 @@ document.write(`
 </section>
 <section id="id4">
 <h2>校准<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p><strong>形式化定义:</strong></p>
+<p>在金融数据校准任务中, 给定一条时序数据 $X_{t=1}^T$ ( 可能是一元的时序数据, 也可能是多元时序数据) 和仿真模型 $M(\theta)$ ( 通常是ABM模型, 该模型由若干个参数$\theta$ 控制 ), 需要为该仿真模型寻找一组最适合的参数, 在该参数下由仿真模型产生的金融时序数据 $\mathbf{M}(\theta)_{t=\tau+1}^{\tau+T}$, 在某种指定的评估标准 $Distance(A,B)$ 下最接近. 即:</p>
+<div class="math notranslate nohighlight" id="equation-calib-def">
+<span class="eqno">(8)<a class="headerlink" href="#equation-calib-def" title="Link to this equation">#</a></span>\[\theta^* = \arg\underset{\theta}{min} \; Distance(\mathbf{M}(\theta)_{t=\tau+1}^{\tau+T} , X_{t=1}^T)\]</div>
+<p>在这里, $Distance(A,B)$ 函数可以使用上一节定义的LOB流的 $Losses$ 函数.</p>
+<p>其中$\tau$ 是指从模拟的某个时刻开始, 在之前的校准工作中, 通常默认$\tau=1$, 仿真模型只运行$T$步就终止, 这种方法实际上并未充分利用仿真器的生成能力, 如果某种真实数据的模式只在开市后一段时间才出现, 那么在设定$\tau=1$的条件下, 仿真模型有可能根本无法校准这段数据 ( 即使仿真模型可能在运行一段时间后能出现该模式 ).</p>
+<p>一个合理的假设是, 如果模拟器开始仿真时时序数据模式接近待校准的数据, 那么在这组参数控制下持续输出仿真数据其中有一段数据接近待校准数据的可能性更高. 因此, 对于基于种群的优化方法, 可以采用分层搜索算法加速校准.</p>
+<div class="note admonition">
+<p class="admonition-title">分层搜索算法</p>
+<p>方式一:
+全局搜索: 利用种群对参数进行全局搜索, 对每个个体代表的参数都启动仿真器产生一段模拟数据, 每一轮迭代都选出最佳的k个个体进入局部优化.</p>
+<p>局部优化: 对每一轮选出的优势个体, 进行更长时间的仿真, 并沿时间轴方向搜索最佳的开始时间.</p>
+<p>方式二:
+全局搜索: 使用优化算法选出一个(或若干)参数组.</p>
+<p>局部优化: 对选出的参数组进行更长时间的仿真, 并沿时间轴方向搜索最佳开始时间.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">沿时间轴搜索最佳开始时间算法</p>
+<p>当Losses函数的时间权重函数恒为$1.0$时, 对于一条长时序数据, 选择最优开始时间(即使得从该时间开始的T个时间步数据与待校准数据最接近, 可以使用逐时间步迭代方法计算Distance),即:</p>
+<p>$$
+dist_{t+1} = dist_{t} + Loss(LOB^{(1)}<em>{t+1},LOB^{(2)}</em>{t+1}) - Loss(LOB^{(1)}<em>{t+1-T},LOB^{(2)}</em>{t+1-T})
+$$</p>
+<p>时间复杂度为 $\mathbf{O}(N) $, $N$为仿真模型的最大仿真步数.</p>
+</div>
 </section>
 </section>
 
@@ -578,7 +602,7 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html"
+       href="2.EnvPrepare.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
