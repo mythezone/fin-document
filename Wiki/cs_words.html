@@ -198,7 +198,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Others/sbi.html">基于模拟的推理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Others/vol_pred.html">价量预测</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">LOB数据转图片方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">正则化流</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="current nav bd-sidenav">
@@ -426,7 +426,15 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">示例输出</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference">Simulation-based Inference</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference">Simulation-based Inference</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference-sbi">基于模拟的推理（Simulation-based Inference, SBI）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">核心思想</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">优势</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">应用领域</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -603,7 +611,8 @@ document.write(`
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ExchangeSimulator<span class="w"> </span>v2.0
 <span class="w"> </span>-<span class="w"> </span><span class="s1">&#39;Simulation.xml&#39;</span><span class="w"> </span>loaded<span class="w"> </span>successfully
 <span class="w"> </span>-<span class="w"> </span>starting<span class="w"> </span>the<span class="w"> </span>simulations
-<span class="w"> </span>---<span class="w"> </span>Configuring<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>parameters<span class="w"> </span>---
+<span class="w"> </span>---<span class="w"> </span>Configuring<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>parameters<span class="w"> </span>
+---
 <span class="o">{</span><span class="s1">&#39;parameter&#39;</span>:<span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="o">}</span>
 <span class="w"> </span>-------------------------------------------------
 Received<span class="w"> </span>a<span class="w"> </span>message<span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;EVENT_SIMULATION_START&#39;</span><span class="w"> </span>at<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="m">0</span>,<span class="w"> </span>payload<span class="w"> </span><span class="o">{}</span>
@@ -615,7 +624,45 @@ Received<span class="w"> </span>a<span class="w"> </span>message<span class="w">
 </section>
 <section id="simulation-based-inference">
 <span id="sbi"></span><h1>Simulation-based Inference<a class="headerlink" href="#simulation-based-inference" title="Link to this heading">#</a></h1>
-<p>:TODO:</p>
+<section id="simulation-based-inference-sbi">
+<h2>基于模拟的推理（Simulation-based Inference, SBI）<a class="headerlink" href="#simulation-based-inference-sbi" title="Link to this heading">#</a></h2>
+<p>基于模拟的推理（Simulation-based Inference, SBI）是一种统计方法，用于从复杂的、难以直接分析的模型中推断参数。与传统的统计推断方法不同，SBI 不依赖于解析形式的似然函数，而是通过模拟数据来进行推断。这使得 SBI 特别适用于处理高维、非线性和非高斯分布的模型。</p>
+<section id="id10">
+<h3>核心思想<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>SBI 的核心思想是利用计算机模拟生成大量的样本数据，并通过这些数据来估计模型参数的后验分布。具体步骤如下：</p>
+<ol class="arabic simple">
+<li><p><strong>模型定义</strong>：定义一个生成模型，该模型能够根据给定的参数生成观测数据。</p></li>
+<li><p><strong>数据模拟</strong>：使用生成模型模拟大量的观测数据。</p></li>
+<li><p><strong>推断过程</strong>：通过比较模拟数据和实际观测数据，使用适当的推断算法（如 ABC、MCMC 或神经网络）来估计参数的后验分布。</p></li>
+</ol>
+</section>
+<section id="id11">
+<h3>优势<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>灵活性</strong>：SBI 可以处理各种复杂模型，包括那些没有解析形式的似然函数。</p></li>
+<li><p><strong>适应性</strong>：适用于高维数据和复杂的参数空间。</p></li>
+<li><p><strong>可扩展性</strong>：可以结合现代机器学习方法，如深度学习，来提高推断效率和准确性。</p></li>
+</ul>
+</section>
+<section id="id12">
+<h3>应用领域<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>SBI 在许多领域中都有广泛的应用，包括但不限于：</p>
+<ul class="simple">
+<li><p><strong>天文学</strong>：用于推断宇宙学参数和天体物理模型。</p></li>
+<li><p><strong>生态学</strong>：用于估计生态系统模型中的参数。</p></li>
+<li><p><strong>经济学</strong>：用于复杂经济模型的参数推断。</p></li>
+<li><p><strong>神经科学</strong>：用于神经网络模型的参数估计。</p></li>
+<li><p><strong>金融仿真</strong>：在金融领域，SBI 被广泛用于模拟和分析复杂的金融系统和市场行为。通过模拟不同的市场条件和交易策略，研究人员和从业者可以评估风险、优化投资组合、预测市场趋势以及测试新的金融产品。具体应用包括：</p>
+<ul>
+<li><p><strong>风险管理</strong>：通过模拟市场波动和极端事件，SBI 可以帮助金融机构评估和管理风险敞口。</p></li>
+<li><p><strong>投资组合优化</strong>：利用 SBI 模拟不同的投资组合策略，找到最优的资产配置方案。</p></li>
+<li><p><strong>衍生品定价</strong>：在复杂的衍生品市场中，SBI 可以用于定价和对冲策略的开发。</p></li>
+<li><p><strong>市场微观结构分析</strong>：通过模拟交易行为和市场动态，SBI 可以帮助理解市场微观结构和价格形成机制。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -702,7 +749,15 @@ Received<span class="w"> </span>a<span class="w"> </span>message<span class="w">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">示例输出</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference">Simulation-based Inference</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference">Simulation-based Inference</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-based-inference-sbi">基于模拟的推理（Simulation-based Inference, SBI）</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">核心思想</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">优势</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">应用领域</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   </nav></div>
