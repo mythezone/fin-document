@@ -187,7 +187,7 @@
 <li class="toctree-l1"><a class="reference internal" href="1.NewLOB.html">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87.html">数据准备</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4.SimLOB.html">训练SimLOB模型</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.%E5%AF%B9%E6%AF%94%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B%E5%8F%AF%E8%A7%86%E5%8C%96.html">网络模型可视化</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">正则化流</span></p>
@@ -433,14 +433,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
 </ul>
             </nav>
         </div>
@@ -590,8 +591,6 @@ document.write(`
 </div>
 <div class="note admonition">
 <p class="admonition-title">讨论</p>
-<p>待讨论.</p>
-</div>
 <ul class="simple">
 <li><p><strong>Z-score</strong>是一种通用的机器学习数据预处理方法, 但是这样的方法在金融时序数据中是否有意义? 以价数据为例, 实际上订单只会造成某价格上量的上下波动, 但是在LOB数据中, 量数据会跟着价格的档位跳动.</p>
 <ul>
@@ -608,12 +607,10 @@ document.write(`
 <li><p>是否应该按照价/量进行统一的标准化?</p></li>
 <li><p>是否应该先对每一次模拟产生的LOB数据进行一次标准化, 再在训练数据集中对数据进行一次统一的标准化?</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-```{admonition} 按列标准化
-:class: warning
-
-在 `generate_data.py`模块的整体标准化方法中, 关于&#39;MPV&#39;的整体标准化方法没有实现, 现在实验采用的是对于每次模拟产生的数据进行**按列标准化**之后进行分割并加入训练集. 
-</pre></div>
+</div>
+<div class="warning admonition">
+<p class="admonition-title">按列标准化</p>
+<p>在 generate_data.py模块的整体标准化方法中, 关于’MPV’的整体标准化方法没有实现, 现在实验采用的是对于每次模拟产生的数据进行<strong>按列标准化</strong>之后进行分割并加入训练集.</p>
 </div>
 <p>考虑到一次模拟产生的数据, 其上下文是一致的, 使用按单次模拟的价/量分别进行标准化是一个更好的选择.</p>
 </section>
@@ -668,8 +665,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f8dfd56f-d149-4736-8c61-b53a7024179c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-f8dfd56f-d149-4736-8c61-b53a7024179c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb">
+<span class="eqno">(1)<a class="headerlink" href="#equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -691,22 +688,32 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <li><p>结合上面两点, PSO的MSE损失函数代表的意义是每个元素差异的平均值, 在潜变量输出方差为$0.08$的前提下, 其优化后的损失值为$0.039$, 从直观上来说, 就是合成数据与待校准数据潜变量之间的差值达到了其绝对值的$50%$, 这很难说PSO已经做了很好的优化了.</p></li>
 </ul>
 </div>
-<p>结合实验结果来看, 使用<code class="docutils literal notranslate"><span class="pre">PSO</span></code>方法, 种群大小设置为$40$, 迭代$100$轮, 其结果与随机产生4000组随即参数, 选择其中最好的一组没有区别.</p>
+<p>结合实验结果来看, 使用<code class="docutils literal notranslate"><span class="pre">PSO</span></code>方法, 种群大小设置为$40$, 迭代$100$轮, 其结果与随机产生4000组随即参数后选择其中最好的一组, 没有本质区别.</p>
 </section>
 <section id="id15">
 <h3>2.4 神经网络模型设计<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>SimLOB使用了多层神经网络, 如图<code class="docutils literal notranslate"><span class="pre">ref&lt;SimLOB</span> <span class="pre">Structure&gt;</span></code>所示:</p>
 <p id="simlob-structure"><img alt="SimLOB神经网络结构" src="../_images/nn-structure.png" /></p>
-<p>:TODO</p>
-</section>
 </section>
 <section id="id16">
-<h2>3. 实验设置<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<h3>2.5 校准任务<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>在SimLOB中, 校准任务只是对不同参数的起始部分进行了对比, 即用一组参数启动Maxe模拟器, 获取其最最初的3600个LOB, 并基于这些LOB的Embedding向量, 使用<code class="docutils literal notranslate"><span class="pre">PSO</span></code>方法优化参数, Loss函数为Embedding向量的MSE.</p>
+<p>先不论<code class="docutils literal notranslate"><span class="pre">PSO</span></code>优化的效果, 这样校准显然不切实际. 这种校准只会在待校准数据本身就是Maxe模拟器产生的前 $3600$ 个数据时有效(高效), 因为两者产生的过程本身就是相同的. 但是这种方法没有任何实用价值, 因为待校准的数据(即使是模拟数据)不一定就是模拟器产生的前$3600$ 个数据, 而可能是一天中任意时刻开始的一段数据 (如第3601到7200的LOB数据), 这种形式的数据更接近现实中的校准需求.</p>
+<p>SimLOB中的校准本身就已经固定了Maxe模拟器的随机种子, 导致了模拟器的泛化能力大幅降低, 如果在校准时又固定其生成数据的时间段, 这样的校准任务即使能很好的完成也没有任何意义.</p>
+<div class="tip admonition">
+<p class="admonition-title">改进思路</p>
+<p>可以分为两层搜索, 在第一层使用PSO等方法对参数进行优化(全局搜索).</p>
+<p>对于每次迭代产生的最优个体(最优参数组)进行第二层搜索(局部优化): 用这组参数生成更多时序数据, 并沿着时间步搜索最符合待校准数据的时间段.</p>
+</div>
+</section>
 </section>
 <section id="id17">
-<h2>4. 代码实现<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<h2>3. 实验设置<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+</section>
 <section id="id18">
-<h3>4.1 优化部分<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<h2>4. 代码实现<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>4.1 优化部分<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
 <div class="error admonition">
 <p class="admonition-title">校准时的数据生成过程实现问题:</p>
 <ul class="simple">
@@ -725,8 +732,8 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 </div>
 </section>
 </section>
-<section id="id19">
-<h2>5. 结果讨论<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="id20">
+<h2>5. 结果讨论<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -821,14 +828,15 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
 </ul>
   </nav></div>
 
