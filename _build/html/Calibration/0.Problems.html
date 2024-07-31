@@ -433,14 +433,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
 </ul>
             </nav>
         </div>
@@ -664,8 +665,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5933ccd3-fe48-425f-b7e9-619ea915e601">
-<span class="eqno">(1)<a class="headerlink" href="#equation-5933ccd3-fe48-425f-b7e9-619ea915e601" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb">
+<span class="eqno">(1)<a class="headerlink" href="#equation-b10248f1-9ac0-43fb-9a38-8dd048aa9efb" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -693,16 +694,26 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <h3>2.4 神经网络模型设计<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>SimLOB使用了多层神经网络, 如图<code class="docutils literal notranslate"><span class="pre">ref&lt;SimLOB</span> <span class="pre">Structure&gt;</span></code>所示:</p>
 <p id="simlob-structure"><img alt="SimLOB神经网络结构" src="../_images/nn-structure.png" /></p>
-<p>:TODO</p>
-</section>
 </section>
 <section id="id16">
-<h2>3. 实验设置<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<h3>2.5 校准任务<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>在SimLOB中, 校准任务只是对不同参数的起始部分进行了对比, 即用一组参数启动Maxe模拟器, 获取其最最初的3600个LOB, 并基于这些LOB的Embedding向量, 使用<code class="docutils literal notranslate"><span class="pre">PSO</span></code>方法优化参数, Loss函数为Embedding向量的MSE.</p>
+<p>先不论<code class="docutils literal notranslate"><span class="pre">PSO</span></code>优化的效果, 这样校准显然不切实际. 这种校准只会在待校准数据本身就是Maxe模拟器产生的前 $3600$ 个数据时有效(高效), 因为两者产生的过程本身就是相同的. 但是这种方法没有任何实用价值, 因为待校准的数据(即使是模拟数据)不一定就是模拟器产生的前$3600$ 个数据, 而可能是一天中任意时刻开始的一段数据 (如第3601到7200的LOB数据), 这种形式的数据更接近现实中的校准需求.</p>
+<p>SimLOB中的校准本身就已经固定了Maxe模拟器的随机种子, 导致了模拟器的泛化能力大幅降低, 如果在校准时又固定其生成数据的时间段, 这样的校准任务即使能很好的完成也没有任何意义.</p>
+<div class="tip admonition">
+<p class="admonition-title">改进思路</p>
+<p>可以分为两层搜索, 在第一层使用PSO等方法对参数进行优化(全局搜索).</p>
+<p>对于每次迭代产生的最优个体(最优参数组)进行第二层搜索(局部优化): 用这组参数生成更多时序数据, 并沿着时间步搜索最符合待校准数据的时间段.</p>
+</div>
+</section>
 </section>
 <section id="id17">
-<h2>4. 代码实现<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<h2>3. 实验设置<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+</section>
 <section id="id18">
-<h3>4.1 优化部分<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<h2>4. 代码实现<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>4.1 优化部分<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
 <div class="error admonition">
 <p class="admonition-title">校准时的数据生成过程实现问题:</p>
 <ul class="simple">
@@ -721,8 +732,8 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 </div>
 </section>
 </section>
-<section id="id19">
-<h2>5. 结果讨论<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="id20">
+<h2>5. 结果讨论<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -817,14 +828,15 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-loss">2.2 Train Loss设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
 </ul>
   </nav></div>
 
