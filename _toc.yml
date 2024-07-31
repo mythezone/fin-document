@@ -12,21 +12,19 @@ parts:
     - file: Calibration/3.DataPrepare
     - file: Calibration/4.NewLOB
     - file: Calibration/5.Visualization
-  - caption: 正则化流
-    chapters:
-    - file: 正则化流方法/1.数据处理
   - caption: 技术细节
     chapters:
-    - file: 技术细节/1.数据生成
-    - file: 技术细节/2.模块详细信息
+    - file: Implemention/data_gen
+    - file: Implemention/module_info
   - caption: 相关研究
     chapters:
-    - file: others/sbi
-    - file: others/vol_pred
+    - file: Others/sbi
+    - file: Others/vol_pred
+    - file: Others/normal_flows
   - caption: Wiki
     chapters:
-    - file: wiki/1.金融术语
-    - file: wiki/2.计算机术语
+    - file: Wiki/financial_words
+    - file: Wiki/cs_words
   - caption: 参考文献
     chapters:
-    - file: bib/reference
+    - file: Bib/reference
