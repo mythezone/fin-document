@@ -199,7 +199,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Others/sbi.html">基于模拟的推理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Others/vol_pred.html">价量预测</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">LOB数据转图片方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">正则化流</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
@@ -435,14 +435,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.6 ABM模型</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5. 结果讨论</a></li>
 </ul>
             </nav>
         </div>
@@ -665,8 +666,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49a050e6-839d-48d1-a1a8-720c9ef2b832">
-<span class="eqno">(1)<a class="headerlink" href="#equation-49a050e6-839d-48d1-a1a8-720c9ef2b832" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-139b880b-9214-468e-977e-0d26e696556d">
+<span class="eqno">(1)<a class="headerlink" href="#equation-139b880b-9214-468e-977e-0d26e696556d" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -712,14 +713,33 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <p>对于每次迭代产生的最优个体(最优参数组)进行第二层搜索(局部优化): 用这组参数生成更多时序数据, 并沿着时间步搜索最符合待校准数据的时间段.</p>
 </div>
 </section>
-</section>
 <section id="id17">
-<h2>3. 实验设置<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<h3>2.6 ABM模型<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>在SimLOB中, 使用了Maxe仿真器对PGPS金融模型进行模拟, 通常可以认为该金融模型可以在一定程度上还原真实市场的Stylized Factor, 但是校准这个模型确是一个相当大的挑战. 一方面因为ABMs模型是从微观交互行为到宏观现象的复杂系统(又称为混沌系统), 在这种系统中微小的外界扰动( 如参数发生微小变化 )就会引起宏观现象的大幅改变 (蝴蝶效应), 用计算机术语表示就是模型高度非线性. 另一方面, 由计算机编程实现的ABMs模型是由伪随机数生成器驱动产生的随机现象, 在系统有轻微扰动下, 系统中原有的Agent行为可能产生巨大差异, 也会进一步提升系统的非线性程度.</p>
+<p>我进行了一个实验用于说明该现象, 即选定一组PGPS的参数, 每次固定其中5个数据, 另一个做最小步长的增加, 并对相邻的两组参数(即最微小扰动的两组)产生的数据进行预处理后计算其MSE, 图像如下所示:</p>
+<figure class="align-default" id="directive-fig">
+<a class="reference internal image-reference" href="../_images/sensitive.png"><img alt="../_images/sensitive.png" src="../_images/sensitive.png" style="height: 300px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">参数敏感性实验</span><a class="headerlink" href="#directive-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>从上图可以看出, 对于标准化之后的数据来说, 这个MSE值的波动非常大. 也可以说明,即使是最轻微的扰动对于仿真结果来说也是完全不可预测的.</p>
+<p>虽然已经有大量黑盒优化方法可以不加前提地对问题进行优化, 但是对于金融校准问题来说, 每次评估参数需要花费大量时间进行仿真, 而所有参数都会对结果产生无法预期的影响( 直观来说,就是在非常差的解边上就可能有最优解 ). 以PSO为例, 从原理上来说, 这种优化方法与随机产生若干个解并选择其中的最优解无异; 而从结果上来看也是如此, 与初始种群fitness值相比, 100代的优化效果不超过25%, 这在优化问题中是非常少见的 (通常来说, 第一代随机参数的效果会非常差, 因此在若干代之后就会有明显提升, 在图像上表现很像一个典型的训练Loss曲线).</p>
+<p>此外, 从已有实验结果来看, 优化的效果与第一代结果也非常相关, 比如有第一代就达到0.3左右的, 也有第一代LOSS在9.0以上(为什么MSE会有9.0还需要进一步检查实验代码), 但是不管是哪种情况, PSO的优化效果都只有不到25%, 这也进一步说明, 无论是使用哪种方式进行校准 (即直接使用原始矩阵的MSE或是使用各种类型AutoEncoder), 对于结果的影响微乎其微, 其差异可能仅仅是随机性带来的结果波动.</p>
+<div class="warning admonition">
+<p class="admonition-title">使用其他优化方法</p>
+<p>我尝试使用其他开箱即用的黑盒优化方法来优化该问题, 比如PYPOP7, 但是由于没有找到多线程设置, 导致一次优化时间非常长, 所以还没有进一步尝试.</p>
+</div>
+</section>
 </section>
 <section id="id18">
-<h2>4. 代码实现<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<h2>3. 实验设置<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+</section>
 <section id="id19">
-<h3>4.1 优化部分<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<h2>4. 代码实现<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<section id="id20">
+<h3>4.1 优化部分<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
 <div class="error admonition">
 <p class="admonition-title">校准时的数据生成过程实现问题:</p>
 <ul class="simple">
@@ -738,8 +758,8 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 </div>
 </section>
 </section>
-<section id="id20">
-<h2>5. 结果讨论<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<section id="id21">
+<h2>5. 结果讨论<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -835,14 +855,15 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3 优化方法</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4 神经网络模型设计</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.5 校准任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.6 ABM模型</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3. 实验设置</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">4. 代码实现</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.1 优化部分</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">3. 实验设置</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4. 代码实现</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.1 优化部分</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">5. 结果讨论</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">5. 结果讨论</a></li>
 </ul>
   </nav></div>
 
