@@ -666,8 +666,8 @@ document.write(`
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-139b880b-9214-468e-977e-0d26e696556d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-139b880b-9214-468e-977e-0d26e696556d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0460e669-9796-4e5b-838a-78b628d9301d">
+<span class="eqno">(1)<a class="headerlink" href="#equation-0460e669-9796-4e5b-838a-78b628d9301d" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
@@ -718,7 +718,7 @@ MSE(Encoder(RealLOB),Encoder(SimLOB))
 <p>在SimLOB中, 使用了Maxe仿真器对PGPS金融模型进行模拟, 通常可以认为该金融模型可以在一定程度上还原真实市场的Stylized Factor, 但是校准这个模型确是一个相当大的挑战. 一方面因为ABMs模型是从微观交互行为到宏观现象的复杂系统(又称为混沌系统), 在这种系统中微小的外界扰动( 如参数发生微小变化 )就会引起宏观现象的大幅改变 (蝴蝶效应), 用计算机术语表示就是模型高度非线性. 另一方面, 由计算机编程实现的ABMs模型是由伪随机数生成器驱动产生的随机现象, 在系统有轻微扰动下, 系统中原有的Agent行为可能产生巨大差异, 也会进一步提升系统的非线性程度.</p>
 <p>我进行了一个实验用于说明该现象, 即选定一组PGPS的参数, 每次固定其中5个数据, 另一个做最小步长的增加, 并对相邻的两组参数(即最微小扰动的两组)产生的数据进行预处理后计算其MSE, 图像如下所示:</p>
 <figure class="align-default" id="directive-fig">
-<a class="reference internal image-reference" href="../_images/sensitive.png"><img alt="../_images/sensitive.png" src="../_images/sensitive.png" style="height: 300px;" />
+<a class="reference internal image-reference" href="../_images/sensitive.png"><img alt="../_images/sensitive.png" src="../_images/sensitive.png" style="height: 600px;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">参数敏感性实验</span><a class="headerlink" href="#directive-fig" title="Link to this image">#</a></p>
