@@ -582,10 +582,10 @@ document.write(`
 <hr class="docutils" />
 <p><strong>公式如下：</strong></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}h &amp;= \frac{x_1.shape[2]}{2} \\price_1 &amp;= x_1[:, :, :h] \\price_2 &amp;= x_2[:, :, :h] \\weights &amp;= \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(price_1) \\mse\_loss &amp;= F.mse\_loss(price_1 \times weights, price_2 \times weights) \end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}h &amp;= \frac{x_1.shape[2]}{2} \\price_1 &amp;= x_1[:, :, :h] \\price_2 &amp;= x_2[:, :, :h] \\weights &amp;= \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(price_1) \\mse\_loss &amp;= F.mse\_loss(price_1 \times weights,\; price_2 \times weights) \end{aligned}\end{align} \]</div>
 <hr class="docutils" />
 <div class="note admonition">
-<p class="admonition-title">实验发现</p>
+<p class="admonition-title">实验发现1</p>
 <p><strong>第一组对比实验</strong></p>
 <p>模型a. 使用全局MSE训练</p>
 <p>模型b. 使用PriceLoss训练</p>
@@ -595,9 +595,19 @@ document.write(`
 <p><strong>实验发现:</strong></p>
 <ol class="arabic simple">
 <li><p>PriceLoss可以降低到1e-3数量级, 而即使针对VolumeLoss进行训练, VolumeLoss也只能达到1e-2的数量级. 这也是SimLOB训练中MSELoss只能达到1e-2级别的原因(因为他是VolumeLoss+PriceLoss).</p></li>
-<li><p>相比直接使用PriceLoss, 使用全局MSELoss训练的模型的PriceLoss更大(约为3倍, 接近1e-2级别), 前面讨论过, PriceLoss是更重要的信息, 只有PriceLoss下降了, VolumeLoss才有作用, 因此必须将PriceLoss从MSELoss中分离出来训练, 或者调整其在MSELoss中的权重.</p></li>
+<li><p>相比直接使用PriceLoss, 使用全局MSELoss训练的模型的PriceLoss更大(约为3倍, 接近1e-2级别), 前面讨论过, PriceLoss是更重要的信息, 只有PriceLoss下降了, VolumeLoss才有作用, 因此必须将PriceLoss从MSELoss中分离出来训练, 或者调整其在MSELoss中的权重. 如下图所示.</p></li>
 <li><p>对比不同Loss下的模型, 模型1的MSELoss相比模型2的PriceLoss+模型c的VolumeLoss更低, 但这是牺牲了模型1的PriceLoss达到的.</p></li>
 </ol>
+</div>
+<figure class="align-default" id="exp-price-loss">
+<a class="reference internal image-reference" href="../_images/exp1_price.png"><img alt="../_images/exp1_price.png" src="../_images/exp1_price.png" style="height: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">模型a和b的PriceLoss对比</span><a class="headerlink" href="#exp-price-loss" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">实验发现2</p>
 <p><strong>第二组对比实验</strong></p>
 <p>模型a. 使用全局MSE训练</p>
 <p>模型d. 使用WeightedPriceLoss训练</p>
@@ -610,7 +620,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/exp2_weighted.png"><img alt="../_images/exp2_weighted.png" src="../_images/exp2_weighted.png" style="height: 500px;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">模型a和d的WeightedPriceLoss对比</span><a class="headerlink" href="#exp-weighted-price-loss" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">模型a和d的WeightedPriceLoss对比</span><a class="headerlink" href="#exp-weighted-price-loss" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
