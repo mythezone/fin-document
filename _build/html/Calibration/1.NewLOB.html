@@ -563,11 +563,12 @@ document.write(`
 <p>a. 使用全局MSE训练</p>
 <p>d. 使用WeightedPriceLoss训练</p>
 <ol class="arabic simple" start="4">
-<li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0018, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
+<li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0017, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
+<li><p>a模型的WeightedPriceLoss的波动更大, 说明其对价格的预测更不稳定, 可能的原因是其价格的误差等可能的出现在不同的价格档位上, 而低档位的权重更高, 导致了这种波动.</p></li>
 </ol>
 </div>
 <figure class="align-default" id="exp-weighted-price-loss">
-<a class="reference internal image-reference" href="../_images/exp_weighted.png"><img alt="../_images/exp_weighted.png" src="../_images/exp_weighted.png" style="height: 500px;" />
+<a class="reference internal image-reference" href="../_images/exp2_weighted.png"><img alt="../_images/exp2_weighted.png" src="../_images/exp2_weighted.png" style="height: 500px;" />
 </a>
 <figcaption>
 <p><span class="caption-number">Fig. 7 </span><span class="caption-text">模型a和d的WeightedPriceLoss对比</span><a class="headerlink" href="#exp-weighted-price-loss" title="Link to this image">#</a></p>
