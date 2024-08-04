@@ -187,6 +187,7 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.EnvPrepare.html">项目介绍</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.DataPrepare.html">数据准备</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 </ul>
@@ -548,6 +549,7 @@ document.write(`
 <p>0.0.2: 修改了在price为0时可能导致两个边缘检测数量不同得bug, 导致速度降低了50%.(9min/epoch)</p>
 <p>0.0.3: 修改了矩阵计算方法以及Loss中的归一化, 速度回到(6min/epoch)</p>
 <p>0.0.4: 修改了一个bug, 并用绝对值取代了原本的平方和.</p>
+<p>0.1.0:  添加了 Weighted 功能, 优化了算法,使用扩展的矩阵对比价格是否相等, 进一步加速了计算效率, 运算速度达到 <code class="docutils literal notranslate"><span class="pre">3min/epoch</span></code> 与MSELoss计算效率相当.</p>
 </div>
 <hr class="docutils" />
 <section id="weights">

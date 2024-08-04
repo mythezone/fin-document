@@ -186,6 +186,7 @@
 <li class="toctree-l1"><a class="reference internal" href="1.NewLOB.html">NewLOB</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.EnvPrepare.html">项目介绍</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">数据准备</a></li>
+
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 </ul>
@@ -198,7 +199,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Others/sbi.html">基于模拟的推理</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Others/vol_pred.html">价量预测</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">LOB数据转图片方法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Others/normal_flows.html">正则化流</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Wiki</span></p>
 <ul class="nav bd-sidenav">
@@ -406,6 +407,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">数据准备</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
@@ -418,12 +420,39 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-database">Simulation Database</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-simulated-data">Persist Simulated Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manual">Manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-mongodb">1. Setup MongoDB</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-configuration">2. Customize Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#build-maxe">3. Build Maxe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#call-the-method">4. Call the Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#database">Database</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-of-the-document-in-the-collection">Sample of the document in the Collection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machanism">Machanism</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">1. Data Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">2. Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3. Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -606,9 +635,100 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h4><a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
 </section>
+</section>
+</section>
+<section id="simulation-database">
+<h1>Simulation Database<a class="headerlink" href="#simulation-database" title="Link to this heading">#</a></h1>
+<p>Utility for Financial Simulation in the Maxe context.</p>
+<section id="persist-simulated-data">
+<h2>Persist Simulated Data<a class="headerlink" href="#persist-simulated-data" title="Link to this heading">#</a></h2>
+<p>When using the Maxe simulator to generate data from <code class="docutils literal notranslate"><span class="pre">.xml</span></code> config files or parameters, the data is typically discarded afterward. As simulations are run frequently throughout the project (e.g., generating training data, optimization, and calibration), and given that simulations can be resource-intensive, a more efficient solution is to save the simulated data for later use.</p>
+<p>This repository provides a method to simulate data with given parameters, save the corresponding simulated data into hashed folders, and record the simulation information in a MongoDB database.</p>
+</section>
+<section id="manual">
+<h2>Manual<a class="headerlink" href="#manual" title="Link to this heading">#</a></h2>
+<section id="quick-start">
+<h3>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h3>
+<section id="setup-mongodb">
+<h4>1. Setup MongoDB<a class="headerlink" href="#setup-mongodb" title="Link to this heading">#</a></h4>
+<p>First, set up a MongoDB service and obtain the connection string, such as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mongodb://username:password@host:port/?directConnection<span class="o">=</span>true<span class="p">&amp;</span><span class="nv">authSource</span><span class="o">=</span>simulation
+</pre></div>
+</div>
+<p>If you are a member of Prof. Yang’s team and have access to the School Intranet, you can connect to my MongoDB with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mongodb://maxe:maxe123456@10.16.12.105:27017/?directConnection<span class="o">=</span>true<span class="p">&amp;</span><span class="nv">authSource</span><span class="o">=</span>simulation
+</pre></div>
+</div>
+</section>
+<section id="customize-configuration">
+<h4>2. Customize Configuration<a class="headerlink" href="#customize-configuration" title="Link to this heading">#</a></h4>
+<p>Rename <code class="docutils literal notranslate"><span class="pre">config_template.json</span></code> to <code class="docutils literal notranslate"><span class="pre">config.json</span></code> and set the configurations as desired.</p>
+</section>
+<section id="build-maxe">
+<h4>3. Build Maxe<a class="headerlink" href="#build-maxe" title="Link to this heading">#</a></h4>
+<p>Build the Maxe Simulator on the machine where your project will run. Refer to the manual from the <code class="docutils literal notranslate"><span class="pre">Maxe</span></code> project for instructions.</p>
+<p>It is recommended to create a symbolic link to the Simulator in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> to simplify calling <code class="docutils literal notranslate"><span class="pre">TheSimulator</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/abs/path/to/theSimulator<span class="w"> </span>/usr/bin/
+</pre></div>
+</div>
+</section>
+<section id="call-the-method">
+<h4>4. Call the Method<a class="headerlink" href="#call-the-method" title="Link to this heading">#</a></h4>
+<p>Import the methods and run them as described in the documentation.</p>
+</section>
+</section>
+</section>
+<section id="database">
+<h2>Database<a class="headerlink" href="#database" title="Link to this heading">#</a></h2>
+<section id="sample-of-the-document-in-the-collection">
+<h3>Sample of the document in the Collection<a class="headerlink" href="#sample-of-the-document-in-the-collection" title="Link to this heading">#</a></h3>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;423a53c2dd02062bc53de05a449674b6&quot;</span><span class="p">,</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="err">Hashed</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="p">,</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">same</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="kc">na</span><span class="err">me.</span>
+<span class="w">  </span><span class="nt">&quot;params&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">                                   </span><span class="err">#</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="err">order</span>
+<span class="w">    </span><span class="mf">193.32</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">lambda_i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span>
+<span class="w">    </span><span class="mf">3.47</span><span class="p">,</span><span class="w">                                       </span><span class="err">#</span><span class="w"> </span><span class="err">clambda</span>
+<span class="w">    </span><span class="mf">0.2962</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="kc">fre</span><span class="err">que</span><span class="kc">n</span><span class="err">cy</span><span class="mi">1</span>
+<span class="w">    </span><span class="mf">0.01853</span><span class="p">,</span><span class="w">                                    </span><span class="err">#</span><span class="w"> </span><span class="kc">fre</span><span class="err">que</span><span class="kc">n</span><span class="err">cy</span><span class="mi">2</span>
+<span class="w">    </span><span class="mf">0.0015</span><span class="p">,</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">creme</span><span class="kc">nt</span>
+<span class="w">    </span><span class="mf">0.02909</span><span class="w">                                     </span><span class="err">#</span><span class="w"> </span><span class="err">del</span><span class="kc">ta</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;file_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dataset/simu_data/raw_csv/42/3a/423a53c2dd02062bc53de05a449674b6.csv&quot;</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="kc">f</span><span class="err">ile_pa</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">&quot;length&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4600</span><span class="p">,</span><span class="w">                               </span><span class="err">#</span><span class="w"> </span><span class="err">LOB</span><span class="w"> </span><span class="err">s</span><span class="kc">te</span><span class="err">ps</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4600</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">calibra</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">,</span><span class="w"> </span><span class="mi">51000</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">tra</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span>
+<span class="w">  </span><span class="nt">&quot;create_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-07-13T19:47:31.323Z&quot;</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">Crea</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;update_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-07-13T19:47:31.323Z&quot;</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="err">Upda</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">ime</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;random_seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w">                          </span><span class="err">#</span><span class="w"> </span><span class="err">ra</span><span class="kc">n</span><span class="err">dom_seed</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerate</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">.</span>
+<span class="w">  </span><span class="nt">&quot;has_raw_data&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">                          </span><span class="err">#</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">parame</span><span class="kc">ters</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="err">bee</span><span class="kc">n</span><span class="w"> </span><span class="err">used</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerate</span><span class="err">d</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="machanism">
+<h3>Machanism<a class="headerlink" href="#machanism" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Every time the generation method is called, the data will be saved to the database with the aformentioned information automatically.</p></li>
+<li><p>When you want the raw data of some given parameters, the method will search the database first, if it has already been generated, the simulation process will instead by the data stored in the database.</p></li>
+<li><p>Raw CSV data will be saved in the local machine instead of in the database for the sack of flexibilty and efficiency. Data could be retrived by the <code class="docutils literal notranslate"><span class="pre">file_path</span></code> attribute in the select result by <code class="docutils literal notranslate"><span class="pre">mongodb</span> <span class="pre">SQL</span> <span class="pre">query</span></code> or methods in <code class="docutils literal notranslate"><span class="pre">RawDataManager</span></code> class.</p></li>
+</ul>
+</section>
+</section>
+<section id="new-features">
+<h2>New Features<a class="headerlink" href="#new-features" title="Link to this heading">#</a></h2>
+<section id="data-generation">
+<h3>1. Data Generation<a class="headerlink" href="#data-generation" title="Link to this heading">#</a></h3>
+<p>All temporary files in the Maxe simulation process are generated in memory, not on disk. This accelerates the simulation and avoids errors caused by disk write delays. Temporary visual files have randomly hashed names to prevent read/write errors associated with physical file systems.</p>
+</section>
+<section id="logging">
+<h3>2. Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h3>
+<p>The logger can save output throughout the project, making it easier to review your experiments later. This feature enhances convenience and ensures you have a comprehensive record of your simulation runs.</p>
+</section>
+<section id="id10">
+<h3>3. Database<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>The database persists the generated simulation data, ensuring that no data is wasted. This stored data can be reused in future work, such as training surrogate models or conducting simulation-based inference.</p>
 </section>
 </section>
 </section>
@@ -677,6 +797,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">数据准备</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">金融数据（限价订单簿）</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">金融数据格式说明</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">列说明</a></li>
@@ -689,12 +810,39 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">训练数据准备</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">批量生成仿真数据</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10"></a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-database">Simulation Database</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persist-simulated-data">Persist Simulated Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manual">Manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick Start</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-mongodb">1. Setup MongoDB</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#customize-configuration">2. Customize Configuration</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#build-maxe">3. Build Maxe</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#call-the-method">4. Call the Method</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#database">Database</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-of-the-document-in-the-collection">Sample of the document in the Collection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machanism">Machanism</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-features">New Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-generation">1. Data Generation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">2. Logging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3. Database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
