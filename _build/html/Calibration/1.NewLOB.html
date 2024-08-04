@@ -567,8 +567,8 @@ document.write(`
 <hr class="docutils" />
 <p><strong>公式如下：</strong></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\text{weights1} &amp;= \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right] \\
-\text{weights2} &amp;= \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]\\\text{weights1} &amp;= \frac{\text{weights1}}{\sum \text{weights1}} \times \frac{n}{\sqrt{2}} \\\text{weights2} &amp;= \frac{\text{weights2}}{\sum \text{weights2}} \times \frac{n}{\sqrt{2}} \\ \text{weights} &amp;= \text{torch.cat}(\text{weights1}, \text{weights2}) \end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}\text{weights_1} &amp;= \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right] \\
+\text{weights_2} &amp;= \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]\\\text{weights_1} &amp;= \frac{weights_1}{\sum weights_1} \times n/\sqrt{2}\\\text{weights_2} &amp;= \frac{weights_2}{\sum weights_2} \times {n}/\sqrt{2}\\ \text{weights} &amp;= \text{torch.cat}(\text{weights_1}, \text{weights_2}) \end{aligned}\end{align} \]</div>
 </section>
 <hr class="docutils" />
 <section id="weightedpriceloss">
