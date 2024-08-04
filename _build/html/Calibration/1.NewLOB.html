@@ -545,6 +545,34 @@ document.write(`
 <p>0.0.3: 修改了矩阵计算方法以及Loss中的归一化, 速度回到(6min/epoch)</p>
 <p>0.0.4: 修改了一个bug, 并用绝对值取代了原本的平方和.</p>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">实验发现</p>
+<p><strong>第一组对比实验</strong></p>
+<p>a. 使用全局MSE训练
+b. 使用PriceLoss训练
+c. 使用VolumeLoss训练</p>
+<p>以上实验均记录PriceLoss, VolumeLoss, WeightedPriceLoss 和 全局MSELoss.
+(只做了小规模测试, 待补全所有数据)</p>
+<p><strong>实验发现:</strong></p>
+<ol class="arabic simple">
+<li><p>PriceLoss可以降低到1e-3数量级, 而即使针对VolumeLoss进行训练, VolumeLoss也只能达到1e-2的数量级. 这也是SimLOB训练中MSELoss只能达到1e-2级别的原因(因为他是VolumeLoss+PriceLoss).</p></li>
+<li><p>相比直接使用PriceLoss, 使用全局MSELoss训练的模型的PriceLoss更大(约为3倍, 接近1e-2级别), 前面讨论过, PriceLoss是更重要的信息, 只有PriceLoss下降了, VolumeLoss才有作用, 因此必须将PriceLoss从MSELoss中分离出来训练, 或者调整其在MSELoss中的权重.</p></li>
+<li><p>对比不同Loss下的模型, 模型1的MSELoss相比模型2的PriceLoss+模型c的VolumeLoss更低, 但这是牺牲了模型1的PriceLoss达到的.</p></li>
+</ol>
+<p><strong>第二组对比实验</strong>
+a. 使用全局MSE训练
+d. 使用WeightedPriceLoss训练</p>
+<ol class="arabic simple" start="4">
+<li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0016, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
+</ol>
+</div>
+<figure class="align-default" id="exp-weighted-price-loss">
+<a class="reference internal image-reference" href="../_images/exp_weighted.png"><img alt="../_images/exp_weighted.png" src="../_images/exp_weighted.png" style="height: 500px;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">模型a和d的WeightedPriceLoss对比</span><a class="headerlink" href="#exp-weighted-price-loss" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="autoencoder">
