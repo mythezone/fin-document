@@ -411,7 +411,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">LOB订单差</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">Loss函数设计</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#weights">Weights 设计</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#weightedpriceloss">WeightedPriceLoss 方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">AutoEncoder模型设计</a></li>
@@ -545,12 +549,62 @@ document.write(`
 <p>0.0.3: 修改了矩阵计算方法以及Loss中的归一化, 速度回到(6min/epoch)</p>
 <p>0.0.4: 修改了一个bug, 并用绝对值取代了原本的平方和.</p>
 </div>
-<div class="tip admonition">
+<hr class="docutils" />
+<section id="weights">
+<h4>Weights 设计<a class="headerlink" href="#weights" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">Weights</span></code>方法用于生成一组等比递增的权重，这些权重的和经过归一化处理后为 $\frac{n}{\sqrt{2}}$，其中 $n$ 是权重的个数。具体步骤如下：</p>
+<ol class="arabic simple">
+<li><p><strong>计算权重的个数</strong>：权重的个数 $n$ 为输入参数 $h$ 的一半，即 $n = \frac{h}{2}$。</p></li>
+<li><p><strong>生成等比数列权重</strong>：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">weights1</span></code>是一个等比数列，公比为 <code class="docutils literal notranslate"><span class="pre">r</span></code>，长度为 $n$。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">weights2</span></code>是一个等比数列，公比为 <code class="docutils literal notranslate"><span class="pre">r</span></code>，长度为 $n$，但顺序是反向的。</p></li>
+</ul>
+</li>
+<li><p><strong>归一化权重</strong>：将 <code class="docutils literal notranslate"><span class="pre">weights1</span></code>和 <code class="docutils literal notranslate"><span class="pre">weights2</span></code>分别归一化，使它们的和为 $\frac{n}{\sqrt{2}}$。</p></li>
+<li><p><strong>拼接权重</strong>：将 <code class="docutils literal notranslate"><span class="pre">weights1</span></code>和 <code class="docutils literal notranslate"><span class="pre">weights2</span></code>拼接成一个长度为 $2n$ 的权重向量。</p></li>
+</ol>
+<hr class="docutils" />
+<p><strong>公式如下：</strong>
+$$
+\text{weights1} = \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right]
+$$</p>
+<p>$$
+\text{weights2} = \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]
+$$
+$$ \text{weights1} = \frac{\text{weights1}}{\sum \text{weights1}} \times \frac{n}{\sqrt{2}}
+$$
+$$
+\text{weights2} = \frac{\text{weights2}}{\sum \text{weights2}} \times \frac{n}{\sqrt{2}}
+$$
+$$
+\text{weights} = \text{torch.cat}(\text{weights1}, \text{weights2})
+$$</p>
+</section>
+<hr class="docutils" />
+<section id="weightedpriceloss">
+<h4>WeightedPriceLoss 方法<a class="headerlink" href="#weightedpriceloss" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">WeightedPriceLoss</span></code>方法用于计算两个张量 <code class="docutils literal notranslate"><span class="pre">x1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">x2</span></code> 之间的加权均方误差（MSE）。具体步骤如下：</p>
+<ol class="arabic simple">
+<li><p><strong>计算张量的中间位置</strong>：中间位置 $h$ 为 <code class="docutils literal notranslate"><span class="pre">x1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">x2</span></code> 的第三维度的一半，即 $h = \frac{x1.shape[2]}{2}$。</p></li>
+<li><p><strong>提取价格部分</strong>：从 <code class="docutils literal notranslate"><span class="pre">x1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">x2</span></code> 中提取前 $h$ 个元素，分别命名为 <code class="docutils literal notranslate"><span class="pre">price1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">price2</span></code>。</p></li>
+<li><p><strong>生成权重</strong>：调用 <code class="docutils literal notranslate"><span class="pre">Weights</span></code> 方法生成权重，公比为 1.5，长度为 20。将生成的权重调整为与 <code class="docutils literal notranslate"><span class="pre">price1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">price2</span></code> 形状匹配。</p></li>
+<li><p><strong>计算加权均方误差</strong>：计算 <code class="docutils literal notranslate"><span class="pre">price1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">price2</span></code> 之间的加权均方误差。</p></li>
+</ol>
+<hr class="docutils" />
+<p><strong>公式如下：</strong>
+$$ h = \frac{x1.shape[2]}{2} $$
+$$ \text{price1} = x1[:, :, :h] $$
+$$ \text{price2} = x2[:, :, :h] $$
+$$ \text{weights} = \text{Weights}(1.5, 20).view(1, 1, -1).expand_as(\text{price1}) $$
+$$ \text{mse_loss} = \text{F.mse_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) $$</p>
+<hr class="docutils" />
+<div class="note admonition">
 <p class="admonition-title">实验发现</p>
 <p><strong>第一组对比实验</strong></p>
-<p>a. 使用全局MSE训练</p>
-<p>b. 使用PriceLoss训练</p>
-<p>c. 使用VolumeLoss训练</p>
+<p>模型a. 使用全局MSE训练</p>
+<p>模型b. 使用PriceLoss训练</p>
+<p>模型c. 使用VolumeLoss训练</p>
 <p>以上实验均记录PriceLoss, VolumeLoss, WeightedPriceLoss 和 全局MSELoss.
 (只做了小规模测试, 待补全所有数据)</p>
 <p><strong>实验发现:</strong></p>
@@ -560,8 +614,8 @@ document.write(`
 <li><p>对比不同Loss下的模型, 模型1的MSELoss相比模型2的PriceLoss+模型c的VolumeLoss更低, 但这是牺牲了模型1的PriceLoss达到的.</p></li>
 </ol>
 <p><strong>第二组对比实验</strong></p>
-<p>a. 使用全局MSE训练</p>
-<p>d. 使用WeightedPriceLoss训练</p>
+<p>模型a. 使用全局MSE训练</p>
+<p>模型d. 使用WeightedPriceLoss训练</p>
 <ol class="arabic simple" start="4">
 <li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0017, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
 <li><p>a模型的WeightedPriceLoss的波动更大, 说明其对价格的预测更不稳定, 可能的原因是其价格的误差等可能的出现在不同的价格档位上, 而低档位的权重更高, 导致了这种波动.</p></li>
@@ -576,9 +630,13 @@ document.write(`
 </figure>
 </section>
 </section>
+</section>
+<hr class="docutils" />
 <section id="autoencoder">
 <h2>AutoEncoder模型设计<a class="headerlink" href="#autoencoder" title="Link to this heading">#</a></h2>
+<p>:TODO:</p>
 </section>
+<hr class="docutils" />
 <section id="id4">
 <h2>校准任务<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p><strong>形式化定义:</strong></p>
@@ -588,6 +646,7 @@ document.write(`
 <p>在这里, $Distance(A,B)$ 函数可以使用上一节定义的LOB流的 $Losses$ 函数.</p>
 <p>其中$\tau$ 是指从模拟的某个时刻开始, 在之前的校准工作中, 通常默认$\tau=1$, 仿真模型只运行$T$步就终止, 这种方法实际上并未充分利用仿真器的生成能力, 如果某种真实数据的模式只在开市后一段时间才出现, 那么在设定$\tau=1$的条件下, 仿真模型有可能根本无法校准这段数据 ( 即使仿真模型可能在运行一段时间后能出现该模式 ).</p>
 <p>一个合理的假设是, 如果模拟器开始仿真时时序数据模式接近待校准的数据, 那么在这组参数控制下持续输出仿真数据其中有一段数据接近待校准数据的可能性更高. 因此, 对于基于种群的优化方法, 可以采用分层搜索算法加速校准.</p>
+<hr class="docutils" />
 <div class="note admonition">
 <p class="admonition-title">分层搜索算法</p>
 <p>方式一:
@@ -604,6 +663,7 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-dist-iter">
 <span class="eqno">(9)<a class="headerlink" href="#equation-dist-iter" title="Link to this equation">#</a></span>\[dist_{t+1} = dist_{t} + Loss(LOB^{(1)}_{t+1},LOB^{(2)}_{t+1}) - Loss(LOB^{(1)}_{t+1-T},LOB^{(2)}_{t+1-T})\]</div>
 <p>时间复杂度为 $\mathbf{O}(T_{max})$.</p>
+<hr class="docutils" />
 </section>
 </section>
 
@@ -675,7 +735,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">LOB订单差</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss">Loss函数设计</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">NewLOB数据结构</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">下游任务</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#weights">Weights 设计</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#weightedpriceloss">WeightedPriceLoss 方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">AutoEncoder模型设计</a></li>
