@@ -548,9 +548,9 @@ document.write(`
 <div class="tip admonition">
 <p class="admonition-title">实验发现</p>
 <p><strong>第一组对比实验</strong></p>
-<p>a. 使用全局MSE训练
-b. 使用PriceLoss训练
-c. 使用VolumeLoss训练</p>
+<p>a. 使用全局MSE训练</p>
+<p>b. 使用PriceLoss训练</p>
+<p>c. 使用VolumeLoss训练</p>
 <p>以上实验均记录PriceLoss, VolumeLoss, WeightedPriceLoss 和 全局MSELoss.
 (只做了小规模测试, 待补全所有数据)</p>
 <p><strong>实验发现:</strong></p>
@@ -559,11 +559,11 @@ c. 使用VolumeLoss训练</p>
 <li><p>相比直接使用PriceLoss, 使用全局MSELoss训练的模型的PriceLoss更大(约为3倍, 接近1e-2级别), 前面讨论过, PriceLoss是更重要的信息, 只有PriceLoss下降了, VolumeLoss才有作用, 因此必须将PriceLoss从MSELoss中分离出来训练, 或者调整其在MSELoss中的权重.</p></li>
 <li><p>对比不同Loss下的模型, 模型1的MSELoss相比模型2的PriceLoss+模型c的VolumeLoss更低, 但这是牺牲了模型1的PriceLoss达到的.</p></li>
 </ol>
-<p><strong>第二组对比实验</strong>
-a. 使用全局MSE训练
-d. 使用WeightedPriceLoss训练</p>
+<p><strong>第二组对比实验</strong></p>
+<p>a. 使用全局MSE训练</p>
+<p>d. 使用WeightedPriceLoss训练</p>
 <ol class="arabic simple" start="4">
-<li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0016, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
+<li><p>WeightedPriceLoss, 是对不同的价格档位进行了加权, 当前档买卖价格权重为下一档买卖价格权重的1.5倍. (还通过一些track保证了WeightedPrice的Scale与PriceLoss一致, 让结果具有可比性.) 这个评估指标更能反应两个LOB流的相似程度, 模型a与模型d的WeightedPriceLoss见下图, 从图中可以看出, 模型a的WeigtedPriceLoss约为0.023, 而模型d约为0.0018, 说明使用WeightedPriceLoss对于价格分布的预测准确程度提升了10倍以上.</p></li>
 </ol>
 </div>
 <figure class="align-default" id="exp-weighted-price-loss">
