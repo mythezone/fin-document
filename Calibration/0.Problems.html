@@ -662,12 +662,19 @@ document.write(`
 <p class="admonition-title">Loss 问题</p>
 <p>同前面{ref}`关于LOB数据标准化的讨论 &lt;lob_normalize&gt;’, 两个LOB数据之间的微小差异,可能导致MESLoss产生巨大差别.如图所示:</p>
 </div>
+<div class="note admonition">
+<p class="admonition-title">实验结果分析:</p>
+<p>在SimLOB中, 对价和量等同的使用MSE作为重构误差.
+这种Loss其实是有问题的:</p>
+<p>一方面, 价是量的前提, 量是附加在价上的一个属性, 如果某档的价出现了偏差, 则该档位的量就是完全错误的, 即使在重构中输出该档位的量完全相等也是错误的.因为两个LOB之间的订单差(在NewLOB中有解释)非常大(从现实来看, 假设在买2档发生了偏差, 消除这个偏差需要买空1,2档之后再重新下单达到现有的LOB). 因此首先必须保证价能准确的还原, 买卖价格档位已经对齐的前提下, 只需要对有差异的量下对应的限价单就能实现LOB一致.</p>
+<p>另一方面, 从实验结果来看, 价和量的误差等级相差了一个数量级, 即,如果单独以价来训练AutoEncoder, 其重构MSE误差在$1e-3$等级, 而量的MSE则在了$1e-2$, 如果同时训练价和量, 则误差将均分给价和量, 导致对于价的重构也不够精确.</p>
+</div>
 </section>
 <section id="id14">
 <h3>2.3 优化方法<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>在SimLOB工作中, 使用PSO对PGPS模型的6个参数进行优化, 优化的目标函数是:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc8b053d-8a32-4da0-84dd-a4594ee3ff8e">
-<span class="eqno">(1)<a class="headerlink" href="#equation-bc8b053d-8a32-4da0-84dd-a4594ee3ff8e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-033c30fa-3ec6-40af-9bd8-0331a57a1dd0">
+<span class="eqno">(1)<a class="headerlink" href="#equation-033c30fa-3ec6-40af-9bd8-0331a57a1dd0" title="Permalink to this equation">#</a></span>\[\begin{align}
 MSE(Encoder(RealLOB),Encoder(SimLOB))
 \end{align}\]</div>
 <div class="warning admonition">
