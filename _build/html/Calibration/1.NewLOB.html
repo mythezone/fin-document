@@ -583,7 +583,7 @@ document.write(`
 <hr class="docutils" />
 <p><strong>公式如下：</strong></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}h = \frac{x_1.shape[2]}{2} \\\text{price1} = x_1[:, :, :h] \\\text{price2} = x_2[:, :, :h] \\\text{weights} = \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(\text{price1}) \\\text{mse\_loss} = \text{F.mse\_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) \end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}h &amp;= \frac{x_1.shape[2]}{2} \\\text{price1} &amp;= x_1[:, :, :h] \\\text{price2} &amp;= x_2[:, :, :h] \\\text{weights} &amp;= \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(\text{price1}) \\\text{mse\_loss} &amp;= \text{F.mse\_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) \end{aligned}\end{align} \]</div>
 <hr class="docutils" />
 <div class="note admonition">
 <p class="admonition-title">实验发现</p>
