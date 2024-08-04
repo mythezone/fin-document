@@ -565,21 +565,10 @@ document.write(`
 <li><p><strong>拼接权重</strong>：将 <code class="docutils literal notranslate"><span class="pre">weights1</span></code>和 <code class="docutils literal notranslate"><span class="pre">weights2</span></code>拼接成一个长度为 $2n$ 的权重向量。</p></li>
 </ol>
 <hr class="docutils" />
-<p><strong>公式如下：</strong>
-$$
-\text{weights1} = \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right]
-$$</p>
-<p>$$
-\text{weights2} = \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]
-$$
-$$ \text{weights1} = \frac{\text{weights1}}{\sum \text{weights1}} \times \frac{n}{\sqrt{2}}
-$$
-$$
-\text{weights2} = \frac{\text{weights2}}{\sum \text{weights2}} \times \frac{n}{\sqrt{2}}
-$$
-$$
-\text{weights} = \text{torch.cat}(\text{weights1}, \text{weights2})
-$$</p>
+<p><strong>公式如下：</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{weights1} = \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right] \\
+\text{weights2} = \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]\\\text{weights1} = \frac{\text{weights1}}{\sum \text{weights1}} \times \frac{n}{\sqrt{2}} \\\text{weights2} = \frac{\text{weights2}}{\sum \text{weights2}} \times \frac{n}{\sqrt{2}} \\ \text{weights} = \text{torch.cat}(\text{weights1}, \text{weights2}) \end{aligned}\end{align} \]</div>
 </section>
 <hr class="docutils" />
 <section id="weightedpriceloss">
@@ -592,12 +581,9 @@ $$</p>
 <li><p><strong>计算加权均方误差</strong>：计算 <code class="docutils literal notranslate"><span class="pre">price1</span></code> 和 <code class="docutils literal notranslate"><span class="pre">price2</span></code> 之间的加权均方误差。</p></li>
 </ol>
 <hr class="docutils" />
-<p><strong>公式如下：</strong>
-$$ h = \frac{x1.shape[2]}{2} $$
-$$ \text{price1} = x1[:, :, :h] $$
-$$ \text{price2} = x2[:, :, :h] $$
-$$ \text{weights} = \text{Weights}(1.5, 20).view(1, 1, -1).expand_as(\text{price1}) $$
-$$ \text{mse_loss} = \text{F.mse_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) $$</p>
+<p><strong>公式如下：</strong></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}h = \frac{x_1.shape[2]}{2} \\\text{price1} = x_1[:, :, :h] \\\text{price2} = x_2[:, :, :h] \\\text{weights} = \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(\text{price1}) \\\text{mse\_loss} = \text{F.mse\_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) \end{aligned}\end{align} \]</div>
 <hr class="docutils" />
 <div class="note admonition">
 <p class="admonition-title">实验发现</p>
@@ -663,7 +649,6 @@ $$ \text{mse_loss} = \text{F.mse_loss}(\text{price1} \times \text{weights}, \tex
 <div class="math notranslate nohighlight" id="equation-dist-iter">
 <span class="eqno">(9)<a class="headerlink" href="#equation-dist-iter" title="Link to this equation">#</a></span>\[dist_{t+1} = dist_{t} + Loss(LOB^{(1)}_{t+1},LOB^{(2)}_{t+1}) - Loss(LOB^{(1)}_{t+1-T},LOB^{(2)}_{t+1-T})\]</div>
 <p>时间复杂度为 $\mathbf{O}(T_{max})$.</p>
-<hr class="docutils" />
 </section>
 </section>
 
