@@ -567,8 +567,7 @@ document.write(`
 <hr class="docutils" />
 <p><strong>公式如下：</strong></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\text{weights_1} &amp;= \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right] \\
-\text{weights_2} &amp;= \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]\\\text{weights_1} &amp;= \frac{weights_1}{\sum weights_1} \times n/\sqrt{2}\\\text{weights_2} &amp;= \frac{weights_2}{\sum weights_2} \times {n}/\sqrt{2}\\ \text{weights} &amp;= \text{torch.cat}(\text{weights_1}, \text{weights_2}) \end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}weights_1 &amp;= \left[ r^0, r^1, r^2, \ldots, r^{n-1} \right] \\weights_2 &amp;= \left[ r^{n-1}, r^{n-2}, \ldots, r^1, r^0 \right]\\weights_1 &amp;= \frac{weights_1}{\sum weights_1} \times n/\sqrt{2}\\weights_2 &amp;= \frac{weights_2}{\sum weights_2} \times {n}/\sqrt{2}\\weights &amp;= \text{torch.cat}(\text{weights_1}, \text{weights_2}) \end{aligned}\end{align} \]</div>
 </section>
 <hr class="docutils" />
 <section id="weightedpriceloss">
@@ -583,7 +582,7 @@ document.write(`
 <hr class="docutils" />
 <p><strong>公式如下：</strong></p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}h &amp;= \frac{x_1.shape[2]}{2} \\\text{price1} &amp;= x_1[:, :, :h] \\\text{price2} &amp;= x_2[:, :, :h] \\\text{weights} &amp;= \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(\text{price1}) \\\text{mse\_loss} &amp;= \text{F.mse\_loss}(\text{price1} \times \text{weights}, \text{price2} \times \text{weights}) \end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}h &amp;= \frac{x_1.shape[2]}{2} \\price_1 &amp;= x_1[:, :, :h] \\price_2 &amp;= x_2[:, :, :h] \\weights &amp;= \text{Weights}(1.5, 20).view(1, 1, -1).expand\_as(price_1) \\mse\_loss &amp;= F.mse\_loss(price_1 \times weights, price_2 \times weights) \end{aligned}\end{align} \]</div>
 <hr class="docutils" />
 <div class="note admonition">
 <p class="admonition-title">实验发现</p>
