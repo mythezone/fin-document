@@ -12,6 +12,7 @@ parts:
     - file: Calibration/3.DataPrepare
     - file: Calibration/4.NewLOB
     - file: Calibration/5.Visualization
+    - file: Calibration/6.Datasets
   - caption: 技术细节
     chapters:
     - file: Implemention/data_gen
