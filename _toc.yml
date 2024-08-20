@@ -13,6 +13,8 @@ parts:
     - file: Calibration/4.NewLOB
     - file: Calibration/5.Visualization
     - file: Calibration/6.Datasets
+  - caption: 实验相关
+    - file: Calibration/7.Exp
   - caption: 技术细节
     chapters:
     - file: Implemention/data_gen
