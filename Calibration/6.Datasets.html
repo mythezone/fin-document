@@ -61,7 +61,7 @@
     <link rel="icon" href="../_static/logo.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Simulation Database" href="../Implemention/data_gen.html" />
+    <link rel="next" title="NewLOB实验设计" href="7.Exp.html" />
     <link rel="prev" title="网络模型可视化" href="5.Visualization.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -189,6 +189,10 @@
 <li class="toctree-l1"><a class="reference internal" href="4.NewLOB.html">NewLOB模型</a></li>
 <li class="toctree-l1"><a class="reference internal" href="5.Visualization.html">网络模型可视化</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">趋势预测</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">实验相关</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="7.Exp.html">NewLOB实验设计</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">技术细节</span></p>
 <ul class="nav bd-sidenav">
@@ -436,6 +440,8 @@ document.write(`
 <li><p>Z-score对于数据取值的范围更宽, 能体现更多的股市价格变动情况.</p></li>
 <li><p>Minmax在没有特殊处理时, 只能表示历史数据中Min-Max之间的数据, 如果预测数据(如果需要预测LOB而不仅仅是趋势的化)超出这个值, 模型也无法给出正确的预测.</p></li>
 </ol>
+<p>在另一篇关于时序数据的Survey文章中, 调研了多个处理时序数据的神经网络模型, 包括了MLP, CNN, RNN, Transformer等类型的模型, 用于处理长/短期预测, 插值和异常检测问题, 其中金融数据预测属于短期预测, 在处理这种类型的数据时, 作者在处理数据时也并没有对数据做特殊的处理, 而是简单地将金融数据视为普通的时序数据, 对每一特征地数据进行了Z-score标准化处理.</p>
+<p>这些研究者都没有意识到LOB数据与其他类型时序数据地本质区别 (主要时跨特征的数据之间的密切关系), 通用的时序数据处理方法的性能显然会在金融任务上大打折扣. 因此, 在我们的研究中, 重新审视了LOB数据的内在关系, 并充分利用了这些关系帮助模型达到更好的效果.</p>
 </section>
 </section>
 
@@ -479,11 +485,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="../Implemention/data_gen.html"
+       href="7.Exp.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Simulation Database</p>
+        <p class="prev-next-title">NewLOB实验设计</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
