@@ -212,6 +212,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Wiki/cs_words.html">模拟器</a></li>
 
 
+<li class="toctree-l1"><a class="reference internal" href="../Wiki/stylized_facts.html">风格化事实(Stylized Facts, SF)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">参考文献</span></p>
 <ul class="nav bd-sidenav">
@@ -445,6 +446,12 @@ document.write(`
 <li><p>TimeMixer - TimeMixer: Decomposable Multiscale Mixing for Time Series Forecasting [ICLR 2024]</p></li>
 </ol>
 </li>
+<li><p>LOB方法, 包括几个专门针对LOB数据进行处理的模型:</p>
+<ol class="arabic simple">
+<li><p>DeepLOB</p></li>
+<li><p>TransLOB</p></li>
+</ol>
+</li>
 </ol>
 </section>
 <section id="id2">
@@ -474,7 +481,7 @@ document.write(`
 <li><p>预期结果:</p>
 <ol class="arabic simple">
 <li><p>相同模型使用不同的损失函数进行训练的结果对比(并比较其他评估标准), WeightedXX系列的效果应该优于其他评估方法的效果.</p></li>
-<li><p>我们的模型再WeightedXX损失函数要优于大部分方法(至少与SOTA保持在同一水平), 并且结构更简单.</p></li>
+<li><p>我们的模型在WeightedXX损失函数要优于大部分方法(至少与SOTA保持在同一水平), 并且结构更简单.</p></li>
 </ol>
 </li>
 </ol>
@@ -499,6 +506,25 @@ document.write(`
 <li><p>我们的Decoder模型相比其他模型对于同样的表征特征来说, 性能更好.</p></li>
 <li><p>我们的模型的表征更好</p></li>
 <li><p>对任务进行End-to-end的训练耗时更多, 效果持平(或稍微好一点).</p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>校准任务</p>
+<ol class="arabic simple">
+<li><p>实验目的:</p>
+<ol class="arabic simple">
+<li><p>相比预测\差值\异常检测等常规时序数据相关任务, 校准任务需要对产生时序数据的模型(仿真器)进行反向推演, 其复杂程度(难度)更高, 在校准过程中更是需要大量数据, 一个好的表示模型可以大幅降低校准任务中数据的维度, 降低校准所需的计算资源和提高校准的精度.</p></li>
+</ol>
+</li>
+<li><p>实验方法:</p>
+<ol class="arabic simple">
+<li><p>使用不同模型对数据表征后的特征向量, 用同样的优化方法(比如PSO等)进行优化</p></li>
+</ol>
+</li>
+<li><p>预期结果:</p>
+<ol class="arabic simple">
+<li><p>我们的模型校准的结果和速度比其他模型都好, 或者至少在其中一个指标上要更好.</p></li>
 </ol>
 </li>
 </ol>
