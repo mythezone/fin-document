@@ -29,6 +29,7 @@ parts:
     chapters:
     - file: Wiki/financial_words
     - file: Wiki/cs_words
+    - file: Wiki/stylized_facts
   - caption: 参考文献
     chapters:
     - file: Bib/reference
