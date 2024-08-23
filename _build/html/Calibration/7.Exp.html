@@ -412,8 +412,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">对比方法选择</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">任务选择</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">1. 为什么要特别针对LOB数据进行表征？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2. 已经有很多模型在处理LOB数据了， 为什么还要做这个表征研究？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simlob">3. SimLOB还有什么不足？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4. 本文模型的设计：</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5. 对比方法选择</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">任务选择</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aelob">实验一: 对比各AE模型对LOB重构能力</a></li>
 </ul>
             </nav>
@@ -428,8 +432,68 @@ document.write(`
                   
   <section id="newlob">
 <h1>NewLOB实验设计<a class="headerlink" href="#newlob" title="Link to this heading">#</a></h1>
+<section id="lob">
+<h2>1. 为什么要特别针对LOB数据进行表征？<a class="headerlink" href="#lob" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>表征的功能是什么？</p>
+<ul class="simple">
+<li><p>对金融领域有什么贡献？</p>
+<ul>
+<li><p>其他的模型表征（手工抽取，任务绑定）</p></li>
+<li><p>提供LOB数据特征抽取的模型</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>LOB数据表征的难点是什么？</p>
+<ul class="simple">
+<li><p>AI领域的Contribution是什么？</p>
+<ul>
+<li><p>LOB数据有自身的特点， 其特征的重要程度是不一样的，因此需要针对LOB数据设计对应的方法/模型（scale也不一样）</p></li>
+<li><p>价格特征之间有大小的约束，从小到大应该是BestBid10&lt;BestBid9…&lt;</p></li>
+<li><p>LOB数据维度相比其他领域任务来说更高</p></li>
+<li><p>LOB具有复杂的时序关系，比如（是否具有自相关性、数据是否独立同分布）</p></li>
+<li><p>提供了新的问题</p></li>
+<li><p>新的数据集</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>$$
+LOB^{m\times t}
+$$</p>
+<p>其中， m是特征数（在LOB中为40）， t为诗序数据的长度。
+通用数据的归一化方法是对每一个feature进行归一化即：</p>
+<p>$$
+LOB^i= \frac{LOB^{i,j}-mean(LOB^i)}{std(LOB^i)}
+$$</p>
+</section>
 <section id="id1">
-<h2>对比方法选择<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<h2>2. 已经有很多模型在处理LOB数据了， 为什么还要做这个表征研究？<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>隔离下游任务（通用化）</p></li>
+<li><p>缺乏通用化表示的专门的研究</p></li>
+<li><p>SimLOB是第一篇， 但是还有不足之处</p></li>
+</ol>
+</section>
+<section id="simlob">
+<h2>3. SimLOB还有什么不足？<a class="headerlink" href="#simlob" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>没有针对前述的challenge进行设计</p></li>
+</ol>
+</section>
+<section id="id2">
+<h2>4. 本文模型的设计：<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Weigthed Loss 设计</p></li>
+<li><p>不同Normalization对下游任务（模型）的影响</p></li>
+<li><p>在Loss 中加正则项（或者修改网络结构）</p></li>
+<li><p>其他改进</p></li>
+</ol>
+</section>
+<section id="id3">
+<h2>5. 对比方法选择<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Baseline方法:</p>
 <ol class="arabic simple">
@@ -454,8 +518,8 @@ document.write(`
 </li>
 </ol>
 </section>
-<section id="id2">
-<h2>任务选择<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h2>任务选择<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>LOB Representation</p>
 <ol class="arabic simple">
@@ -472,10 +536,10 @@ document.write(`
 </li>
 <li><p>评估标准:</p>
 <ol class="arabic simple">
-<li><p>MSELoss</p></li>
-<li><p>PriceLoss, VolumeLoss</p></li>
-<li><p>WeightedPriceLoss, WeightedVolumeLoss</p></li>
-<li><p>MoneyLoss</p></li>
+<li><p>MSELoss.</p></li>
+<li><p>PriceLoss, VolumeLoss.</p></li>
+<li><p>WeightedPriceLoss, WeightedVolumeLoss.</p></li>
+<li><p>MoneyLoss.</p></li>
 </ol>
 </li>
 <li><p>预期结果:</p>
@@ -512,9 +576,6 @@ document.write(`
 </ol>
 </li>
 <li><p>异常检测</p></li>
-<li></li>
-</ol>
-<ol class="arabic simple" start="4">
 <li><p>校准任务</p>
 <ol class="arabic simple">
 <li><p>实验目的:</p>
@@ -605,8 +666,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">对比方法选择</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">任务选择</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lob">1. 为什么要特别针对LOB数据进行表征？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2. 已经有很多模型在处理LOB数据了， 为什么还要做这个表征研究？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simlob">3. SimLOB还有什么不足？</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4. 本文模型的设计：</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5. 对比方法选择</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">任务选择</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aelob">实验一: 对比各AE模型对LOB重构能力</a></li>
 </ul>
   </nav></div>
